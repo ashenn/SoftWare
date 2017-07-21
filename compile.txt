@@ -1,0 +1,5 @@
+gcc -c main.c libList.c -llibzmq -lpthread
+gcc -o srv main.o /usr/local/lib/libzmq.so -lpthread
+
+gcc -c client.c libList.c -llibzmq -lpthread
+gcc -o cli client.o /usr/local/lib/libzmq.so -lpthread
