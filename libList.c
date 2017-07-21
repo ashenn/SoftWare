@@ -5,11 +5,18 @@
 // #include "libParse.h"
 
 
-void initListMgr(ListManager* lstMgr){	
+ListManager* initListMgr(){	
+	ListManager* lstMgr = malloc(sizeof(ListManager));
+	if (lstMgr == NULL){
+		return NULL;
+	}
+
 	lstMgr->lastId = 0;
 	lstMgr->nodeCount = 0;
 	lstMgr->first = NULL;
 	lstMgr->last = NULL;
+
+	return lstMgr;
 }
 
 void* add_Node(ListManager* lstMgr, void* params){
@@ -141,7 +148,7 @@ Node* getNodeByName(ListManager* lstMgr, char* name){
 			currentNode = currentNode->next;
 		}
 
-		if (strComp(currentNode->name, name))
+		if (!strcmp(currentNode->name, name))
 		{
 			return currentNode;
 		}

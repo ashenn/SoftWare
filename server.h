@@ -1,5 +1,5 @@
-#ifndef __MAIN_C__
-#define __MAIN_C__
+#ifndef __SERVER_C__
+#define __SERVER_C__
 
 
 #define CELL_WALL '#'
@@ -24,12 +24,13 @@ typedef struct GameInfo {
 	char* map;
 	int cells_cnt;
 	int map_size;
-	int game_status;
+	int game_status; // 0: waiting, 1: started, 2: finished
 
 	Sockets* sockets;
 
 	ListManager* players;
 	ListManager* energy_cells;
+	ListManager* params;
 } GameInfo;
 
 typedef struct Player {
@@ -48,5 +49,20 @@ typedef struct EnergyCell {
 	int value;
 } EnergyCell;
 
+
+GameInfo* initServer( int argc, char *argv[]);
+GameInfo* getServer();
+void* Respond(char* msg);
+void* Publish(char* msg);
+int NewClent(char data[]);
+void* HandlePrivate();
+Player* getClientAtPos(int pos);
+void* printMap();
+void *Tick();
+void* setMapSize(int size);
+void placeWalls();
+int initMap();
+int createSockets();
+void initServArgs();
 
 #endif

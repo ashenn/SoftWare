@@ -25,7 +25,7 @@ struct ListManager
 	Node* last;	
 };
 
-void initListMgr(ListManager* lstMgr);
+ListManager* initListMgr();
 void* add_Node(ListManager* lstMgr, void* params);
 void* add_NodeV(ListManager* lstMgr, void* params, void* value);
 void printNode(Node* node);

@@ -1,5 +1,5 @@
-gcc -c main.c libList.c -llibzmq -lpthread
-gcc -o srv main.o /usr/local/lib/libzmq.so -lpthread
+gcc -c basic.c libParse.c libList.c server.c -llibzmq -lpthread
+gcc -o srv basic.o libParse.o libList.o server.o /usr/local/lib/libzmq.so -lpthread
 
-gcc -c client.c libList.c -llibzmq -lpthread
-gcc -o cli client.o /usr/local/lib/libzmq.so -lpthread
+gcc -c basic.c libParse.c libList.c client.c -llibzmq -lpthread
+gcc -o cli basic.o libParse.o libList.o client.o /usr/local/lib/libzmq.so -lpthread
