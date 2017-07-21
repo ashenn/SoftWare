@@ -99,3 +99,28 @@ void substr(char* str, int offset, int length, char** target){
 	
 	(*target)[z] = '\0';
 }
+
+char* concat(char* str1, char* str2, char* res){
+	int len1 = strlen(str1);
+	int len2 = strlen(str2);
+	int max = len1 + len2;
+
+	int i;
+	int y;
+	char c;
+	for (i = y = 0; i < max; y=++i)
+	{
+		if (i > len1){
+			y = i - len1;
+			c = str2[y];
+		}
+		else{
+			c = str1[y];
+		}
+
+		res[i] = c;
+	}
+
+	res[i] = '\0';
+	return res;
+}

@@ -1,0 +1,453 @@
+[2017-07-21 13:50:40] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-07-21 14:02:04] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-07-21 14:02:04] INFO: == Init Server ==
+
+[2017-07-21 14:02:04] DEBUG: -Setting params
+
+[2017-07-21 14:02:04] DEBUG: - Init Server Args
+
+[2017-07-21 14:02:04] DEBUG: -Malloc Sockets
+
+[2017-07-21 14:02:04] DEBUG: -Malloc Players
+
+[2017-07-21 14:02:04] DEBUG: -Malloc Energy
+
+[2017-07-21 14:02:04] INFO:   == Init Map ==
+
+[2017-07-21 14:02:04] DEBUG:     -Map size not Set Setting to default
+
+[2017-07-21 14:02:04] INFO:     == Set Map Size (%d) ==
+
+[2017-07-21 14:02:04] DEBUG:       mapsize: %d
+
+[2017-07-21 14:02:04] INFO: „*­û
+[2017-07-21 14:02:04] DEBUG:       -Walls Ratio: %d
+
+[2017-07-21 14:02:04] DEBUG: „*­û
+[2017-07-21 14:02:04] DEBUG: „*­û
+[2017-07-21 14:02:04] DEBUG: „*­û
+[2017-07-21 14:02:04] DEBUG: „*­û
+[2017-07-21 14:02:04] DEBUG: „*­û
+[2017-07-21 14:02:04] INFO:     == Walls Done ==
+
+[2017-07-21 14:02:04] INFO:   == Map Done ==
+
+[2017-07-21 14:02:04] INFO: == Server Done ==
+
+[2017-07-21 14:02:04] INFO: 
+== Private Thread Launched ==
+
+[2017-07-21 14:02:04] INFO: == Waiting for Connections ==
+
+[2017-07-21 14:02:25] INFO: == Init Server ==
+
+[2017-07-21 14:02:25] DEBUG: -Setting params
+
+[2017-07-21 14:02:25] DEBUG: - Init Server Args
+
+[2017-07-21 14:02:25] DEBUG: -Malloc Sockets
+
+[2017-07-21 14:02:25] DEBUG: -Malloc Players
+
+[2017-07-21 14:02:25] DEBUG: -Malloc Energy
+
+[2017-07-21 14:02:25] INFO:   == Init Map ==
+
+[2017-07-21 14:02:25] DEBUG:     -Map size not Set Setting to default
+
+[2017-07-21 14:02:25] INFO:     == Set Map Size (%d) ==
+
+[2017-07-21 14:02:25] DEBUG:       mapsize: %d
+
+[2017-07-21 14:02:25] INFO: „*­û
+[2017-07-21 14:02:25] DEBUG:       -Walls Ratio: %d
+
+[2017-07-21 14:02:25] DEBUG: „*­û
+[2017-07-21 14:02:25] DEBUG: „*­û
+[2017-07-21 14:02:25] DEBUG: „*­û
+[2017-07-21 14:02:25] DEBUG: „*­û
+[2017-07-21 14:02:25] DEBUG: „*­û
+[2017-07-21 14:02:25] INFO:     == Walls Done ==
+
+[2017-07-21 14:02:25] INFO:   == Map Done ==
+
+[2017-07-21 14:02:25] INFO: == Server Done ==
+
+[2017-07-21 14:02:25] DEBUG: 
+== Map Preview ==
+
+
+[2017-07-21 14:02:25] DEBUG: 
+
+[2017-07-21 14:02:25] INFO: 
+== Private Thread Launched ==
+
+[2017-07-21 14:02:25] INFO: == Waiting for Connections ==
+
+[2017-07-21 14:04:37] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-07-21 14:04:37] INFO: == Init Server ==
+
+[2017-07-21 14:04:37] DEBUG: -Setting params
+
+[2017-07-21 14:04:37] DEBUG: - Init Server Args
+
+[2017-07-21 14:04:37] DEBUG: -Malloc Sockets
+
+[2017-07-21 14:04:37] DEBUG: -Malloc Players
+
+[2017-07-21 14:04:37] DEBUG: -Malloc Energy
+
+[2017-07-21 14:04:37] INFO:   == Init Map ==
+
+[2017-07-21 14:04:37] DEBUG:     -Map size not Set Setting to default
+
+[2017-07-21 14:04:37] INFO:     == Set Map Size (%d) ==
+
+[2017-07-21 14:04:37] DEBUG:       mapsize: %d
+
+[2017-07-21 14:04:37] INFO: „*­û
+[2017-07-21 14:04:37] DEBUG:       -Walls Ratio: %d
+
+[2017-07-21 14:04:37] DEBUG: „*­û
+[2017-07-21 14:04:37] DEBUG: „*­û
+[2017-07-21 14:04:37] DEBUG: „*­û
+[2017-07-21 14:04:37] DEBUG: „*­û
+[2017-07-21 14:04:37] DEBUG: „*­û
+[2017-07-21 14:04:37] INFO:     == Walls Done ==
+
+[2017-07-21 14:04:37] INFO:   == Map Done ==
+
+[2017-07-21 14:04:37] INFO: == Server Done ==
+
+[2017-07-21 14:04:37] INFO: 
+== Private Thread Launched ==
+
+[2017-07-21 14:04:37] INFO: == Waiting for Connections ==
+
+[2017-07-21 14:04:40] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-07-21 14:04:40] INFO: == Init Server ==
+
+[2017-07-21 14:04:40] DEBUG: -Setting params
+
+[2017-07-21 14:04:40] DEBUG: - Init Server Args
+[2017-07-21 14:04:40] DEBUG: -Malloc Sockets
+
+[2017-07-21 14:04:40] DEBUG: -Malloc Players
+
+[2017-07-21 14:04:40] DEBUG: -Malloc Energy
+
+[2017-07-21 14:04:40] INFO:   == Init Map ==
+[2017-07-21 14:04:40] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:04:40] INFO:     == Set Map Size (%d) ==Z
+[2017-07-21 14:04:40] DEBUG:       mapsize: %d
+[2017-07-21 14:04:40] INFO: „*­û
+[2017-07-21 14:04:40] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:04:40] DEBUG: „*­û
+[2017-07-21 14:04:40] DEBUG: „*­û
+[2017-07-21 14:04:40] DEBUG: „*­û
+[2017-07-21 14:04:40] DEBUG: „*­û
+[2017-07-21 14:04:40] DEBUG: „*­û
+[2017-07-21 14:04:40] INFO:     == Walls Done ==
+[2017-07-21 14:04:40] INFO:   == Map Done ==
+[2017-07-21 14:04:40] INFO: == Server Done ==
+
+[2017-07-21 14:04:40] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:04:40] INFO: == Waiting for Connections ==
+[2017-07-21 14:04:45] INFO: == Init Server ==
+
+[2017-07-21 14:04:45] DEBUG: -Setting params
+
+[2017-07-21 14:04:45] DEBUG: - Init Server Args
+[2017-07-21 14:04:45] DEBUG: -Malloc Sockets
+
+[2017-07-21 14:04:45] DEBUG: -Malloc Players
+
+[2017-07-21 14:04:45] DEBUG: -Malloc Energy
+
+[2017-07-21 14:04:45] INFO:   == Init Map ==
+[2017-07-21 14:04:45] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:04:45] INFO:     == Set Map Size (%d) ==Z
+[2017-07-21 14:04:45] DEBUG:       mapsize: %d
+[2017-07-21 14:04:45] INFO: „*­û
+[2017-07-21 14:04:45] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:04:45] DEBUG: „*­û
+[2017-07-21 14:04:45] DEBUG: „*­û
+[2017-07-21 14:04:45] DEBUG: „*­û
+[2017-07-21 14:04:45] DEBUG: „*­û
+[2017-07-21 14:04:45] DEBUG: „*­û
+[2017-07-21 14:04:45] INFO:     == Walls Done ==
+[2017-07-21 14:04:45] INFO:   == Map Done ==
+[2017-07-21 14:04:45] INFO: == Server Done ==
+
+[2017-07-21 14:04:45] DEBUG: 
+== Map Preview ==
+
+[2017-07-21 14:04:45] DEBUG: 
+[2017-07-21 14:04:45] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:04:45] INFO: == Waiting for Connections ==
+[2017-07-21 14:06:08] INFO: == Init Server ==
+[2017-07-21 14:06:08] DEBUG: -Setting params
+[2017-07-21 14:06:08] DEBUG: - Init Server Args
+[2017-07-21 14:06:08] DEBUG: -Malloc Sockets
+[2017-07-21 14:06:08] DEBUG: -Malloc Players
+[2017-07-21 14:06:08] DEBUG: -Malloc Energy
+[2017-07-21 14:06:08] INFO:   == Init Map ==
+[2017-07-21 14:06:08] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:06:08] INFO:     == Set Map Size (%d) ==Z
+[2017-07-21 14:06:08] DEBUG:       mapsize: %d
+[2017-07-21 14:06:08] INFO: „*­û
+[2017-07-21 14:06:08] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:06:08] DEBUG: „*­û
+[2017-07-21 14:06:08] DEBUG: „*­û
+[2017-07-21 14:06:08] DEBUG: „*­û
+[2017-07-21 14:06:08] DEBUG: „*­û
+[2017-07-21 14:06:08] DEBUG: „*­û
+[2017-07-21 14:06:08] INFO:     == Walls Done ==
+[2017-07-21 14:06:08] INFO:   == Map Done ==
+[2017-07-21 14:06:08] INFO: == Server Done ==
+[2017-07-21 14:06:08] DEBUG: 
+== Map Preview ==
+[2017-07-21 14:06:08] DEBUG: 
+[2017-07-21 14:06:08] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:06:08] INFO: == Waiting for Connections ==
+[2017-07-21 14:20:41] INFO: == Init Server ==
+[2017-07-21 14:20:41] DEBUG: -Setting params
+[2017-07-21 14:20:41] DEBUG: - Init Server Args
+[2017-07-21 14:20:41] DEBUG: -Malloc Sockets
+[2017-07-21 14:20:41] DEBUG: -Malloc Players
+[2017-07-21 14:20:41] DEBUG: -Malloc Energy
+[2017-07-21 14:20:41] INFO:   == Init Map ==
+[2017-07-21 14:20:41] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:20:41] INFO:     == Set Map Size (%d) ==
+[2017-07-21 14:20:41] DEBUG:       mapsize: %d
+[2017-07-21 14:20:41] INFO:     == Place Walls ==
+[2017-07-21 14:20:41] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:20:41] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:20:41] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:20:41] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:20:41] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:20:41] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:20:41] INFO:     == Walls Done ==
+[2017-07-21 14:20:41] INFO:   == Map Done ==
+[2017-07-21 14:20:41] INFO: == Server Done ==
+[2017-07-21 14:20:41] DEBUG: 
+== Map Preview ==
+[2017-07-21 14:20:41] DEBUG: 
+[2017-07-21 14:20:41] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:20:41] INFO: == Waiting for Connections ==
+[2017-07-21 14:21:00] INFO: == Init Server ==
+[2017-07-21 14:21:00] DEBUG: -Setting params
+[2017-07-21 14:21:00] DEBUG: - Init Server Args
+[2017-07-21 14:21:00] DEBUG: -Malloc Sockets
+[2017-07-21 14:21:00] DEBUG: -Malloc Players
+[2017-07-21 14:21:00] DEBUG: -Malloc Energy
+[2017-07-21 14:21:00] INFO:   == Init Map ==
+[2017-07-21 14:21:00] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:21:00] INFO:     == Set Map Size (%d) ==
+[2017-07-21 14:21:00] DEBUG:       mapsize: %d
+[2017-07-21 14:21:00] INFO:     == Place Walls ==
+[2017-07-21 14:21:00] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:21:00] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:21:00] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:21:00] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:21:00] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:21:00] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:21:00] INFO:     == Walls Done ==
+[2017-07-21 14:21:00] INFO:   == Map Done ==
+[2017-07-21 14:21:00] INFO: == Server Done ==
+[2017-07-21 14:21:00] DEBUG: 
+== Map Preview ==
+[2017-07-21 14:21:00] DEBUG: 
+[2017-07-21 14:21:00] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:21:00] INFO: == Waiting for Connections ==
+[2017-07-21 14:21:12] INFO: == Init Server ==
+[2017-07-21 14:21:12] DEBUG: -Setting params
+[2017-07-21 14:21:12] DEBUG: - Init Server Args
+[2017-07-21 14:21:12] DEBUG: -Malloc Sockets
+[2017-07-21 14:21:12] DEBUG: -Malloc Players
+[2017-07-21 14:21:12] DEBUG: -Malloc Energy
+[2017-07-21 14:21:12] INFO:   == Init Map ==
+[2017-07-21 14:21:12] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:21:12] INFO:     == Set Map Size (%d) ==
+[2017-07-21 14:21:12] DEBUG:       mapsize: %d
+[2017-07-21 14:21:12] INFO:     == Place Walls ==
+[2017-07-21 14:21:12] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:21:12] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:21:12] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:21:12] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:21:12] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:21:12] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:21:12] INFO:     == Walls Done ==
+[2017-07-21 14:21:12] INFO:   == Map Done ==
+[2017-07-21 14:21:12] INFO: == Server Done ==
+[2017-07-21 14:21:12] DEBUG: 
+== Map Preview ==
+[2017-07-21 14:21:12] DEBUG: 
+[2017-07-21 14:21:12] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:21:12] INFO: == Waiting for Connections ==
+[2017-07-21 14:22:12] INFO: == Init Server ==
+[2017-07-21 14:22:12] DEBUG: -Setting params
+[2017-07-21 14:22:12] DEBUG: - Init Server Args
+[2017-07-21 14:22:12] DEBUG: -Malloc Sockets
+[2017-07-21 14:22:12] DEBUG: -Malloc Players
+[2017-07-21 14:22:12] DEBUG: -Malloc Energy
+[2017-07-21 14:22:12] INFO:   == Init Map ==
+[2017-07-21 14:22:12] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:22:12] INFO:     == Set Map Size (%d) ==
+[2017-07-21 14:22:12] DEBUG:       mapsize: %d
+[2017-07-21 14:22:12] INFO:     == Place Walls ==
+[2017-07-21 14:22:12] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:22:12] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:22:12] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:22:12] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:22:12] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:22:12] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:22:12] INFO:     == Walls Done ==
+[2017-07-21 14:22:12] INFO:   == Map Done ==
+[2017-07-21 14:22:12] INFO: == Server Done ==
+[2017-07-21 14:22:12] DEBUG: 
+== Map Preview ==
+[2017-07-21 14:22:12] DEBUG: 
+[2017-07-21 14:22:12] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:22:12] INFO: == Waiting for Connections ==
+[2017-07-21 14:23:33] INFO: == Init Server ==
+[2017-07-21 14:23:33] DEBUG: -Setting params
+[2017-07-21 14:23:33] DEBUG: - Init Server Args
+[2017-07-21 14:23:33] DEBUG: -Malloc Sockets
+[2017-07-21 14:23:33] DEBUG: -Malloc Players
+[2017-07-21 14:23:33] DEBUG: -Malloc Energy
+[2017-07-21 14:23:33] INFO:   == Init Map ==
+[2017-07-21 14:23:33] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:23:33] INFO:     == Set Map Size (%d) ==
+[2017-07-21 14:23:33] DEBUG:       mapsize: %d
+[2017-07-21 14:23:33] INFO:     == Place Walls ==
+[2017-07-21 14:23:33] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:23:33] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:23:33] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:23:33] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:23:33] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:23:33] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:23:33] INFO:     == Walls Done ==
+[2017-07-21 14:23:33] INFO:   == Map Done ==
+[2017-07-21 14:23:33] INFO: == Server Done ==
+[2017-07-21 14:23:33] DEBUG: 
+== Map Preview ==
+[2017-07-21 14:23:33] DEBUG: 
+[2017-07-21 14:23:33] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:23:33] INFO: == Waiting for Connections ==
+[2017-07-21 14:25:20] INFO: == Init Server ==
+[2017-07-21 14:25:20] DEBUG: -Setting params
+[2017-07-21 14:25:20] DEBUG: - Init Server Args
+[2017-07-21 14:25:20] DEBUG: -Malloc Sockets
+[2017-07-21 14:25:20] DEBUG: -Malloc Players
+[2017-07-21 14:25:20] DEBUG: -Malloc Energy
+[2017-07-21 14:25:20] INFO:   == Init Map ==
+[2017-07-21 14:25:20] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:25:20] INFO:     == Set Map Size (%d) ==
+[2017-07-21 14:25:20] DEBUG:       mapsize: %d
+[2017-07-21 14:25:20] INFO:     == Place Walls ==
+[2017-07-21 14:25:20] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:25:20] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:25:20] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:25:20] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:25:20] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:25:20] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:25:20] INFO:     == Walls Done ==
+[2017-07-21 14:25:20] INFO:   == Map Done ==
+[2017-07-21 14:25:20] INFO: == Server Done ==
+[2017-07-21 14:25:20] DEBUG: 
+== Map Preview ==
+[2017-07-21 14:25:20] DEBUG: 
+[2017-07-21 14:25:20] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:25:20] INFO: == Waiting for Connections ==
+[2017-07-21 14:26:52] INFO: == Init Server ==
+[2017-07-21 14:26:52] DEBUG: -Setting params
+[2017-07-21 14:26:52] DEBUG: - Init Server Args
+[2017-07-21 14:26:52] DEBUG: -Malloc Sockets
+[2017-07-21 14:26:52] DEBUG: -Malloc Players
+[2017-07-21 14:26:52] DEBUG: -Malloc Energy
+[2017-07-21 14:26:52] INFO:   == Init Map ==
+[2017-07-21 14:26:52] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:26:52] INFO:     == Set Map Size (%d) ==
+[2017-07-21 14:26:52] DEBUG:       mapsize: %d
+[2017-07-21 14:26:52] INFO:     == Place Walls ==
+[2017-07-21 14:26:52] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:26:52] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:26:52] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:26:52] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:26:52] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:26:52] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:26:52] INFO:     == Walls Done ==
+[2017-07-21 14:26:52] INFO:   == Map Done ==
+[2017-07-21 14:26:52] INFO: == Server Done ==
+[2017-07-21 14:26:52] DEBUG: 
+== Map Preview ==
+[2017-07-21 14:26:52] DEBUG: 
+[2017-07-21 14:26:52] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:26:52] INFO: == Waiting for Connections ==
+[2017-07-21 14:27:41] INFO: == Init Server ==
+[2017-07-21 14:27:41] DEBUG: -Setting params
+[2017-07-21 14:27:41] DEBUG: - Init Server Args
+[2017-07-21 14:27:41] DEBUG: -Malloc Sockets
+[2017-07-21 14:27:41] DEBUG: -Malloc Players
+[2017-07-21 14:27:41] DEBUG: -Malloc Energy
+[2017-07-21 14:27:41] INFO:   == Init Map ==
+[2017-07-21 14:27:41] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:27:41] INFO:     == Set Map Size (%d) ==
+[2017-07-21 14:27:41] DEBUG:       mapsize: %d
+[2017-07-21 14:27:41] INFO:     == Place Walls ==
+[2017-07-21 14:27:41] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:27:41] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:27:41] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:27:41] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:27:41] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:27:41] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:27:41] INFO:     == Walls Done ==
+[2017-07-21 14:27:41] INFO:   == Map Done ==
+[2017-07-21 14:27:41] INFO: == Server Done ==
+[2017-07-21 14:27:41] DEBUG: 
+== Map Preview ==
+[2017-07-21 14:27:41] DEBUG: 
+[2017-07-21 14:27:41] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:27:41] INFO: == Waiting for Connections ==
+[2017-07-21 14:29:31] INFO: == Init Server ==
+[2017-07-21 14:29:31] DEBUG: -Setting params
+[2017-07-21 14:29:31] DEBUG: - Init Server Args
+[2017-07-21 14:29:31] DEBUG: -Malloc Sockets
+[2017-07-21 14:29:31] DEBUG: -Malloc Players
+[2017-07-21 14:29:31] DEBUG: -Malloc Energy
+[2017-07-21 14:29:31] INFO:   == Init Map ==
+[2017-07-21 14:29:31] DEBUG:     -Map size not Set Setting to default
+[2017-07-21 14:29:31] INFO:     == Set Map Size (%d) ==
+[2017-07-21 14:29:31] DEBUG:       mapsize: %d
+[2017-07-21 14:29:31] INFO:     == Place Walls ==
+[2017-07-21 14:29:31] DEBUG:       -Walls Ratio: %d
+[2017-07-21 14:29:31] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:29:31] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:29:31] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:29:31] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:29:31] DEBUG:       -Wall #%d: %d
+[2017-07-21 14:29:31] INFO:     == Walls Done ==
+[2017-07-21 14:29:31] INFO:   == Map Done ==
+[2017-07-21 14:29:31] INFO: == Server Done ==
+[2017-07-21 14:29:31] DEBUG: 
+== Map Preview ==
+[2017-07-21 14:29:31] DEBUG: 
+[2017-07-21 14:29:31] INFO: 
+== Private Thread Launched ==
+[2017-07-21 14:29:31] INFO: == Waiting for Connections ==

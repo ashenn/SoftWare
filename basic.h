@@ -9,5 +9,6 @@ int str2int(char* str);
 int strIsAlpha(char* str);
 int alnum(char* str);
 void substr(char* str, int offset, int length, char** target);
+char* concat(char* str1, char* str2, char* res);
 
 #endif

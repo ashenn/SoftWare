@@ -154,7 +154,7 @@ Node* getNodeByName(ListManager* lstMgr, char* name){
 		}
 	}
 
-	printf("## Error: Node with name: %s not found", name);
+	// printf("## Error: Node with name: %s not found", name);
 
 	return NULL;
 }

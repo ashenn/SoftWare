@@ -54,7 +54,6 @@ int parseArgs(ListManager* lstMgr, int argc, char* argv[]){
 	int v;
 
 	Node* n = getNode(lstMgr, 1);
-	fprintf(stdout, "Checking args %d\n", argc);
 	for (i = 0; i < argc; ++i){
 		if (i==0){
 			continue;
@@ -62,8 +61,6 @@ int parseArgs(ListManager* lstMgr, int argc, char* argv[]){
 
 		len = strlen(argv[i]);	
 		arg = malloc((len) * sizeof(char*));
-
-		fprintf(stdout, "-args #%d  =>  %s\n", i, argv[i]);
 
 		if (!isArgument(argv[i])){
 			continue;		
@@ -81,7 +78,6 @@ int parseArgs(ListManager* lstMgr, int argc, char* argv[]){
 		if(val->hasParam){
 			if (isArgument(argv[i+1]))
 			{
-				fprintf(stdout, "%s\n", node->name);
 				free(arg);
 				return -1;
 			}
@@ -106,8 +102,6 @@ int parseArgs(ListManager* lstMgr, int argc, char* argv[]){
 			else{
 				if (!verifyParam(argv[i+1], val->type))
 				{
-					fprintf(stdout, "%s\n", node->name);
-					fprintf(stdout, "%s\n", val->type);
 					free(arg);
 					return -1;
 				}

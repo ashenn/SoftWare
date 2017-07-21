@@ -1,7 +1,3 @@
-
-
-//  Hello World server
-
 #include <zmq.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -16,6 +12,7 @@
 
 #include "basic.h"
 #include "libParse.h"
+#include "logger.h"
 #include "server.h"
 
 
@@ -26,15 +23,15 @@ GameInfo* initServer(int argc, char *argv[]){
         return s;
     }
 
-    fprintf(stdout, "== Init Server ==\n");
+    logger->inf("== Init Server ==");
 
     s = malloc(sizeof(GameInfo));
     if (s == NULL){
-        fprintf(stderr, "Error: Faild to malloc Server\n");
+        logger->err("Error: Faild to malloc Server");
         return NULL;
     }
 
-    fprintf(stdout, "-Setting params\n");
+    logger->dbg("-Setting params");
     s->map = NULL;
     s->map_size = 0;
     s->game_status = 0;
@@ -43,27 +40,27 @@ GameInfo* initServer(int argc, char *argv[]){
     parseArgs(s->params, argc, argv);
 
 
-    fprintf(stdout, "-Malloc Sockets\n");
+    logger->dbg("-Malloc Sockets");
     s->sockets = malloc(sizeof(Sockets));
     createSockets();
     if (s->sockets == NULL){
-        fprintf(stderr, "Error: Faild to malloc Sockets\n");
+        logger->err("Error: Faild to malloc Sockets");
         free(s);
         return NULL;
     }
 
-    fprintf(stdout, "-Malloc Players\n");
+    logger->dbg("-Malloc Players");
     s->players = initListMgr();
     if (s->players == NULL){
-        fprintf(stderr, "Error: Faild to malloc Players\n");
+        logger->err("Error: Faild to malloc Players");
         free(s);
         return NULL;
     }
 
-    fprintf(stdout, "-Malloc Energy\n");
+    logger->dbg("-Malloc Energy");
     s->energy_cells = initListMgr();
     if (s->energy_cells == NULL){
-        fprintf(stderr, "Error: Faild to malloc Energy\n");
+        logger->err("Error: Faild to malloc Energy");
         free(s);
         return NULL;
     }
@@ -71,7 +68,7 @@ GameInfo* initServer(int argc, char *argv[]){
 
     initMap(s);
 
-    fprintf(stdout, "== Server Done ==\n");
+    logger->inf("== Server Done ==");
     return s;
 }
 
@@ -101,7 +98,7 @@ int NewClent(char data[]){
         return 0;
     }
 
-    fprintf(stdout, "adding client:\n");
+    logger->dbg("adding client:");
     Node* n = malloc(sizeof(Node));
 
     
@@ -117,10 +114,10 @@ void* HandlePrivate(){
         zmq_recv(s->sockets->private, buffer, 10, 0);
         
         if (strlen(buffer) > 1){
-            fprintf(stdout, "Private => %s\n", buffer);
+            logger->dbg("Private => %s", buffer);
 
             if (!strcmp(buffer, "New Co")){
-                fprintf(stdout, "New Connection\n");
+                logger->dbg("New Connection");
                 NewClent(buffer);
 
                 memset(buffer, 0, sizeof(buffer));
@@ -204,18 +201,19 @@ void* printMap(){
 }
 
 void *Tick(){
-    fprintf(stdout, "Tick Launched\n");
+    logger->dbg("Tick Launched");
     int i = 0;
     GameInfo* s = getServer();
 
     char buffer[100];
-    fprintf(stdout, "TEST\n");
     while(s->game_status == 1){
         system("clear");
         sprintf(buffer, "Cycle: %d", i);
 
-        Publish(buffer);
+        logger->dbg(buffer);
         printMap();
+        
+        Publish(buffer);
         sleep(1);
         i++;
     }
@@ -224,24 +222,24 @@ void *Tick(){
 }
 
 void* setMapSize(int size){
-    fprintf(stdout, "    == Set Map Size (%d) ==\n", size);
+    logger->inf("    == Set Map Size (%d) ==", size);
     GameInfo* s = getServer();
     
     if (size > 21 || size < 5)
     {
-        fprintf(stdout, "     -Map %d not in Range (5, 21) Size set to Default (%d) \n", size, 5);
+        logger->err("     -Map %d not in Range (5, 21) Size set to Default (%d) ", size, 5);
         size = 5;
     }
 
     s->map_size = size;
     s->cells_cnt = size * size;
-    fprintf(stdout, "      mapsize: %d\n", s->cells_cnt);
+    logger->dbg("      mapsize: %d", s->cells_cnt);
 
     s->map = malloc(s->cells_cnt);
 
     if (s->map == NULL)
     {
-        fprintf(stdout, "      Fail to malloc\n");
+        logger->err("      Fail to malloc");
         return NULL;
     }
 
@@ -249,7 +247,7 @@ void* setMapSize(int size){
 }
 
 void placeWalls(){
-    fprintf(stdout, "    == Place Walls ==\n");
+    logger->inf("    == Place Walls ==");
     int i;
     int obs;
     int pos;
@@ -259,7 +257,7 @@ void placeWalls(){
 
     size = s->map_size;
     ratio = (size * 100) / 99;
-    fprintf(stdout, "      -Walls Ratio: %d\n", ratio);
+    logger->dbg("      -Walls Ratio: %d", ratio);
 
     // obs = rand() % (ratio) -1;
     obs = ratio;
@@ -277,24 +275,24 @@ void placeWalls(){
         }
 
 
-        fprintf(stdout, "      -Wall #%d: %d\n", i, pos);
+        logger->dbg("      -Wall #%d: %d", i, pos);
         s->map[pos] = CELL_WALL;
     }
 
-    fprintf(stdout, "    == Walls Done ==\n");
+    logger->inf("    == Walls Done ==");
 }
 
 
 int initMap(){
-    fprintf(stdout, "  == Init Map ==\n");
+    logger->inf("  == Init Map ==");
     GameInfo* s = getServer();
     if (s->map_size == 0){
-        fprintf(stdout, "    -Map size not Set Setting to default\n");
+        logger->dbg("    -Map size not Set Setting to default");
         setMapSize(5);
     }
 
     placeWalls();
-    fprintf(stdout, "  == Map Done ==\n");
+    logger->inf("  == Map Done ==");
 }
 
 int createSockets(){
@@ -313,7 +311,7 @@ int createSockets(){
 }
 
 void initServArgs(){
-    fprintf(stdout, "- Init Server Args\n");
+    logger->dbg("- Init Server Args");
     GameInfo* srv = getServer();
 
     static Arg arg1 = {
@@ -337,34 +335,38 @@ void initServArgs(){
 int main (int argc, char* argv[]){
     srand(time(0));
     int i = 0;
+
+    logger = initLogger(argc, argv);
     GameInfo* s = initServer(argc, argv);
 
     if (s == NULL){
-        fprintf(stderr, "Error: Fail To init Server\n");
+        logger->err("Error: Fail To init Server");
         return 1;
     }
 
-    fprintf(stdout, "\n== Map Preview ==\n\n");
-    printMap();
-    fprintf(stdout, "\n");
+    if (logger->lvl == DEBUG){
+        logger->dbg("\n== Map Preview ==");
+        printMap();
+        logger->dbg("");
+    }
 
     pthread_t handle;
     if (pthread_create(&handle, NULL, HandlePrivate, NULL)) {
-        perror("pthread_create Tick");
+        logger->err("pthread_create Tick");
         return EXIT_FAILURE;
     }
-    fprintf(stdout, "\n== Private Thread Launched ==\n");
+    logger->inf("\n== Private Thread Launched ==");
 
 
     int count = 0;
-    fprintf(stdout, "== Waiting for Connections ==\n");
+    logger->inf("== Waiting for Connections ==");
     while(count < 3){
         if (s->game_status){
             if (!count){
-                fprintf(stdout, "Game Ready\n");
+               logger->dbg("Game Ready");
             }
 
-            fprintf(stdout, "Lauching in %dsec\n", 3-count);
+            logger->inf("Lauching in %dsec", 3-count);
             count++;
         }
         sleep(1);
@@ -372,15 +374,15 @@ int main (int argc, char* argv[]){
 
     pthread_t tick;
     if (pthread_create(&tick, NULL, Tick, NULL)) {
-        perror("pthread_create Tick");
+        logger->err("pthread_create Tick");
 
         return EXIT_FAILURE;
     }
+    logger->dbg("Tick launched");
 
-    fprintf(stdout, "Thread launched\n");
-    while (1) {
-        sleep(1);
-        i++;
+    if (pthread_join(tick, NULL)) {
+        logger->err("Fail to Wait For Tick");
+        return EXIT_FAILURE;
     }
     
     return 0;
