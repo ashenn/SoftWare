@@ -10,5 +10,8 @@ int strIsAlpha(char* str);
 int alnum(char* str);
 void substr(char* str, int offset, int length, char** target);
 char* concat(char* str1, char* str2, char* res);
+int charCnt(char c, char* str, int limit);
+int strpos(char c, char* str, int offset);
+void explode(char c, char* str, int offset, int limit, char* res[]);
 
 #endif

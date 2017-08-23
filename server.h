@@ -31,11 +31,12 @@ typedef struct GameInfo {
 	ListManager* players;
 	ListManager* energy_cells;
 	ListManager* params;
+	ListManager* player_actions;
 } GameInfo;
 
 typedef struct Player {
 	int id;
-	char * name;
+	char* name;
 	int x;
 	int y;
 	int position;
@@ -54,7 +55,7 @@ GameInfo* initServer( int argc, char *argv[]);
 GameInfo* getServer();
 void* Respond(char* msg);
 void* Publish(char* msg);
-int NewClent(char data[]);
+void* NewClent(char* data);
 void* HandlePrivate();
 Player* getClientAtPos(int pos);
 void* printMap();
@@ -64,5 +65,5 @@ void placeWalls();
 int initMap();
 int createSockets();
 void initServArgs();
-
+void initPlayerArgs();
 #endif

@@ -1,5 +1,6 @@
 #include "basic.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 
@@ -123,4 +124,54 @@ char* concat(char* str1, char* str2, char* res){
 
 	res[i] = '\0';
 	return res;
+}
+
+
+int charCnt(char c, char* str, int limit){
+	int i;
+	int cnt;
+	for (i=cnt=0; str[i] != '\0' && cnt < limit; ++i) {
+		if (str[i] == c)
+		{
+			cnt ++;
+		}
+	}
+
+	return cnt;
+}
+
+int strpos(char c, char* str, int offset){
+	int i;
+	for (i = offset; str[i] != '\0'; ++i){
+		if (str[i] == c){
+			return i;
+		}
+	}
+
+	return -1;
+}
+
+void explode(char c, char* str, int offset, int limit, char* res[]){
+	int cnt = charCnt(c, str, limit);
+	if (!cnt){
+		res[0] = str;
+		res[1] = '\0';
+		return;
+	}
+
+	int i;
+	int pos0 = 0;
+	int pos1 = 0;
+
+	for (i = 0; i < cnt && (pos1 = strpos(c, str, pos0)) > -1; ++i){
+		res[i] = malloc(((pos1 - (pos0)) * sizeof(char)) +1);
+		substr(str, pos0, pos1 - pos0, &res[i]);
+		pos0 = pos1 +1;
+	}
+
+	pos1 = strlen(str) - pos0;
+	res[i] = malloc((pos1 +1) * sizeof(char) +1);
+
+	substr(str, pos0, 0, &res[i]);
+	res[i+1] = '\0';
 }

@@ -22,7 +22,7 @@ ListManager* initListMgr(){
 void* add_Node(ListManager* lstMgr, void* params){
 	int id;
 	char* name = (char*) params;
-
+	printf("New Node Name %s\n", name);
 	Node* newNode = malloc(sizeof(Node));
 	if (newNode == NULL)
 	{

@@ -20,7 +20,9 @@ int main (void)
     char buffer[100];
     // buffer = "";
     printf ("Sending Hello\n");
-    zmq_send (requester, "New Co", 100, 0);
+    sprintf(buffer, "%s", "identify|#0x29");
+    printf("Sending %s\n", buffer);
+    zmq_send (requester, buffer, 100, 0);
     memset(buffer, 0, sizeof(buffer));
 
     printf("Enter Loop\n");

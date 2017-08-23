@@ -57,6 +57,15 @@ GameInfo* initServer(int argc, char *argv[]){
         return NULL;
     }
 
+    logger->dbg("-Malloc Player Actions");
+    s->player_actions = initListMgr();
+    initPlayerArgs();
+    if (s->player_actions == NULL){
+        logger->err("Error: Faild to malloc Player Actions");
+        free(s);
+        return NULL;
+    }
+
     logger->dbg("-Malloc Energy");
     s->energy_cells = initListMgr();
     if (s->energy_cells == NULL){
@@ -91,37 +100,83 @@ void* Publish(char* msg){
     s_send(s->sockets->public, msg);
 }
 
-int NewClent(char data[]){
+void* NewClent(char* name){
     GameInfo* s = getServer();
     if (s->players->nodeCount >= 4){
         Respond("ko");
-        return 0;
+        return NULL;
     }
 
-    logger->dbg("adding client:");
-    Node* n = malloc(sizeof(Node));
+    logger->dbg("adding client: %s", name);
 
-    
-    return 1;
+    Player* p = malloc(sizeof(Player));
+    p->name = name;
+
+    if (getNodeByName(s->players, name) != NULL){
+        logger->inf("Id already exists, refusing..");
+        Respond("ko");
+        return;
+    }
+
+    if (add_NodeV(s->players, name, p) == NULL){
+        logger->err("Faild To Add New Player: %d", name);
+        return;
+    }
+
+    int i;
+    int pos;
+    int vacant = 0;
+    do{
+        for (i = 0; i < 4; ++i){
+            pos = i * (s->map_size-1);
+            if (i > 1){
+                pos += s->map_size;
+            }
+
+            logger->dbg("checking pos: %d", pos);
+            if (!getClientAtPos(pos)){
+                vacant = 1;
+                break;
+            }
+        }
+    }while(!vacant);
+
+    p->position = pos;
+    logger->dbg("Player added At pos: %d", pos);
+    Player* p2 = getClientAtPos(pos);
+    logger->dbg("test: %s", p2->name);
+
+    Respond("ok");
+    if (s->players->nodeCount == 4){
+        s->game_status = 1;
+    }
+}
+
+int getPosition(Player* p){
+    GameInfo* s = getServer();
+    return p->x + (p->y * s->map_size);
 }
 
 void* HandlePrivate(){
     char buffer[100];
+    char* req[3];
     GameInfo* s = getServer();
 
     while(1){
         memset(buffer, 0, sizeof(buffer));
-        zmq_recv(s->sockets->private, buffer, 10, 0);
+        zmq_recv(s->sockets->private, buffer, 100, 0);
         
         if (strlen(buffer) > 1){
             logger->dbg("Private => %s", buffer);
+            memset(req, 0, sizeof(req));
 
-            if (!strcmp(buffer, "New Co")){
-                logger->dbg("New Connection");
-                NewClent(buffer);
+            explode('|', buffer, 0, 4, req);
+            logger->dbg("Action: %s", req[0]);
+            logger->dbg("data: %s", req[1]);
 
-                memset(buffer, 0, sizeof(buffer));
-            }
+            callArg(s->player_actions, req[0], req[1]);
+
+            memset(buffer, 0, sizeof(buffer));
         }
 
         sleep(1);
@@ -130,20 +185,19 @@ void* HandlePrivate(){
 
 
 Player* getClientAtPos(int pos){
-    int i;
     GameInfo* s = getServer();
-
-    int ids[s->players->nodeCount];
-    getIds(s->players, ids);
-    Node* n;
+    
+    Node* n = s->players->first;
     Player* p;
 
-    for (i = 0; i < s->players->nodeCount; ++i)
-    {
-        n = getNode(s->players, ids[i]);
+    if (n == NULL){
+        return NULL;
+    }
+
+    while(n != s->players->last){
         p = (Player*) n->value;
-        if (p->position == pos)
-        {
+
+        if (p->position == pos){
             return p;
         }
     }
@@ -153,6 +207,7 @@ Player* getClientAtPos(int pos){
 
 
 void* printMap(){
+    logger->dbg("printig");
     int a;
     int i;
     int j;
@@ -161,7 +216,6 @@ void* printMap(){
     GameInfo* s = getServer();
 
     size = s->map_size;
-
     j = 0;
     for (i = 0; i != s->cells_cnt; ++i, ++j)
     {
@@ -332,6 +386,28 @@ void initServArgs(){
     srv->params = defineArgs(params);
 }
 
+void initPlayerArgs(){
+    logger->dbg("- Init Player Args");
+    GameInfo* srv = getServer();
+
+    static Arg arg1 = {
+        .name = "identify", 
+        .function = NewClent, 
+        .hasParam = 1, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
+    static  Arg* player_actions[] = {
+        &arg1,
+        NULL
+    };
+
+    srv->player_actions = malloc(sizeof(ListManager));
+    srv->player_actions = defineArgs(player_actions);
+}
+
 int main (int argc, char* argv[]){
     srand(time(0));
     int i = 0;
@@ -369,7 +445,10 @@ int main (int argc, char* argv[]){
             logger->inf("Lauching in %dsec", 3-count);
             count++;
         }
+
+        // printMap();
         sleep(1);
+        // system("clear");
     }
 
     pthread_t tick;
