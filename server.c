@@ -15,6 +15,45 @@
 #include "logger.h"
 #include "server.h"
 
+void genEnergy(){
+    GameInfo* s = getServer();
+    short pos = 0;
+    short placed = 0;
+    EnergyCell* cell;
+
+    int co[2];
+    do{
+        pos = (rand() % (s->cells_cnt -2)) + 1;
+
+
+        pos2coord(pos, co);
+
+        if (getClientAtPos(pos)){
+            continue;
+        }
+
+        if (s->map[pos] == CELL_ENRG){
+            continue;
+        }
+
+        if (s->map[pos] == CELL_WALL){
+            continue;
+        }
+
+        s->map[pos] = CELL_ENRG;
+        
+        cell->x = co[0];
+        cell->y = co[1];
+        cell->position = pos;
+
+        cell->value = 5 + (rand() % 10);
+        add_NodeV(s->energy_cells, "energy", (void*) cell);
+
+        placed=1;
+    }while(!placed);
+
+    logger->dbg("Energy Placed At Pos: %d", pos);
+}
 
 GameInfo* initServer(int argc, char *argv[]){
     static GameInfo* s = NULL;
@@ -35,10 +74,20 @@ GameInfo* initServer(int argc, char *argv[]){
     s->map = NULL;
     s->map_size = 0;
     s->game_status = 0;
+
+    s->privPort = 0;
+    s->pubPort = 0;
     
     initServArgs();
     parseArgs(s->params, argc, argv);
 
+    if (!s->privPort){
+        s->privPort = 4242;
+    }
+
+    if (!s->pubPort){
+        s->pubPort = 4343;
+    }
 
     logger->dbg("-Malloc Sockets");
     s->sockets = malloc(sizeof(Sockets));
@@ -85,10 +134,6 @@ GameInfo* getServer(){
     return initServer(0, NULL);
 }
 
-// void *Tick(void *arg){
-//     pthread_exit(NULL);
-// }
-
 void* Respond(char* msg){
     GameInfo* s = getServer();
     zmq_send(s->sockets->private, msg, 100, 0);
@@ -128,12 +173,13 @@ void* NewClent(char* name){
     int vacant = 0;
     do{
         for (i = 0; i < 4; ++i){
-            pos = i * (s->map_size-1);
             if (i > 1){
-                pos += s->map_size;
+                pos = s->cells_cnt - ((i < 3) * (s->map_size)) -(i == 3);
+            }
+            else{
+                pos = i * (s->map_size-1);
             }
 
-            logger->dbg("checking pos: %d", pos);
             if (!getClientAtPos(pos)){
                 vacant = 1;
                 break;
@@ -141,12 +187,33 @@ void* NewClent(char* name){
         }
     }while(!vacant);
 
-    p->position = pos;
-    logger->dbg("Player added At pos: %d", pos);
-    Player* p2 = getClientAtPos(pos);
-    logger->dbg("test: %s", p2->name);
 
+    logger->dbg("MAP SIZE: %d", s->map_size);
+    logger->dbg("pos: %d", pos);
+
+    // if (pos == 0){
+    //     p->position = 0;
+    // }
+    // else if(pos == 1){
+    //     p->position = s->map_size -1;
+    // }
+    // else if(pos == 2){
+    //     p->position = (s->map_size * s->map_size) - s->map_size;
+    // }
+    // else{
+    //     p->position = (s->map_size * s->map_size) -1;
+    // }
+
+    p->position = pos;
+
+    logger->dbg("New client at pos: %d", p->position);
+
+    int co[2];
+    pos2coord(p->position, co);
+    logger->dbg("Coords: x:%d y:%d", co[0], co[1]);
+    getClientAtPos(p->position);
     Respond("ok");
+
     if (s->players->nodeCount == 4){
         s->game_status = 1;
     }
@@ -155,6 +222,17 @@ void* NewClent(char* name){
 int getPosition(Player* p){
     GameInfo* s = getServer();
     return p->x + (p->y * s->map_size);
+}
+
+int coord2pos(int x, int y){
+    GameInfo* s = getServer();
+    return x + (y * s->map_size);
+}
+
+void pos2coord(int pos, int res[]){
+    GameInfo* s = getServer();
+    res[1] = pos / s->map_size;
+    res[0] = pos - (res[1] * s->map_size);
 }
 
 void* HandlePrivate(){
@@ -186,7 +264,6 @@ void* HandlePrivate(){
 
 Player* getClientAtPos(int pos){
     GameInfo* s = getServer();
-    
     Node* n = s->players->first;
     Player* p;
 
@@ -194,17 +271,19 @@ Player* getClientAtPos(int pos){
         return NULL;
     }
 
-    while(n != s->players->last){
+    int i=0;
+    do{
         p = (Player*) n->value;
 
         if (p->position == pos){
             return p;
         }
-    }
+
+        n = n->next;
+    }while(n != s->players->first && n != NULL);
 
     return NULL;
 }
-
 
 void* printMap(){
     logger->dbg("printig");
@@ -228,10 +307,6 @@ void* printMap(){
         if (p != NULL)
         {
             s->map[i] = p->id;
-        }
-        else if (s->map[i] != CELL_WALL)
-        {
-            s->map[i] = CELL_EMPTY;
         }
 
         if (p != NULL)
@@ -265,10 +340,14 @@ void *Tick(){
         sprintf(buffer, "Cycle: %d", i);
 
         logger->dbg(buffer);
+
+        genEnergy();
         printMap();
         
         Publish(buffer);
-        sleep(1);
+
+        logger->dbg("Cycle time: %d", s->cycle);
+        usleep(s->cycle);
         i++;
     }
 
@@ -298,6 +377,40 @@ void* setMapSize(int size){
     }
 
     s->map[s->cells_cnt] = '\0';
+}
+
+void* setCycle(int c){
+    if (c < 0){
+        logger->war("Cylcle must be > 0\n Cycle set: to 1s");
+        c = 1000;
+    }
+
+    GameInfo* s = getServer();
+    s->cycle = c;
+}
+
+void* setPrivatePort(int p){
+    if (p < 0){
+        logger->war("Private port must be > 0\n port set: to 4242");
+        p = 4242;
+    }
+
+    GameInfo* s = getServer();
+    s->privPort = p;
+}
+
+void* setPublicPort(int p){
+    if (p < 0){
+        logger->war("Private port must be > 0\n port set: to 4343");
+        p = 4343;
+    }
+
+    GameInfo* s = getServer();
+    s->pubPort = p;
+}
+
+void* verbose(){
+    setLogLvl(0);
 }
 
 void placeWalls(){
@@ -351,12 +464,18 @@ int initMap(){
 
 int createSockets(){
     GameInfo* s = getServer();
-    s->sockets->context = zmq_ctx_new ();
-    s->sockets->private = zmq_socket (s->sockets->context, ZMQ_REP);
-    s->sockets->public = zmq_socket (s->sockets->context, ZMQ_PUB);
+    s->sockets->context = zmq_ctx_new();
+    s->sockets->private = zmq_socket(s->sockets->context, ZMQ_REP);
+    s->sockets->public = zmq_socket(s->sockets->context, ZMQ_PUB);
+    char* url = malloc(sizeof(char) * 13);
 
-    int rc = zmq_bind (s->sockets->private, "tcp://*:5555");
-    int pc = zmq_bind (s->sockets->public, "tcp://*:5566");
+    sprintf(url, "tcp://*:%d", s->privPort);    
+    logger->inf("setting priv port to: %s", url);
+    int rc = zmq_bind(s->sockets->private, url);
+
+    sprintf(url, "tcp://*:%d", s->pubPort);    
+    logger->inf("setting pub port to: %s", url);
+    int pc = zmq_bind(s->sockets->public, "tcp://*:5566");
 
     assert(rc == 0);
     assert(pc == 0);
@@ -377,8 +496,48 @@ void initServArgs(){
         .type="num"
     };
 
+    static Arg arg2 = {
+        .name = "-cycle", 
+        .function = setCycle,
+        .hasParam = 1, 
+        .defParam = NULL, 
+        .asInt = 1, 
+        .type="num"
+    };
+
+    static Arg arg3 = {
+        .name = "v", 
+        .function = verbose,
+        .hasParam = 0,
+        .defParam = 0, 
+        .asInt = 1, 
+        .type="num"
+    };
+
+    static Arg arg4 = {
+        .name = "-rep-port", 
+        .function = setPrivatePort,
+        .hasParam = 1,
+        .defParam = NULL, 
+        .asInt = 1, 
+        .type="num"
+    };
+
+    static Arg arg5 = {
+        .name = "-pub-port", 
+        .function = setPublicPort,
+        .hasParam = 1,
+        .defParam = NULL, 
+        .asInt = 1, 
+        .type="num"
+    };
+
     static  Arg* params[] = {
         &arg1,
+        &arg2,
+        &arg3,
+        &arg4,
+        &arg5,
         NULL
     };
 
@@ -419,7 +578,7 @@ int main (int argc, char* argv[]){
         logger->err("Error: Fail To init Server");
         return 1;
     }
-
+    
     if (logger->lvl == DEBUG){
         logger->dbg("\n== Map Preview ==");
         printMap();
@@ -428,11 +587,10 @@ int main (int argc, char* argv[]){
 
     pthread_t handle;
     if (pthread_create(&handle, NULL, HandlePrivate, NULL)) {
-        logger->err("pthread_create Tick");
+        logger->err("pthread_create Private");
         return EXIT_FAILURE;
     }
     logger->inf("\n== Private Thread Launched ==");
-
 
     int count = 0;
     logger->inf("== Waiting for Connections ==");

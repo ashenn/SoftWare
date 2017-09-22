@@ -1,26 +1,31 @@
 #include <zmq.h>
-#include <string.h>
+#include <time.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include "zhelpers.h"
 
 int main (void)
 {
+    srand(time(NULL));
+
+    int id = rand() % 99;
     printf ("Connecting to server…\n");
     void *context = zmq_ctx_new ();
 
     void *requester = zmq_socket (context, ZMQ_REQ);
     void *public = zmq_socket (context, ZMQ_SUB);
 
-    zmq_connect (requester, "tcp://localhost:5555");
-    zmq_connect (public, "tcp://localhost:5566");
+    zmq_connect (requester, "tcp://localhost:4242");
+    zmq_connect (public, "tcp://localhost:4343");
 
     zmq_setsockopt (public, ZMQ_SUBSCRIBE, "B", 1);
 
     char buffer[100];
     // buffer = "";
     printf ("Sending Hello\n");
-    sprintf(buffer, "%s", "identify|#0x29");
+
+    sprintf(buffer, "%s%d", "identify|#0x", id);
     printf("Sending %s\n", buffer);
     zmq_send (requester, buffer, 100, 0);
     memset(buffer, 0, sizeof(buffer));

@@ -23,14 +23,18 @@ typedef struct Sockets{
 typedef struct GameInfo {
 	char* map;
 	int cells_cnt;
+	int cycle;
 	int map_size;
 	int game_status; // 0: waiting, 1: started, 2: finished
 
+	int privPort;
+	int pubPort;
+
 	Sockets* sockets;
 
+	ListManager* params;
 	ListManager* players;
 	ListManager* energy_cells;
-	ListManager* params;
 	ListManager* player_actions;
 } GameInfo;
 
@@ -48,6 +52,7 @@ typedef struct EnergyCell {
 	int x;
 	int y;
 	int value;
+	int position;
 } EnergyCell;
 
 
@@ -66,4 +71,7 @@ int initMap();
 int createSockets();
 void initServArgs();
 void initPlayerArgs();
+int coord2pos(int x, int y);
+int getPosition(Player* p);
+void pos2coord(int pos, int res[]);
 #endif

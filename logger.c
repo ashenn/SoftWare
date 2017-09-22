@@ -132,7 +132,7 @@ void* setLogLvl(int lvl){
 	if (lvl < 0 || lvl > 4)
 	{
 		logger->lvl = 2;
-		logger->war("Bad Log lvl\nLvl is set to WARNING");
+		logger->war("Bad Log lvl(%d) \nLvl is set to WARNING", lvl);
 		return NULL;
 	}
 

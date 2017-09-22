@@ -22,10 +22,9 @@ ListManager* initListMgr(){
 void* add_Node(ListManager* lstMgr, void* params){
 	int id;
 	char* name = (char*) params;
-	printf("New Node Name %s\n", name);
+	// printf("New Node Name %s\n", name);
 	Node* newNode = malloc(sizeof(Node));
-	if (newNode == NULL)
-	{
+	if (newNode == NULL){
 		printf("\n### Fail to alloc Node###\n");
 		return NULL;
 	}
@@ -35,7 +34,6 @@ void* add_Node(ListManager* lstMgr, void* params){
 	newNode->lstMgr = lstMgr;
 	newNode->name = name;
 	newNode->value = NULL;
-	
 
 	if (lstMgr->nodeCount == 0) // Is the first node
 	{

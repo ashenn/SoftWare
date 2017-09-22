@@ -67,11 +67,12 @@ int parseArgs(ListManager* lstMgr, int argc, char* argv[]){
 		}
 
 		substr(argv[i], 1, len, &arg);
+		
 		node = getNodeByName(lstMgr, arg);
 		if (node == NULL)
 		{
 			free(arg);
-			return 0;
+			continue;
 		}
 
 		val = (Arg*) node->value;
@@ -108,7 +109,6 @@ int parseArgs(ListManager* lstMgr, int argc, char* argv[]){
 				
 				if (val->defParam != NULL){
 					val->function(val->defParam, argv[i+1]);
-					printNodes(val->defParam);
 				}
 				else{
 					val->function(argv[i+1]);
@@ -116,6 +116,9 @@ int parseArgs(ListManager* lstMgr, int argc, char* argv[]){
 
 				i++;
 			}
+		}
+		else if (val->defParam != NULL){
+			val->function(val->defParam);
 		}
 		else{
 			val->function();
