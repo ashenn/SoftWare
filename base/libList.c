@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "libList.h"
-// #include "libParse.h"
-
 
 ListManager* initListMgr(){	
 	ListManager* lstMgr = malloc(sizeof(ListManager));

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include "zhelpers.h"
+#include "../common.h"
 
 int main (void)
 {
