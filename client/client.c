@@ -1,14 +1,6 @@
 #include "client.h"
 
-int sendMsg(void* requester, char* id, char* act, char* data){
-    int len = strlen(id) + strlen(act) + strlen(data) + 3;
-    char msg[len];
-    sprintf(msg, "%s|%s|%s", id ,act, data);
-    logger->inf("Sending: %s", msg);
-    if (zmq_send (requester, msg, 100, 0) != 0)
-        logger->err("Error while sending : %s",  strerror(errno));
 
-}
 
 Client* getClient() {
     static Client *c = NULL;
@@ -39,15 +31,66 @@ Client* getClient() {
     return c;
 }
 
-void* HandleResponse() {
-    logger->inf("\n== Private Thread Launched ==");
+void handleIdentity (char *data) {
+    char* mapDatas[2];
+    int coordinates[2];
+    explode(';', data, 0, 3, mapDatas);
+    
+    pos2coord(str2int(mapDatas[0]), str2int(mapDatas[1]), coordinates);
+    logger->inf("CONNECTED !!!!, you are in {%s, %s}", coordinates[0], coordinates[1]);
+}
+
+
+void* handlePrivateResponse(char *packet, void (*callback)(char*)) {
+    char* req[2];
+        
+    if (strlen(packet) > 1){
+        logger->dbg("Private2 => %s", packet);
+            // rc = zmq_getsockopt(s->sockets->private, ZMQ_IDENTITY, &test, &size);
+            
+        memset(req, 0, sizeof(req));
+        logger->dbg("exlode");
+        explode('|', packet, 0, 3, req);
+
+        logger->dbg("status: %s", req[0]);
+        logger->dbg("data: %s", req[1]);
+
+        if (req[0] == "ko")
+            return NULL;
+
+        callback(req[1]);
+
+        memset(packet, 0, sizeof(packet));
+    }
+}
+
+
+int sendMsg(char* action, char* data, void (*callback)(char*)){
+    char buffer[100];
+    Client *client = getClient();
+    int len = strlen(client->uid) + strlen(action) + strlen(data) + 3;
+    char msg[len];
+
+    sprintf(msg, "%s|%s|%s", client->uid ,action, data);
+    logger->inf("Sending: %s", msg);
+
+    if (zmq_send (client->sockets->private, msg, 100, 0) != 0)
+        logger->err("Error while sending : %s",  strerror(errno));
+
+    zmq_recv(client->sockets->private, buffer, 100, 0);
+    handlePrivateResponse(buffer, callback);
+
+}
+ 
+
+
+void* HandleNotif() {
     char buffer[100];
     char* req[4];
     Client* c = getClient();
 
     while(1){
         memset(buffer, 0, sizeof(buffer));
-        zmq_recv(c->sockets->private, buffer, 100, 0);
         
         if (strlen(buffer) > 1){
             logger->dbg("Private2 => %s", buffer);
@@ -68,32 +111,56 @@ void* HandleResponse() {
     }
 }
 
-void* HandleNotif() {
-    char buffer[100];
-    char* req[4];
-    Client* c = getClient();
+void initPlayerActions(){
+    logger->dbg("- Init Player Args");
+    Client *client = getClient();
 
-    while(1){
-        memset(buffer, 0, sizeof(buffer));
-        zmq_recv(c->sockets->private, buffer, 100, 0);
-        
-        if (strlen(buffer) > 1){
-            logger->dbg("Private2 => %s", buffer);
-            // rc = zmq_getsockopt(s->sockets->private, ZMQ_IDENTITY, &test, &size);
-            
-            memset(req, 0, sizeof(req));
-            logger->dbg("exlode");
-            explode('|', buffer, 0, 5, req);
+    /*static Arg arg1 = {
+        .name = "identify", 
+        .function = NewClent, 
+        .hasParam = 1, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
 
-            logger->dbg("Id: %s", req[0]);
-            logger->dbg("Action: %s", req[1]);
-            logger->dbg("data: %s", req[2]);
+    static Arg arg2 = {
+        .name = "right", 
+        .function = right, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
 
-            memset(buffer, 0, sizeof(buffer));
-        }
+    static Arg arg3 = {
+        .name = "left", 
+        .function = right, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
 
-        sleep(1);
-    }
+    static Arg arg4 = {
+        .name = "selfid", 
+        .function = selfid, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
+    static  Arg* player_actions[] = {
+        &arg1,
+        &arg2,
+        &arg3,
+        &arg4,
+        NULL
+    };
+
+    srv->player_actions = malloc(sizeof(ListManager));
+    srv->player_actions = defineArgs(player_actions);*/
 }
 
 int main (int argc, char* argv[])
@@ -107,48 +174,10 @@ int main (int argc, char* argv[])
     Client *client = getClient();
 
     char buffer[100];
-    memset(buffer, 0, sizeof(buffer));
-
-    char* resp[4];
-    memset(resp, 0, sizeof(resp));
-
     logger->inf("Login as ID: %s", client->uid);
-    sendMsg(client->sockets->private, "", "identify", client->uid);
 
-    zmq_recv(client->sockets->private, buffer, 100, 0);
-    explode('|', buffer, 0, 5, resp);
-
-
-    if (strcmp(resp[0], "ok")){
-        logger->err("Login Fail: %s", buffer);
-        return 0;
-    }
+    sendMsg("identify", client->uid, &handleIdentity);
     memset(buffer, 0, sizeof(buffer));
-    logger->inf("Login Success");
-    int i;
-    for (i = 0; i < 3; ++i)
-    {
-        sendMsg(client->sockets->private, client->uid, "forward", "");
-        zmq_recv(client->sockets->private, buffer, 100, 0);
-        logger->inf("Buffer: %s", buffer);
-    }
-
-    for (i = 0; i < 5; ++i)
-    {
-        sendMsg(client->sockets->private, client->uid, "backward", "");
-        zmq_recv(client->sockets->private, buffer, 100, 0);
-        logger->inf("Buffer: %s", buffer);
-    }
-    
-    return 0;
-
-    pthread_t handle;
-    if (pthread_create(&handle, NULL, HandleResponse, NULL)) {
-        logger->err("pthread_create Private");
-        return EXIT_FAILURE;
-    }
-    
-
 
     pthread_t sub;
     if (pthread_create(&sub, NULL, HandleNotif, NULL)) {
@@ -161,26 +190,17 @@ int main (int argc, char* argv[])
         logger->err("Fail to Wait For Tick");
         return EXIT_FAILURE;
     }
-/*
-    logger->dbg("Enter Loop\n");
-    while(1){
-        zmq_recv (requester, buffer, 100, 0);
-        if (strlen(buffer) > 1)
-        {
-            logger->inf("Private %s\n", buffer);
-            logger->inf("Len: %d\n", (int)strlen(buffer));
-            memset(buffer, 0, sizeof(buffer));
-        }
 
-        zmq_recv (public, buffer, 100, 0);
-        if (strlen(buffer) > 1)
-        {
-            logger->inf("Public => %s\n", buffer);
-            memset(buffer, 0, sizeof(buffer));
-        }
-
+    
+    zmq_recv (client->sockets->private, buffer, 100, 0);
+    if (strcmp(buffer, "ok")){
+        logger->err("Login Fail: %s", buffer);
+        return 0;
     }
-    */
+    memset(buffer, 0, sizeof(buffer));
+
+    logger->inf("Login Success");
+-
     zmq_close (client->sockets->private);
     zmq_close (client->sockets->public);
     zmq_ctx_destroy (client->sockets->context);
