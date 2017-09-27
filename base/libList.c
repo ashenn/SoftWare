@@ -65,7 +65,7 @@ void printNode(Node* node){
 	if (node == NULL)
 	{
 		printf("node for printNode is NULL\n");
-		return NULL;
+		return;
 	}
 
 	printf("name: %s \n", node->name);

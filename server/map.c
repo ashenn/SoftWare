@@ -238,9 +238,9 @@ void getHorizontalLine(int pos, int dir, int len, char res[], short stopOnWall){
 void getLine(int pos, int dir, int len, char res[], short stopOnWall){
     if (dir == UP || dir == DOWN ){
         getVerticalLine(pos, dir, len, res, stopOnWall);
-        return NULL;
+        return;
     }
 
     getHorizontalLine(pos, dir, len, res, stopOnWall);
-    return NULL;
+    return;
 }

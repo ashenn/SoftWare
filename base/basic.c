@@ -156,7 +156,7 @@ void explode(char c, char* str, int offset, int limit, char* res[]){
 	if (!cnt){
 		res[0] = str;
 		res[1] = '\0';
-		return NULL;
+		return;
 	}
 
 	int i=0;

@@ -7,6 +7,22 @@
 #include "basic.h"
 #include "libParse.h"
 
+
+int verifyParam(char* p, char* type){
+	if(!strcmp("alnum", type)){
+		return alnum(p);
+	}
+	else if(!strcmp("alpha", type)){
+		return strIsAlpha(p);
+	}
+	else if(!strcmp("num", type)){
+		return strIsNum(p);
+	}
+	else{
+		return 1;
+	}
+}
+
 int callArg(ListManager* lstMgr, char* name, void* val){
 	Arg* arg = NULL;
 	// printB("Calling Arg");
@@ -128,21 +144,6 @@ int parseArgs(ListManager* lstMgr, int argc, char* argv[]){
 	}
 
 	return 1;
-}
-
-int verifyParam(char* p, char* type){
-	if(!strcmp("alnum", type)){
-		return alnum(p);
-	}
-	else if(!strcmp("alpha", type)){
-		return strIsAlpha(p);
-	}
-	else if(!strcmp("num", type)){
-		return strIsNum(p);
-	}
-	else{
-		return 1;
-	}
 }
 
 int isArgument(char* str){
