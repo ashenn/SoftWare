@@ -96,7 +96,7 @@ void* NewClent(char* name){
         return NULL;
     }
 
-    Respond("ok|%d", pos);
+    Respond("ok|%d;%d", pos, s->cells_cnt);
     if (s->players->nodeCount == 4){
         s->game_status = 1;
     }
@@ -229,13 +229,23 @@ void* HandlePrivate(){
             logger->dbg("data: %s", req[2]);
 
             strcpy(s->curPlayer, req[0]);
-            callArg(s->player_actions, req[1], req[2]);
+            
+            if (!callArg(s->player_actions, req[1], req[2])){
+                Respond("ko|Bad action");
+            }
 
             memset(buffer, 0, sizeof(buffer));
         }
 
         sleep(1);
     }
+}
+
+void* vision(){
+    Player* p = getCurPlayer();
+    getVison(p);
+
+    Respond("ok");
 }
 
 void initPlayerArgs(){
@@ -278,11 +288,21 @@ void initPlayerArgs(){
         .type="any"
     };
 
+    static Arg arg5 = {
+        .name = "watch", 
+        .function = vision, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
     static  Arg* player_actions[] = {
         &arg1,
         &arg2,
         &arg3,
         &arg4,
+        &arg5,
         NULL
     };
 

@@ -107,10 +107,31 @@ int main (int argc, char* argv[])
     Client *client = getClient();
 
     char buffer[100];
-    logger->inf("Login as ID: %s", client->uid);
-
-    sendMsg(client->sockets->private, "", "identify", client->uid);
     memset(buffer, 0, sizeof(buffer));
+
+    char* resp[4];
+    memset(resp, 0, sizeof(resp));
+
+    logger->inf("Login as ID: %s", client->uid);
+    sendMsg(client->sockets->private, "", "identify", client->uid);
+
+    zmq_recv(client->sockets->private, buffer, 100, 0);
+    explode('|', buffer, 0, 5, resp);
+
+    logger->inf("test: %s", resp[0]);
+    logger->inf("test2: %s", resp[1]);
+
+    if (strcmp(resp[0], "ok")){
+        logger->err("Login Fail: %s", buffer);
+        return 0;
+    }
+    memset(buffer, 0, sizeof(buffer));
+    logger->inf("Login Success");
+
+    
+    sendMsg(client->sockets->private, client->uid, "watch", "");
+
+    return 0;
 
     pthread_t handle;
     if (pthread_create(&handle, NULL, HandleResponse, NULL)) {
@@ -131,16 +152,6 @@ int main (int argc, char* argv[])
         logger->err("Fail to Wait For Tick");
         return EXIT_FAILURE;
     }
-
-    
-    zmq_recv (client->sockets->private, buffer, 100, 0);
-    if (strcmp(buffer, "ok")){
-        logger->err("Login Fail: %s", buffer);
-        return 0;
-    }
-    memset(buffer, 0, sizeof(buffer));
-
-    logger->inf("Login Success");
 /*
     logger->dbg("Enter Loop\n");
     while(1){

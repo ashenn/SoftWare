@@ -37,7 +37,7 @@ void* Respond(char* txt, ...){
     zmq_send(s->sockets->private, msg, 100, 0);
 }
 
-void* Publish(char* txt){
+void* Publish(char* txt, ...){
     char msg[1000];
     GameInfo* s = getServer();
     

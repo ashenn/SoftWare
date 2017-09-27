@@ -20192,3 +20192,846 @@ Lvl is set to WARNING
 [2017-09-27 12:02:44] DEBUG: Coords: x:%d y:%d
 [2017-09-27 12:02:44] INFO: Respondig: %s
 [2017-09-27 12:02:44] ERROR: Login Fail: %s
+[2017-09-27 14:03:58] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:03:58] INFO: == Init Server ==
+[2017-09-27 14:03:58] DEBUG: -Setting params
+[2017-09-27 14:03:58] DEBUG: - Init Server Args
+[2017-09-27 14:03:58] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:03:58] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:03:58] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:03:58] DEBUG: -Malloc Sockets
+[2017-09-27 14:03:58] INFO: setting priv port to: %s
+[2017-09-27 14:03:58] INFO: setting pub port to: %s
+[2017-09-27 14:03:58] DEBUG: -Malloc Players
+[2017-09-27 14:03:58] DEBUG: -Malloc Player Actions
+[2017-09-27 14:03:58] DEBUG: - Init Player Args
+[2017-09-27 14:03:58] DEBUG: -Malloc Energy
+[2017-09-27 14:03:58] INFO:   == Init Map ==
+[2017-09-27 14:03:58] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:03:58] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:03:58] DEBUG:       mapsize: %d
+[2017-09-27 14:03:58] INFO:     == Place Walls ==
+[2017-09-27 14:03:58] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:03:58] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:03:58] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:03:58] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:03:58] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:03:58] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:03:58] INFO:     == Walls Done ==
+[2017-09-27 14:03:58] INFO:   == Map Done ==
+[2017-09-27 14:03:58] INFO: == Server Done ==
+[2017-09-27 14:03:58] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:03:58] DEBUG: printig
+[2017-09-27 14:03:58] DEBUG: 
+[2017-09-27 14:03:58] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:03:58] INFO: == Waiting for Connections ==
+[2017-09-27 14:04:01] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:04:01] INFO: Creating Context 1 Sockets
+[2017-09-27 14:04:01] INFO: Connecting to server…
+
+[2017-09-27 14:04:01] INFO: Setting identity
+
+[2017-09-27 14:04:01] INFO: UID: %s
+[2017-09-27 14:04:01] INFO: Login as ID: %s
+[2017-09-27 14:04:01] INFO: Sending: %s
+[2017-09-27 14:04:01] ERROR: Error while sending : %s
+[2017-09-27 14:04:01] DEBUG: Private2 => %s
+[2017-09-27 14:04:01] DEBUG: exlode
+[2017-09-27 14:04:01] DEBUG: Id: %s
+[2017-09-27 14:04:01] DEBUG: Action: %s
+[2017-09-27 14:04:01] DEBUG: data: %s
+[2017-09-27 14:04:01] DEBUG: adding client: %s
+[2017-09-27 14:04:01] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:04:01] DEBUG: look: %s
+[2017-09-27 14:04:01] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:04:01] INFO: Respondig: %s
+[2017-09-27 14:04:01] ERROR: Login Fail: %s
+[2017-09-27 14:14:16] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:14:16] INFO: == Init Server ==
+[2017-09-27 14:14:16] DEBUG: -Setting params
+[2017-09-27 14:14:16] DEBUG: - Init Server Args
+[2017-09-27 14:14:16] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:14:16] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:14:16] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:14:16] DEBUG: -Malloc Sockets
+[2017-09-27 14:14:16] INFO: setting priv port to: %s
+[2017-09-27 14:14:16] INFO: setting pub port to: %s
+[2017-09-27 14:14:16] DEBUG: -Malloc Players
+[2017-09-27 14:14:16] DEBUG: -Malloc Player Actions
+[2017-09-27 14:14:16] DEBUG: - Init Player Args
+[2017-09-27 14:14:16] DEBUG: -Malloc Energy
+[2017-09-27 14:14:16] INFO:   == Init Map ==
+[2017-09-27 14:14:16] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:14:16] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:14:16] DEBUG:       mapsize: %d
+[2017-09-27 14:14:16] INFO:     == Place Walls ==
+[2017-09-27 14:14:16] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:14:16] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:14:16] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:14:16] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:14:16] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:14:16] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:14:16] INFO:     == Walls Done ==
+[2017-09-27 14:14:16] INFO:   == Map Done ==
+[2017-09-27 14:14:16] INFO: == Server Done ==
+[2017-09-27 14:14:16] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:14:16] DEBUG: printig
+[2017-09-27 14:14:16] DEBUG: 
+[2017-09-27 14:14:16] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:14:16] INFO: == Waiting for Connections ==
+[2017-09-27 14:14:18] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:14:18] INFO: Creating Context 1 Sockets
+[2017-09-27 14:14:18] INFO: Connecting to server…
+
+[2017-09-27 14:14:18] INFO: Setting identity
+
+[2017-09-27 14:14:18] INFO: UID: %s
+[2017-09-27 14:14:18] INFO: Login as ID: %s
+[2017-09-27 14:14:18] INFO: Sending: %s
+[2017-09-27 14:14:18] ERROR: Error while sending : %s
+[2017-09-27 14:14:18] DEBUG: Private2 => %s
+[2017-09-27 14:14:18] DEBUG: exlode
+[2017-09-27 14:14:18] DEBUG: Id: %s
+[2017-09-27 14:14:18] DEBUG: Action: %s
+[2017-09-27 14:14:18] DEBUG: data: %s
+[2017-09-27 14:14:18] DEBUG: adding client: %s
+[2017-09-27 14:14:18] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:14:18] DEBUG: look: %s
+[2017-09-27 14:14:18] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:14:18] INFO: Respondig: %s
+[2017-09-27 14:14:18] ERROR: Login Fail: %s
+[2017-09-27 14:18:25] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:18:25] INFO: == Init Server ==
+[2017-09-27 14:18:25] DEBUG: -Setting params
+[2017-09-27 14:18:25] DEBUG: - Init Server Args
+[2017-09-27 14:18:25] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:18:25] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:18:25] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:18:25] DEBUG: -Malloc Sockets
+[2017-09-27 14:18:25] INFO: setting priv port to: %s
+[2017-09-27 14:18:25] INFO: setting pub port to: %s
+[2017-09-27 14:18:25] DEBUG: -Malloc Players
+[2017-09-27 14:18:25] DEBUG: -Malloc Player Actions
+[2017-09-27 14:18:25] DEBUG: - Init Player Args
+[2017-09-27 14:18:25] DEBUG: -Malloc Energy
+[2017-09-27 14:18:25] INFO:   == Init Map ==
+[2017-09-27 14:18:25] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:18:25] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:18:25] DEBUG:       mapsize: %d
+[2017-09-27 14:18:25] INFO:     == Place Walls ==
+[2017-09-27 14:18:25] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:18:25] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:18:25] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:18:25] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:18:25] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:18:25] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:18:25] INFO:     == Walls Done ==
+[2017-09-27 14:18:25] INFO:   == Map Done ==
+[2017-09-27 14:18:25] INFO: == Server Done ==
+[2017-09-27 14:18:25] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:18:25] DEBUG: printig
+[2017-09-27 14:18:25] DEBUG: 
+[2017-09-27 14:18:25] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:18:25] INFO: == Waiting for Connections ==
+[2017-09-27 14:18:27] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:18:27] INFO: Creating Context 1 Sockets
+[2017-09-27 14:18:27] INFO: Connecting to server…
+
+[2017-09-27 14:18:27] INFO: Setting identity
+
+[2017-09-27 14:18:27] INFO: UID: %s
+[2017-09-27 14:18:27] INFO: Login as ID: %s
+[2017-09-27 14:18:27] INFO: Sending: %s
+[2017-09-27 14:18:27] ERROR: Error while sending : %s
+[2017-09-27 14:18:27] DEBUG: Private2 => %s
+[2017-09-27 14:18:27] DEBUG: exlode
+[2017-09-27 14:18:27] DEBUG: Id: %s
+[2017-09-27 14:18:27] DEBUG: Action: %s
+[2017-09-27 14:18:27] DEBUG: data: %s
+[2017-09-27 14:18:27] DEBUG: adding client: %s
+[2017-09-27 14:18:27] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:18:27] DEBUG: look: %s
+[2017-09-27 14:18:27] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:18:27] INFO: Respondig: %s
+[2017-09-27 14:18:27] ERROR: Login Fail: %s
+[2017-09-27 14:19:43] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:19:43] INFO: == Init Server ==
+[2017-09-27 14:19:43] DEBUG: -Setting params
+[2017-09-27 14:19:43] DEBUG: - Init Server Args
+[2017-09-27 14:19:43] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:19:43] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:19:43] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:19:43] DEBUG: -Malloc Sockets
+[2017-09-27 14:19:43] INFO: setting priv port to: %s
+[2017-09-27 14:19:43] INFO: setting pub port to: %s
+[2017-09-27 14:19:43] DEBUG: -Malloc Players
+[2017-09-27 14:19:43] DEBUG: -Malloc Player Actions
+[2017-09-27 14:19:43] DEBUG: - Init Player Args
+[2017-09-27 14:19:43] DEBUG: -Malloc Energy
+[2017-09-27 14:19:43] INFO:   == Init Map ==
+[2017-09-27 14:19:43] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:19:43] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:19:43] DEBUG:       mapsize: %d
+[2017-09-27 14:19:43] INFO:     == Place Walls ==
+[2017-09-27 14:19:43] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:19:43] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:19:43] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:19:43] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:19:43] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:19:43] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:19:43] INFO:     == Walls Done ==
+[2017-09-27 14:19:43] INFO:   == Map Done ==
+[2017-09-27 14:19:43] INFO: == Server Done ==
+[2017-09-27 14:19:43] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:19:43] DEBUG: printig
+[2017-09-27 14:19:43] DEBUG: 
+[2017-09-27 14:19:43] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:19:43] INFO: == Waiting for Connections ==
+[2017-09-27 14:19:44] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:19:44] INFO: Creating Context 1 Sockets
+[2017-09-27 14:19:44] INFO: Connecting to server…
+
+[2017-09-27 14:19:44] INFO: Setting identity
+
+[2017-09-27 14:19:44] INFO: UID: %s
+[2017-09-27 14:19:44] INFO: Login as ID: %s
+[2017-09-27 14:19:44] INFO: Sending: %s
+[2017-09-27 14:19:44] ERROR: Error while sending : %s
+[2017-09-27 14:19:44] DEBUG: Private2 => %s
+[2017-09-27 14:19:44] DEBUG: exlode
+[2017-09-27 14:19:44] DEBUG: Id: %s
+[2017-09-27 14:19:44] DEBUG: Action: %s
+[2017-09-27 14:19:44] DEBUG: data: %s
+[2017-09-27 14:19:44] DEBUG: adding client: %s
+[2017-09-27 14:19:44] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:19:44] DEBUG: look: %s
+[2017-09-27 14:19:44] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:19:44] INFO: Respondig: %s
+[2017-09-27 14:19:44] INFO: test: %s
+[2017-09-27 14:19:44] INFO: Login Success
+[2017-09-27 14:19:44] INFO: Sending: %s
+[2017-09-27 14:19:44] ERROR: Error while sending : %s
+[2017-09-27 14:19:45] DEBUG: Private2 => %s
+[2017-09-27 14:19:45] DEBUG: exlode
+[2017-09-27 14:19:45] DEBUG: Id: %s
+[2017-09-27 14:19:45] DEBUG: Action: %s
+[2017-09-27 14:19:45] DEBUG: data: %s
+[2017-09-27 14:19:58] INFO: Creating Context 1 Sockets
+[2017-09-27 14:19:58] INFO: Connecting to server…
+
+[2017-09-27 14:19:58] INFO: Setting identity
+
+[2017-09-27 14:19:58] INFO: UID: %s
+[2017-09-27 14:19:58] INFO: Login as ID: %s
+[2017-09-27 14:19:58] INFO: Sending: %s
+[2017-09-27 14:19:58] ERROR: Error while sending : %s
+[2017-09-27 14:21:24] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:21:24] INFO: == Init Server ==
+[2017-09-27 14:21:24] DEBUG: -Setting params
+[2017-09-27 14:21:24] DEBUG: - Init Server Args
+[2017-09-27 14:21:24] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:21:24] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:21:24] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:21:24] DEBUG: -Malloc Sockets
+[2017-09-27 14:21:24] INFO: setting priv port to: %s
+[2017-09-27 14:21:24] INFO: setting pub port to: %s
+[2017-09-27 14:21:24] DEBUG: -Malloc Players
+[2017-09-27 14:21:24] DEBUG: -Malloc Player Actions
+[2017-09-27 14:21:24] DEBUG: - Init Player Args
+[2017-09-27 14:21:24] DEBUG: -Malloc Energy
+[2017-09-27 14:21:24] INFO:   == Init Map ==
+[2017-09-27 14:21:24] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:21:24] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:21:24] DEBUG:       mapsize: %d
+[2017-09-27 14:21:24] INFO:     == Place Walls ==
+[2017-09-27 14:21:24] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:21:24] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:21:24] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:21:24] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:21:24] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:21:24] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:21:24] INFO:     == Walls Done ==
+[2017-09-27 14:21:24] INFO:   == Map Done ==
+[2017-09-27 14:21:24] INFO: == Server Done ==
+[2017-09-27 14:21:24] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:21:24] DEBUG: printig
+[2017-09-27 14:21:24] DEBUG: 
+[2017-09-27 14:21:24] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:21:24] INFO: == Waiting for Connections ==
+[2017-09-27 14:21:25] INFO: Creating Context 1 Sockets
+[2017-09-27 14:21:25] INFO: Connecting to server…
+
+[2017-09-27 14:21:25] INFO: Setting identity
+
+[2017-09-27 14:21:25] INFO: UID: %s
+[2017-09-27 14:21:25] INFO: Login as ID: %s
+[2017-09-27 14:21:25] INFO: Sending: %s
+[2017-09-27 14:21:25] ERROR: Error while sending : %s
+[2017-09-27 14:21:25] DEBUG: Private2 => %s
+[2017-09-27 14:21:25] DEBUG: exlode
+[2017-09-27 14:21:25] DEBUG: Id: %s
+[2017-09-27 14:21:25] DEBUG: Action: %s
+[2017-09-27 14:21:25] DEBUG: data: %s
+[2017-09-27 14:21:25] DEBUG: adding client: %s
+[2017-09-27 14:21:25] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:21:25] DEBUG: look: %s
+[2017-09-27 14:21:25] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:21:25] INFO: Respondig: %s
+[2017-09-27 14:21:25] INFO: test: %s
+[2017-09-27 14:21:25] INFO: Login Success
+[2017-09-27 14:21:25] INFO: Sending: %s
+[2017-09-27 14:21:25] ERROR: Error while sending : %s
+[2017-09-27 14:21:26] DEBUG: Private2 => %s
+[2017-09-27 14:21:26] DEBUG: exlode
+[2017-09-27 14:21:26] DEBUG: Id: %s
+[2017-09-27 14:21:26] DEBUG: Action: %s
+[2017-09-27 14:21:26] DEBUG: data: %s
+[2017-09-27 14:23:12] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:23:12] INFO: == Init Server ==
+[2017-09-27 14:23:12] DEBUG: -Setting params
+[2017-09-27 14:23:12] DEBUG: - Init Server Args
+[2017-09-27 14:23:12] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:23:12] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:23:12] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:23:12] DEBUG: -Malloc Sockets
+[2017-09-27 14:23:12] INFO: setting priv port to: %s
+[2017-09-27 14:23:12] INFO: setting pub port to: %s
+[2017-09-27 14:23:12] DEBUG: -Malloc Players
+[2017-09-27 14:23:12] DEBUG: -Malloc Player Actions
+[2017-09-27 14:23:12] DEBUG: - Init Player Args
+[2017-09-27 14:23:12] DEBUG: -Malloc Energy
+[2017-09-27 14:23:12] INFO:   == Init Map ==
+[2017-09-27 14:23:12] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:23:12] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:23:12] DEBUG:       mapsize: %d
+[2017-09-27 14:23:12] INFO:     == Place Walls ==
+[2017-09-27 14:23:12] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:23:12] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:23:12] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:23:12] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:23:12] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:23:12] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:23:12] INFO:     == Walls Done ==
+[2017-09-27 14:23:12] INFO:   == Map Done ==
+[2017-09-27 14:23:12] INFO: == Server Done ==
+[2017-09-27 14:23:12] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:23:12] DEBUG: printig
+[2017-09-27 14:23:12] DEBUG: 
+[2017-09-27 14:23:12] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:23:12] INFO: == Waiting for Connections ==
+[2017-09-27 14:23:14] INFO: Creating Context 1 Sockets
+[2017-09-27 14:23:14] INFO: Connecting to server…
+
+[2017-09-27 14:23:14] INFO: Setting identity
+
+[2017-09-27 14:23:14] INFO: UID: %s
+[2017-09-27 14:23:14] INFO: Login as ID: %s
+[2017-09-27 14:23:14] INFO: Sending: %s
+[2017-09-27 14:23:14] ERROR: Error while sending : %s
+[2017-09-27 14:23:14] DEBUG: Private2 => %s
+[2017-09-27 14:23:14] DEBUG: exlode
+[2017-09-27 14:23:14] DEBUG: Id: %s
+[2017-09-27 14:23:14] DEBUG: Action: %s
+[2017-09-27 14:23:14] DEBUG: data: %s
+[2017-09-27 14:23:14] DEBUG: adding client: %s
+[2017-09-27 14:23:14] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:23:14] DEBUG: look: %s
+[2017-09-27 14:23:14] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:23:14] INFO: Respondig: %s
+[2017-09-27 14:23:14] INFO: Respondig: %s
+[2017-09-27 14:23:14] INFO: test: %s
+[2017-09-27 14:23:14] INFO: Login Success
+[2017-09-27 14:23:14] INFO: Sending: %s
+[2017-09-27 14:23:14] ERROR: Error while sending : %s
+[2017-09-27 14:23:15] DEBUG: Private2 => %s
+[2017-09-27 14:23:15] DEBUG: exlode
+[2017-09-27 14:23:15] DEBUG: Id: %s
+[2017-09-27 14:23:15] DEBUG: Action: %s
+[2017-09-27 14:23:15] DEBUG: data: %s
+[2017-09-27 14:23:58] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:23:58] INFO: == Init Server ==
+[2017-09-27 14:23:58] DEBUG: -Setting params
+[2017-09-27 14:23:58] DEBUG: - Init Server Args
+[2017-09-27 14:23:58] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:23:58] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:23:58] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:23:58] DEBUG: -Malloc Sockets
+[2017-09-27 14:23:58] INFO: setting priv port to: %s
+[2017-09-27 14:23:58] INFO: setting pub port to: %s
+[2017-09-27 14:23:58] DEBUG: -Malloc Players
+[2017-09-27 14:23:58] DEBUG: -Malloc Player Actions
+[2017-09-27 14:23:58] DEBUG: - Init Player Args
+[2017-09-27 14:23:58] DEBUG: -Malloc Energy
+[2017-09-27 14:23:58] INFO:   == Init Map ==
+[2017-09-27 14:23:58] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:23:58] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:23:58] DEBUG:       mapsize: %d
+[2017-09-27 14:23:58] INFO:     == Place Walls ==
+[2017-09-27 14:23:58] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:23:58] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:23:58] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:23:58] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:23:58] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:23:58] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:23:58] INFO:     == Walls Done ==
+[2017-09-27 14:23:58] INFO:   == Map Done ==
+[2017-09-27 14:23:58] INFO: == Server Done ==
+[2017-09-27 14:23:58] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:23:58] DEBUG: printig
+[2017-09-27 14:23:58] DEBUG: 
+[2017-09-27 14:23:58] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:23:58] INFO: == Waiting for Connections ==
+[2017-09-27 14:24:00] INFO: Creating Context 1 Sockets
+[2017-09-27 14:24:00] INFO: Connecting to server…
+
+[2017-09-27 14:24:00] INFO: Setting identity
+
+[2017-09-27 14:24:00] INFO: UID: %s
+[2017-09-27 14:24:00] INFO: Login as ID: %s
+[2017-09-27 14:24:00] INFO: Sending: %s
+[2017-09-27 14:24:00] ERROR: Error while sending : %s
+[2017-09-27 14:24:00] DEBUG: Private2 => %s
+[2017-09-27 14:24:00] DEBUG: exlode
+[2017-09-27 14:24:00] DEBUG: Id: %s
+[2017-09-27 14:24:00] DEBUG: Action: %s
+[2017-09-27 14:24:00] DEBUG: data: %s
+[2017-09-27 14:24:00] DEBUG: adding client: %s
+[2017-09-27 14:24:00] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:24:00] DEBUG: look: %s
+[2017-09-27 14:24:00] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:24:00] INFO: Respondig: %s
+[2017-09-27 14:24:00] INFO: test: %s
+[2017-09-27 14:24:00] INFO: Login Success
+[2017-09-27 14:24:00] INFO: Sending: %s
+[2017-09-27 14:24:00] ERROR: Error while sending : %s
+[2017-09-27 14:24:01] DEBUG: Private2 => %s
+[2017-09-27 14:24:01] DEBUG: exlode
+[2017-09-27 14:24:01] DEBUG: Id: %s
+[2017-09-27 14:24:01] DEBUG: Action: %s
+[2017-09-27 14:24:01] DEBUG: data: %s
+[2017-09-27 14:24:01] INFO: Respondig: %s
+[2017-09-27 14:29:27] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:29:27] INFO: == Init Server ==
+[2017-09-27 14:29:27] DEBUG: -Setting params
+[2017-09-27 14:29:27] DEBUG: - Init Server Args
+[2017-09-27 14:29:27] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:29:27] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:29:27] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:29:27] DEBUG: -Malloc Sockets
+[2017-09-27 14:29:27] INFO: setting priv port to: %s
+[2017-09-27 14:29:27] INFO: setting pub port to: %s
+[2017-09-27 14:29:27] DEBUG: -Malloc Players
+[2017-09-27 14:29:27] DEBUG: -Malloc Player Actions
+[2017-09-27 14:29:27] DEBUG: - Init Player Args
+[2017-09-27 14:29:27] DEBUG: -Malloc Energy
+[2017-09-27 14:29:27] INFO:   == Init Map ==
+[2017-09-27 14:29:27] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:29:27] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:29:27] DEBUG:       mapsize: %d
+[2017-09-27 14:29:27] INFO:     == Place Walls ==
+[2017-09-27 14:29:27] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:29:27] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:29:27] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:29:27] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:29:27] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:29:27] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:29:27] INFO:     == Walls Done ==
+[2017-09-27 14:29:27] INFO:   == Map Done ==
+[2017-09-27 14:29:27] INFO: == Server Done ==
+[2017-09-27 14:29:27] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:29:27] DEBUG: printig
+[2017-09-27 14:29:27] DEBUG: 
+[2017-09-27 14:29:27] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:29:27] INFO: == Waiting for Connections ==
+[2017-09-27 14:29:29] INFO: Creating Context 1 Sockets
+[2017-09-27 14:29:29] INFO: Connecting to server…
+
+[2017-09-27 14:29:29] INFO: Setting identity
+
+[2017-09-27 14:29:29] INFO: UID: %s
+[2017-09-27 14:29:29] INFO: Login as ID: %s
+[2017-09-27 14:29:29] INFO: Sending: %s
+[2017-09-27 14:29:29] ERROR: Error while sending : %s
+[2017-09-27 14:29:29] DEBUG: Private2 => %s
+[2017-09-27 14:29:29] DEBUG: exlode
+[2017-09-27 14:29:29] DEBUG: Id: %s
+[2017-09-27 14:29:29] DEBUG: Action: %s
+[2017-09-27 14:29:29] DEBUG: data: %s
+[2017-09-27 14:29:29] DEBUG: adding client: %s
+[2017-09-27 14:29:29] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:29:29] DEBUG: look: %s
+[2017-09-27 14:29:29] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:29:29] INFO: Respondig: %s
+[2017-09-27 14:29:29] INFO: test: %s
+[2017-09-27 14:29:29] INFO: Login Success
+[2017-09-27 14:29:29] INFO: Sending: %s
+[2017-09-27 14:29:29] ERROR: Error while sending : %s
+[2017-09-27 14:29:30] DEBUG: Private2 => %s
+[2017-09-27 14:29:30] DEBUG: exlode
+[2017-09-27 14:29:30] DEBUG: Id: %s
+[2017-09-27 14:29:30] DEBUG: Action: %s
+[2017-09-27 14:29:30] DEBUG: data: %s
+[2017-09-27 14:29:30] DEBUG: ### Getting Vision for: %s
+[2017-09-27 14:29:30] DEBUG: -pos: %d
+[2017-09-27 14:29:30] DEBUG: -look: %d
+[2017-09-27 14:29:30] DEBUG: POS: %d
+[2017-09-27 14:29:30] DEBUG: CHAR: %c
+[2017-09-27 14:29:30] DEBUG: DONE WALL
+[2017-09-27 14:29:30] INFO: Line: %s
+[2017-09-27 14:29:30] INFO: Respondig: %s
+[2017-09-27 14:32:56] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:32:56] INFO: == Init Server ==
+[2017-09-27 14:32:56] DEBUG: -Setting params
+[2017-09-27 14:32:56] DEBUG: - Init Server Args
+[2017-09-27 14:32:56] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:32:56] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:32:56] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:32:56] DEBUG: -Malloc Sockets
+[2017-09-27 14:32:56] INFO: setting priv port to: %s
+[2017-09-27 14:32:56] INFO: setting pub port to: %s
+[2017-09-27 14:32:56] DEBUG: -Malloc Players
+[2017-09-27 14:32:56] DEBUG: -Malloc Player Actions
+[2017-09-27 14:32:56] DEBUG: - Init Player Args
+[2017-09-27 14:32:56] DEBUG: -Malloc Energy
+[2017-09-27 14:32:56] INFO:   == Init Map ==
+[2017-09-27 14:32:56] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:32:56] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:32:56] DEBUG:       mapsize: %d
+[2017-09-27 14:32:56] INFO:     == Place Walls ==
+[2017-09-27 14:32:56] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:32:56] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:32:56] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:32:56] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:32:56] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:32:56] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:32:56] INFO:     == Walls Done ==
+[2017-09-27 14:32:56] INFO:   == Map Done ==
+[2017-09-27 14:32:56] INFO: == Server Done ==
+[2017-09-27 14:32:56] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:32:56] DEBUG: printig
+[2017-09-27 14:32:56] DEBUG: 
+[2017-09-27 14:32:56] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:32:56] INFO: == Waiting for Connections ==
+[2017-09-27 14:32:58] INFO: Creating Context 1 Sockets
+[2017-09-27 14:32:58] INFO: Connecting to server…
+
+[2017-09-27 14:32:58] INFO: Setting identity
+
+[2017-09-27 14:32:58] INFO: UID: %s
+[2017-09-27 14:32:58] INFO: Login as ID: %s
+[2017-09-27 14:32:58] INFO: Sending: %s
+[2017-09-27 14:32:58] ERROR: Error while sending : %s
+[2017-09-27 14:32:58] DEBUG: Private2 => %s
+[2017-09-27 14:32:58] DEBUG: exlode
+[2017-09-27 14:32:58] DEBUG: Id: %s
+[2017-09-27 14:32:58] DEBUG: Action: %s
+[2017-09-27 14:32:58] DEBUG: data: %s
+[2017-09-27 14:32:58] DEBUG: adding client: %s
+[2017-09-27 14:32:58] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:32:58] DEBUG: look: %s
+[2017-09-27 14:32:58] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:32:58] INFO: Respondig: %s
+[2017-09-27 14:32:58] INFO: test: %s
+[2017-09-27 14:32:58] INFO: Login Success
+[2017-09-27 14:32:58] INFO: Sending: %s
+[2017-09-27 14:32:58] ERROR: Error while sending : %s
+[2017-09-27 14:32:59] DEBUG: Private2 => %s
+[2017-09-27 14:32:59] DEBUG: exlode
+[2017-09-27 14:32:59] DEBUG: Id: %s
+[2017-09-27 14:32:59] DEBUG: Action: %s
+[2017-09-27 14:32:59] DEBUG: data: %s
+[2017-09-27 14:32:59] DEBUG: ### Getting Vision for: %s
+[2017-09-27 14:32:59] DEBUG: -pos: %d
+[2017-09-27 14:32:59] DEBUG: -look: %d
+[2017-09-27 14:32:59] DEBUG: POS: %d
+[2017-09-27 14:32:59] DEBUG: CHAR: %c
+[2017-09-27 14:32:59] DEBUG: POS: %d
+[2017-09-27 14:32:59] DEBUG: CHAR: %c
+[2017-09-27 14:32:59] INFO: Line: %s
+[2017-09-27 14:32:59] INFO: Respondig: %s
+[2017-09-27 14:36:11] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:36:11] INFO: == Init Server ==
+[2017-09-27 14:36:11] DEBUG: -Setting params
+[2017-09-27 14:36:11] DEBUG: - Init Server Args
+[2017-09-27 14:36:11] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:36:11] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:36:11] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:36:11] DEBUG: -Malloc Sockets
+[2017-09-27 14:36:11] INFO: setting priv port to: %s
+[2017-09-27 14:36:11] INFO: setting pub port to: %s
+[2017-09-27 14:36:11] DEBUG: -Malloc Players
+[2017-09-27 14:36:11] DEBUG: -Malloc Player Actions
+[2017-09-27 14:36:11] DEBUG: - Init Player Args
+[2017-09-27 14:36:11] DEBUG: -Malloc Energy
+[2017-09-27 14:36:11] INFO:   == Init Map ==
+[2017-09-27 14:36:11] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:36:11] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:36:11] DEBUG:       mapsize: %d
+[2017-09-27 14:36:11] INFO:     == Place Walls ==
+[2017-09-27 14:36:11] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:36:11] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:36:11] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:36:11] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:36:11] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:36:11] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:36:11] INFO:     == Walls Done ==
+[2017-09-27 14:36:11] INFO:   == Map Done ==
+[2017-09-27 14:36:11] INFO: == Server Done ==
+[2017-09-27 14:36:11] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:36:11] DEBUG: printig
+[2017-09-27 14:36:11] DEBUG: 
+[2017-09-27 14:36:11] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:36:11] INFO: == Waiting for Connections ==
+[2017-09-27 14:36:14] INFO: Creating Context 1 Sockets
+[2017-09-27 14:36:14] INFO: Connecting to server…
+
+[2017-09-27 14:36:14] INFO: Setting identity
+
+[2017-09-27 14:36:14] INFO: UID: %s
+[2017-09-27 14:36:14] INFO: Login as ID: %s
+[2017-09-27 14:36:14] INFO: Sending: %s
+[2017-09-27 14:36:14] ERROR: Error while sending : %s
+[2017-09-27 14:36:14] DEBUG: Private2 => %s
+[2017-09-27 14:36:14] DEBUG: exlode
+[2017-09-27 14:36:14] DEBUG: Id: %s
+[2017-09-27 14:36:14] DEBUG: Action: %s
+[2017-09-27 14:36:14] DEBUG: data: %s
+[2017-09-27 14:36:14] DEBUG: adding client: %s
+[2017-09-27 14:36:14] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:36:14] DEBUG: look: %s
+[2017-09-27 14:36:14] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:36:14] INFO: Respondig: %s
+[2017-09-27 14:36:14] INFO: test: %s
+[2017-09-27 14:36:14] INFO: Login Success
+[2017-09-27 14:36:14] INFO: Sending: %s
+[2017-09-27 14:36:14] ERROR: Error while sending : %s
+[2017-09-27 14:36:15] DEBUG: Private2 => %s
+[2017-09-27 14:36:15] DEBUG: exlode
+[2017-09-27 14:36:15] DEBUG: Id: %s
+[2017-09-27 14:36:15] DEBUG: Action: %s
+[2017-09-27 14:36:15] DEBUG: data: %s
+[2017-09-27 14:36:15] DEBUG: ### Getting Vision for: %s
+[2017-09-27 14:36:15] DEBUG: -pos: %d
+[2017-09-27 14:36:15] DEBUG: -look: %d
+[2017-09-27 14:36:15] DEBUG: POS: %d
+[2017-09-27 14:36:15] DEBUG: CHAR: %c
+[2017-09-27 14:36:15] DEBUG: POS: %d
+[2017-09-27 14:36:15] DEBUG: CHAR: %c
+[2017-09-27 14:36:15] INFO: Line: %s
+[2017-09-27 14:36:15] INFO: Respondig: %s
+[2017-09-27 14:38:10] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:38:10] INFO: == Init Server ==
+[2017-09-27 14:38:10] DEBUG: -Setting params
+[2017-09-27 14:38:10] DEBUG: - Init Server Args
+[2017-09-27 14:38:10] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:38:10] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:38:10] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:38:10] DEBUG: -Malloc Sockets
+[2017-09-27 14:38:10] INFO: setting priv port to: %s
+[2017-09-27 14:38:10] INFO: setting pub port to: %s
+[2017-09-27 14:38:10] DEBUG: -Malloc Players
+[2017-09-27 14:38:10] DEBUG: -Malloc Player Actions
+[2017-09-27 14:38:10] DEBUG: - Init Player Args
+[2017-09-27 14:38:10] DEBUG: -Malloc Energy
+[2017-09-27 14:38:10] INFO:   == Init Map ==
+[2017-09-27 14:38:10] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:38:10] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:38:10] DEBUG:       mapsize: %d
+[2017-09-27 14:38:10] INFO:     == Place Walls ==
+[2017-09-27 14:38:10] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:38:10] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:38:10] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:38:10] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:38:10] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:38:10] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:38:10] INFO:     == Walls Done ==
+[2017-09-27 14:38:10] INFO:   == Map Done ==
+[2017-09-27 14:38:10] INFO: == Server Done ==
+[2017-09-27 14:38:10] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:38:10] DEBUG: printig
+[2017-09-27 14:38:10] DEBUG: 
+[2017-09-27 14:38:10] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:38:10] INFO: == Waiting for Connections ==
+[2017-09-27 14:39:04] INFO: Creating Context 1 Sockets
+[2017-09-27 14:39:04] INFO: Connecting to server…
+
+[2017-09-27 14:39:04] INFO: Setting identity
+
+[2017-09-27 14:39:04] INFO: UID: %s
+[2017-09-27 14:39:04] INFO: Login as ID: %s
+[2017-09-27 14:39:04] INFO: Sending: %s
+[2017-09-27 14:39:04] ERROR: Error while sending : %s
+[2017-09-27 14:39:04] DEBUG: Private2 => %s
+[2017-09-27 14:39:04] DEBUG: exlode
+[2017-09-27 14:39:04] DEBUG: Id: %s
+[2017-09-27 14:39:04] DEBUG: Action: %s
+[2017-09-27 14:39:04] DEBUG: data: %s
+[2017-09-27 14:39:04] DEBUG: adding client: %s
+[2017-09-27 14:39:04] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:39:04] DEBUG: look: %s
+[2017-09-27 14:39:04] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:39:04] INFO: Respondig: %s
+[2017-09-27 14:39:04] INFO: test: %s
+[2017-09-27 14:39:04] INFO: Login Success
+[2017-09-27 14:39:04] INFO: Sending: %s
+[2017-09-27 14:39:04] ERROR: Error while sending : %s
+[2017-09-27 14:39:05] DEBUG: Private2 => %s
+[2017-09-27 14:39:05] DEBUG: exlode
+[2017-09-27 14:39:05] DEBUG: Id: %s
+[2017-09-27 14:39:05] DEBUG: Action: %s
+[2017-09-27 14:39:05] DEBUG: data: %s
+[2017-09-27 14:39:05] DEBUG: ### Getting Vision for: %s
+[2017-09-27 14:39:05] DEBUG: -pos: %d
+[2017-09-27 14:39:05] DEBUG: -look: %d
+[2017-09-27 14:39:05] DEBUG: POS: %d
+[2017-09-27 14:39:05] DEBUG: CHAR: %c
+[2017-09-27 14:39:05] DEBUG: POS: %d
+[2017-09-27 14:39:05] DEBUG: CHAR: %c
+[2017-09-27 14:39:05] INFO: Line: %s
+[2017-09-27 14:39:05] INFO: Respondig: %s
+[2017-09-27 14:39:20] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-09-27 14:39:20] INFO: == Init Server ==
+[2017-09-27 14:39:20] DEBUG: -Setting params
+[2017-09-27 14:39:20] DEBUG: - Init Server Args
+[2017-09-27 14:39:20] WARNING: Undefined Private port
+Port set to: %d
+[2017-09-27 14:39:20] WARNING: Undefined Publish port
+Port set to: %d
+[2017-09-27 14:39:20] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-09-27 14:39:20] DEBUG: -Malloc Sockets
+[2017-09-27 14:39:20] INFO: setting priv port to: %s
+[2017-09-27 14:39:20] INFO: setting pub port to: %s
+[2017-09-27 14:39:20] DEBUG: -Malloc Players
+[2017-09-27 14:39:20] DEBUG: -Malloc Player Actions
+[2017-09-27 14:39:20] DEBUG: - Init Player Args
+[2017-09-27 14:39:20] DEBUG: -Malloc Energy
+[2017-09-27 14:39:20] INFO:   == Init Map ==
+[2017-09-27 14:39:20] DEBUG:     -Map size not Set Setting to default
+[2017-09-27 14:39:20] INFO:     == Set Map Size (%d) ==
+[2017-09-27 14:39:20] DEBUG:       mapsize: %d
+[2017-09-27 14:39:20] INFO:     == Place Walls ==
+[2017-09-27 14:39:20] DEBUG:       -Walls Ratio: %d
+[2017-09-27 14:39:20] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:39:20] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:39:20] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:39:20] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:39:20] DEBUG:       -Wall #%d: %d
+[2017-09-27 14:39:20] INFO:     == Walls Done ==
+[2017-09-27 14:39:20] INFO:   == Map Done ==
+[2017-09-27 14:39:20] INFO: == Server Done ==
+[2017-09-27 14:39:20] DEBUG: 
+== Map Preview ==
+[2017-09-27 14:39:20] DEBUG: printig
+[2017-09-27 14:39:20] DEBUG: 
+[2017-09-27 14:39:20] INFO: 
+== Private Thread Launched ==
+[2017-09-27 14:39:20] INFO: == Waiting for Connections ==
+[2017-09-27 14:39:22] INFO: Creating Context 1 Sockets
+[2017-09-27 14:39:22] INFO: Connecting to server…
+
+[2017-09-27 14:39:22] INFO: Setting identity
+
+[2017-09-27 14:39:22] INFO: UID: %s
+[2017-09-27 14:39:22] INFO: Login as ID: %s
+[2017-09-27 14:39:22] INFO: Sending: %s
+[2017-09-27 14:39:22] ERROR: Error while sending : %s
+[2017-09-27 14:39:22] DEBUG: Private2 => %s
+[2017-09-27 14:39:22] DEBUG: exlode
+[2017-09-27 14:39:22] DEBUG: Id: %s
+[2017-09-27 14:39:22] DEBUG: Action: %s
+[2017-09-27 14:39:22] DEBUG: data: %s
+[2017-09-27 14:39:22] DEBUG: adding client: %s
+[2017-09-27 14:39:22] DEBUG: New client '%s' at pos: %d
+[2017-09-27 14:39:22] DEBUG: look: %s
+[2017-09-27 14:39:22] DEBUG: Coords: x:%d y:%d
+[2017-09-27 14:39:22] INFO: Respondig: %s
+[2017-09-27 14:39:22] INFO: test: %s
+[2017-09-27 14:39:22] INFO: test2: %s
+[2017-09-27 14:39:22] INFO: Login Success
+[2017-09-27 14:39:22] INFO: Sending: %s
+[2017-09-27 14:39:22] ERROR: Error while sending : %s
+[2017-09-27 14:39:23] DEBUG: Private2 => %s
+[2017-09-27 14:39:23] DEBUG: exlode
+[2017-09-27 14:39:23] DEBUG: Id: %s
+[2017-09-27 14:39:23] DEBUG: Action: %s
+[2017-09-27 14:39:23] DEBUG: data: %s
+[2017-09-27 14:39:23] DEBUG: ### Getting Vision for: %s
+[2017-09-27 14:39:23] DEBUG: -pos: %d
+[2017-09-27 14:39:23] DEBUG: -look: %d
+[2017-09-27 14:39:23] DEBUG: POS: %d
+[2017-09-27 14:39:23] DEBUG: CHAR: %c
+[2017-09-27 14:39:23] DEBUG: DONE WALL
+[2017-09-27 14:39:23] INFO: Line: %s
+[2017-09-27 14:39:23] INFO: Respondig: %s

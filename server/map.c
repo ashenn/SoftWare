@@ -203,6 +203,8 @@ void getVerticalLine(int pos, int dir, int len, char res[], short stopOnWall){
             break;
         }
     }
+    
+    res[i+1] = '\0';
 }
 
 void getHorizontalLine(int pos, int dir, int len, char res[], short stopOnWall){
@@ -233,6 +235,8 @@ void getHorizontalLine(int pos, int dir, int len, char res[], short stopOnWall){
             break;
         }
     }
+    
+    res[i+1] = '\0';
 }
 
 void getLine(int pos, int dir, int len, char res[], short stopOnWall){
@@ -246,12 +250,14 @@ void getLine(int pos, int dir, int len, char res[], short stopOnWall){
 }
 
 void getVison(Player* p){
-    int pos = p->pos;
+    int pos = p->position;
     int look = p->looking;
 
     logger->dbg("### Getting Vision for: %s", p->name);
     logger->dbg("-pos: %d", pos);
     logger->dbg("-look: %d", look);
 
-
+    char line[5];
+    getLine(pos, look, 2, line, 1);
+    logger->inf("Line: %s", line);
 }
