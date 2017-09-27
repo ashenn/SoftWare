@@ -1,7 +1,5 @@
 #include "client.h"
 
-
-
 Client* getClient() {
     static Client *c = NULL;
 
@@ -31,17 +29,8 @@ Client* getClient() {
     return c;
 }
 
-void handleIdentity (char *data) {
-    char* mapDatas[2];
-    int coordinates[2];
-    explode(';', data, 0, 3, mapDatas);
-    
-    pos2coord(str2int(mapDatas[0]), str2int(mapDatas[1]), coordinates);
-    logger->inf("CONNECTED !!!!, you are in {%s, %s}", coordinates[0], coordinates[1]);
-}
 
-
-void* handlePrivateResponse(char *packet, void (*callback)(char*)) {
+void* handlePrivateResponse(char *packet, void (*callback)(char*, void*), void* destination) {
     char* req[2];
         
     if (strlen(packet) > 1){
@@ -55,17 +44,20 @@ void* handlePrivateResponse(char *packet, void (*callback)(char*)) {
         logger->dbg("status: %s", req[0]);
         logger->dbg("data: %s", req[1]);
 
-        if (req[0] == "ko")
+        if (strcmp(req[0], "ok")) {
+            logger->err("Server returned ko");
+            destination = NULL;
             return NULL;
+        }
 
-        callback(req[1]);
+        callback(req[1], destination);
 
         memset(packet, 0, sizeof(packet));
     }
 }
 
 
-int sendMsg(char* action, char* data, void (*callback)(char*)){
+int sendMsg(char* action, char* data, void (*callback)(char*, void*), void* destination){
     char buffer[100];
     Client *client = getClient();
     int len = strlen(client->uid) + strlen(action) + strlen(data) + 3;
@@ -78,7 +70,7 @@ int sendMsg(char* action, char* data, void (*callback)(char*)){
         logger->err("Error while sending : %s",  strerror(errno));
 
     zmq_recv(client->sockets->private, buffer, 100, 0);
-    handlePrivateResponse(buffer, callback);
+    handlePrivateResponse(buffer, callback, destination);
 
 }
  
@@ -176,8 +168,21 @@ int main (int argc, char* argv[])
     char buffer[100];
     logger->inf("Login as ID: %s", client->uid);
 
-    sendMsg("identify", client->uid, &handleIdentity);
     memset(buffer, 0, sizeof(buffer));
+
+    int *coordinates = sendIdentity ();
+    if (coordinates == NULL) {
+        logger->inf("identify fail");
+    }
+
+    char *uidFromServer = sendSelfId ();
+    if (coordinates == NULL) {
+        logger->inf("selfid fail");
+    }
+
+    int test = sendRight();
+    if  (test == 0)
+        logger->err("right foire");
 
     pthread_t sub;
     if (pthread_create(&sub, NULL, HandleNotif, NULL)) {

@@ -21,7 +21,7 @@ gcc -o\
 	map.o\
 	server_player.o\
 	server_socket.o\
-	/usr/local/lib/libzmq.so -lpthread
+	/usr/lib/x86_64-linux-gnu/libzmq.so -lpthread
 
 gcc -c \
 	base/basic.c \
@@ -29,6 +29,9 @@ gcc -c \
 	base/logger.c \
 	base/libList.c \
 	common.c \
+	client/actions/identity.c \
+	client/actions/selfid.c \
+	client/actions/directions.c \
 	client/client.c \
 	-llibzmq -lpthread
 
@@ -39,8 +42,11 @@ gcc -o\
 	logger.o\
 	libList.o\
 	common.o\
+	identity.o \
 	client.o\
-	/usr/local/lib/libzmq.so -lpthread
+	selfid.o\
+	directions.o\
+	/usr/lib/x86_64-linux-gnu/libzmq.so -lpthread
 
 # gcc -c basic.c libParse.c logger.c libList.c client.c -llibzmq -lpthread
 # gcc -o cli basic.o libParse.o logger.o libList.o client.o /usr/local/lib/libzmq.so -lpthread
