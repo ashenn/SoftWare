@@ -26,7 +26,7 @@ void* NewClent(char* name){
     if (s->game_status > 0){
         logger->inf("Game Started Refusing.");
         Respond("ko|game started");
-        return;
+        return NULL;
     }
 
     if (s->players->nodeCount >= 4){
@@ -38,7 +38,7 @@ void* NewClent(char* name){
     if (getNodeByName(s->players, name) != NULL){
         logger->inf("Id already exists, refusing.");
         Respond("ko");
-        return;
+        return NULL;
     }
 
     int i;
@@ -64,7 +64,7 @@ void* NewClent(char* name){
     if (!vacant){
         logger->err("Faild To Add New Player: No vacant place left");
         Respond("ko");
-        return;
+        return NULL;
     }
 
     int co[2];
@@ -93,7 +93,7 @@ void* NewClent(char* name){
         logger->err("Faild To Add New Player Node");
         Respond("ko");
         free(p);
-        return;
+        return NULL;
     }
 
     Respond("ok");
@@ -142,7 +142,7 @@ void rotate(Player* p, int dir){
 void* right(){
     Player* p = getCurPlayer();
     if (!takeAction(p, 1)){
-        return;
+        return NULL;
     }
 
     rotate(p, TURN_RIGHT);
@@ -152,7 +152,7 @@ void* right(){
 void* left(){
     Player* p = getCurPlayer();
     if (!takeAction(p, 1)){
-        return;
+        return NULL;
     }
 
     rotate(p, TURN_LEFT);
@@ -173,12 +173,12 @@ void* selfstats(){
 
 void* removeEnergy(Player* p, int amt){
     // logger->inf("Process: '%s' lost energy: %d", p->name, amt);
-    // return;
+    // return NULL;
     p->energy -= amt;
     // logger->inf("Energy Left: %d", p->energy);
 
     if (p->energy > 0){
-        return;
+        return NULL;
     }
     p->energy = 0;
     
@@ -193,7 +193,7 @@ void* removeEnergy(Player* p, int amt){
 void* gatherEnergy(){
     Player* p = getCurPlayer();
     if (!takeAction(p, 2)){
-        return;
+        return NULL;
     }
 
     EnergyCell* e = getEnergyAtPos(p->position);

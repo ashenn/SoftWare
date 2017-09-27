@@ -43,7 +43,7 @@ void genEnergy(){
 
     if (!limit){
         logger->dbg("Fail to place Energy");
-        return;
+        return NULL;
     }
 
     logger->dbg("Energy Placed At Pos: %d", pos);
@@ -238,9 +238,9 @@ void getHorizontalLine(int pos, int dir, int len, char res[], short stopOnWall){
 void getLine(int pos, int dir, int len, char res[], short stopOnWall){
     if (dir == UP || dir == DOWN ){
         getVerticalLine(pos, dir, len, res, stopOnWall);
-        return;
+        return NULL;
     }
 
     getHorizontalLine(pos, dir, len, res, stopOnWall);
-    return;
+    return NULL;
 }
