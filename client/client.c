@@ -55,10 +55,10 @@ int main (int argc, char* argv[])
 
     zmq_connect (requester, "tcp://localhost:4242");
     
-
-    memset(buffer, 0, sizeof(buffer));
+    logger->inf("Login as ID: %s", uid);
 
     sendMsg(requester, "", "identify", uid);
+    memset(buffer, 0, sizeof(buffer));
     
     zmq_recv (requester, buffer, 100, 0);
     if (strcmp(buffer, "ok")){
@@ -67,9 +67,9 @@ int main (int argc, char* argv[])
     }
     memset(buffer, 0, sizeof(buffer));
 
+    logger->inf("Login Success");
 
-    // sendMsg(requester, uid, "right", "");
-    logger->inf("Enter Loop\n");
+    logger->dbg("Enter Loop\n");
     while(1){
         zmq_recv (requester, buffer, 100, 0);
         if (strlen(buffer) > 1)
