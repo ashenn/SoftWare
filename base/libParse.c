@@ -38,7 +38,12 @@ int callArg(ListManager* lstMgr, char* name, void* val){
 		if (arg->asInt)
 		{
 			if (arg->defParam != NULL){
-				arg->function(arg->defParam, (*(int*)val));
+				if (val == NULL){
+					arg->function(str2int(arg->defParam));
+				}
+				else{
+					arg->function(str2int(arg->defParam), (*(int*)val));
+				}
 			}	
 			else{
 				arg->function((*(int*)val));
@@ -46,7 +51,12 @@ int callArg(ListManager* lstMgr, char* name, void* val){
 		}
 		else{
 			if (arg->defParam != NULL){
-				arg->function(arg->defParam, (char*)val);
+				if (val == NULL){
+					arg->function((char*) arg->defParam);
+				}
+				else{
+					arg->function(arg->defParam, (char*)val);
+				}
 			}
 			else{
 				arg->function((char*)val);

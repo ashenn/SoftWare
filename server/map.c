@@ -292,6 +292,8 @@ void getVison(Player* p){
     logger->dbg("-pos: %d", pos);
     logger->dbg("-look: %d", look);
 
+    int mult;
+    int base;
     switch(look){
         case DOWN:
             mult = 1;
@@ -323,6 +325,7 @@ void getVison(Player* p){
     for (i = 0; i < 5; ++i){
         pos = p->position + 1 + (1*i>0);
 
+        
         resp[i] = c;
     }
 }

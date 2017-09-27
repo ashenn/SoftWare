@@ -20,6 +20,28 @@ Player* getCurPlayer(){
     return (Player*) n->value;
 }
 
+Player* getPlayerByName(char* name){
+    GameInfo* s = getServer();
+    Node* n = s->players->first;
+    Player* p;
+
+    if (n == NULL){
+        return NULL;
+    }
+
+    do{
+        p = (Player*) n->value;
+
+        if (strcmp(p->name, name)){
+            return p;
+        }
+
+        n = n->next;
+    }while(n != s->players->first && n != NULL);
+
+    return NULL;
+}
+
 void* NewClent(char* name){
     GameInfo* s = getServer();
     logger->dbg("adding client: %s", name);
@@ -142,6 +164,7 @@ void rotate(Player* p, int dir){
 void* right(){
     Player* p = getCurPlayer();
     if (!takeAction(p, 1)){
+        Respond("ko|Not enougth energy");
         return NULL;
     }
 
@@ -164,18 +187,8 @@ void* selfid(){
     Respond("ok|%s", s->curPlayer);
 }
 
-void* selfstats(){
-    Player* p = getCurPlayer();
-    char m[4];
-    sprintf(m, "%d", p->energy);
-    Respond(m);
-}
-
 void* removeEnergy(Player* p, int amt){
-    // logger->inf("Process: '%s' lost energy: %d", p->name, amt);
-    // return NULL;
     p->energy -= amt;
-    // logger->inf("Energy Left: %d", p->energy);
 
     if (p->energy > 0){
         return NULL;
@@ -230,6 +243,11 @@ void* HandlePrivate(){
 
             strcpy(s->curPlayer, req[0]);
             
+            if (!strlen(req[2])){
+                req[2] = NULL;
+                logger->war("Empty Func Param: %d", req[2] == NULL);
+            }
+
             if (!callArg(s->player_actions, req[1], req[2])){
                 Respond("ko|Bad action");
             }
@@ -266,14 +284,84 @@ void* selfstats(){
     Respond("ok|%d", p->energy);
 }
 
-// void* selfstats(){
-//     Player* p = getCurPlayer();
-//     if (p == NULL){
-//         Respond("ko");
-//     }
+void* inspect(char* name){
+    Player* p = getCurPlayer();
+    if (!takeAction(p, 1)){
+        Respond("ko|Not enougth energy");
+        return NULL;
+    }
 
-//     Respond("ok|%d", p->energy);
-// }
+    p = getPlayerByName(name);
+    logger->dbg("Searching for: %s", name);
+    if (p == NULL){
+        Respond("ko|Bad ID");
+    }
+
+    Respond("ok|%d", p->energy);
+}
+
+short move(Player* p, int pos, int cost){
+    GameInfo* s = getServer();
+
+    if (!posInBound(pos, s->map_size, p->looking)){
+        logger->war("Cell %d out of bound", pos);
+        return 0;
+    }
+
+    if (s->map[pos] != CELL_EMPTY && s->map[pos] != CELL_ENRG){
+        logger->war("Cell %d Occupided: %c", pos, s->map[pos]);
+        return -1;
+    }
+
+
+    // if (!takeAction(p, cost)){
+    //     return 2;
+    // }
+
+    p->position = pos;
+    return 1;
+}
+
+void* forward(int mult){
+    logger->inf("Forward: %d", mult);
+    Player* p = getCurPlayer();
+
+    GameInfo* s = getServer();
+
+    int i;
+    int pos = p->position;
+
+    if (p->looking == UP || p->looking == DOWN){
+        i = s->map_size * (1 - (2 * (p->looking == UP)));
+    }
+    else{
+        i = 1 * (-1 * (p->looking == RIGHT));
+    }
+
+    pos += i * mult;
+
+    i = move(p, pos, 1 + (mult < 0));
+    
+    if (!i){
+        Respond("ko|Out of bound");
+        return NULL;
+    }
+
+    if (i < 0){
+        Respond("ko|Cell Occupided");
+        return NULL;
+    }
+
+    if (i > 1){
+        return NULL;
+    }
+
+    Respond("ok");
+}
+
+void* backward(){
+    forward(-1);
+}
 
 void initPlayerArgs(){
     logger->dbg("- Init Player Args");
@@ -342,14 +430,32 @@ void initPlayerArgs(){
         .type="any"
     };
 
-    // static Arg arg6 = {
-    //     .name = "selfstats", 
-    //     .function = selfstats, 
-    //     .hasParam = 0, 
-    //     .defParam = NULL, 
-    //     .asInt = 0, 
-    //     .type="any"
-    // };
+    static Arg arg8 = {
+        .name = "inspect", 
+        .function = inspect, 
+        .hasParam = 1, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
+    static Arg arg9 = {
+        .name = "forward", 
+        .function = forward, 
+        .hasParam = 1, 
+        .defParam = "1", 
+        .asInt = 1, 
+        .type="any"
+    };
+
+    static Arg arg10 = {
+        .name = "backward", 
+        .function = backward, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
 
     static  Arg* player_actions[] = {
         &arg1,
@@ -359,6 +465,9 @@ void initPlayerArgs(){
         &arg5,
         &arg6,
         &arg7,
+        &arg8,
+        &arg9,
+        &arg10,
         NULL
     };
 

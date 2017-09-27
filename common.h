@@ -62,7 +62,7 @@ typedef struct Player {
 char* getLookName(int look);
 int coord2pos(int x, int y, int map_size);
 void pos2coord(int pos, int map_size, int res[]);
-
+short posInBound(int pos, int map_size, int dir);
 
 // int coord2pos(int x, int y, int map_size){
 //     return x + (y * map_size);

@@ -118,8 +118,6 @@ int main (int argc, char* argv[])
     zmq_recv(client->sockets->private, buffer, 100, 0);
     explode('|', buffer, 0, 5, resp);
 
-    logger->inf("test: %s", resp[0]);
-    logger->inf("test2: %s", resp[1]);
 
     if (strcmp(resp[0], "ok")){
         logger->err("Login Fail: %s", buffer);
@@ -127,10 +125,21 @@ int main (int argc, char* argv[])
     }
     memset(buffer, 0, sizeof(buffer));
     logger->inf("Login Success");
+    int i;
+    for (i = 0; i < 3; ++i)
+    {
+        sendMsg(client->sockets->private, client->uid, "forward", "");
+        zmq_recv(client->sockets->private, buffer, 100, 0);
+        logger->inf("Buffer: %s", buffer);
+    }
 
+    for (i = 0; i < 5; ++i)
+    {
+        sendMsg(client->sockets->private, client->uid, "backward", "");
+        zmq_recv(client->sockets->private, buffer, 100, 0);
+        logger->inf("Buffer: %s", buffer);
+    }
     
-    sendMsg(client->sockets->private, client->uid, "watch", "");
-
     return 0;
 
     pthread_t handle;
