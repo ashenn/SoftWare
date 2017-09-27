@@ -43,7 +43,7 @@ void genEnergy(){
 
     if (!limit){
         logger->dbg("Fail to place Energy");
-        return NULL;
+        return;
     }
 
     logger->dbg("Energy Placed At Pos: %d", pos);
