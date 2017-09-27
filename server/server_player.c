@@ -31,13 +31,13 @@ void* NewClent(char* name){
 
     if (s->players->nodeCount >= 4){
     	logger->dbg("Max client Reached refusing.");
-        Respond("ko");
+        Respond("ko|Game full");
         return NULL;
     }
 
     if (getNodeByName(s->players, name) != NULL){
         logger->inf("Id already exists, refusing.");
-        Respond("ko");
+        Respond("ko|identity already exists");
         return NULL;
     }
 
@@ -96,7 +96,7 @@ void* NewClent(char* name){
         return NULL;
     }
 
-    Respond("ok");
+    Respond("ok|%d", pos);
     if (s->players->nodeCount == 4){
         s->game_status = 1;
     }

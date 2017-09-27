@@ -244,3 +244,14 @@ void getLine(int pos, int dir, int len, char res[], short stopOnWall){
     getHorizontalLine(pos, dir, len, res, stopOnWall);
     return;
 }
+
+void getVison(Player* p){
+    int pos = p->pos;
+    int look = p->looking;
+
+    logger->dbg("### Getting Vision for: %s", p->name);
+    logger->dbg("-pos: %d", pos);
+    logger->dbg("-look: %d", look);
+
+
+}

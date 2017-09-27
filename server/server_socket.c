@@ -13,7 +13,7 @@ int createSockets(){
 
     sprintf(url, "tcp://*:%d", s->pubPort);    
     logger->inf("setting pub port to: %s", url);
-    int pc = zmq_bind(s->sockets->public, "tcp://*:5566");
+    int pc = zmq_bind(s->sockets->public, url);
 
     free(url);
     assert(rc == 0);
@@ -22,15 +22,33 @@ int createSockets(){
     return 1;
 }
 
-void* Respond(char* msg){
+void* Respond(char* txt, ...){
     GameInfo* s = getServer();
+    char msg[100];
+    
+    va_list args;
+    va_start(args, txt);
+    va_end(args);
+
+    vsprintf(msg, txt, args);
+
     logger->inf("Respondig: %s", msg);
+    
     zmq_send(s->sockets->private, msg, 100, 0);
 }
 
-void* Publish(char* msg){
+void* Publish(char* txt){
+    char msg[1000];
     GameInfo* s = getServer();
+    
+    va_list args;
+    va_start(args, txt);
+    va_end(args);
+
+    vsprintf(msg, txt, args);
+
     logger->inf("Publishing: %s", msg);
+    
     s_sendmore(s->sockets->public, "B");
     s_send(s->sockets->public, msg);
 }
