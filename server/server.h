@@ -2,18 +2,15 @@
 #define __SERVER_H__
 
 #include "../common.h" // Map Management 
-#include "map.h" // Map Management 
-#include "server_player.h" // Player Management 
-#include "server_socket.h"// Socket Managment
 
 
 typedef struct EnergyCell {
+	int id;
 	int x;
 	int y;
 	int value;
 	int position;
 } EnergyCell;
-
 
 typedef struct GameInfo {
 	char* map;
@@ -24,6 +21,7 @@ typedef struct GameInfo {
 
 	int privPort;
 	int pubPort;
+	char* curPlayer;
 
 	Sockets* sockets;
 
@@ -32,6 +30,10 @@ typedef struct GameInfo {
 	ListManager* energy_cells;
 	ListManager* player_actions;
 } GameInfo;
+
+#include "map.h" // Map Management 
+#include "server_player.h" // Player Management 
+#include "server_socket.h"// Socket Managment
 
 // Server Management
 void initServArgs();

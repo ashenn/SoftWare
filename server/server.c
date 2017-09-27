@@ -24,6 +24,8 @@ GameInfo* initServer(int argc, char *argv[]){
     s->cycle = 0;
     s->pubPort = 0;
     s->privPort = 0;
+    s->curPlayer = malloc(5);
+    memset(s->curPlayer, 0, sizeof(s->curPlayer));
     
     initServArgs();
     parseArgs(s->params, argc, argv);
@@ -88,19 +90,53 @@ GameInfo* getServer(){
     return initServer(0, NULL);
 }
 
+void* playerTickCheck(){
+    int alive = 0;
+    GameInfo* s = getServer();
+    Node* n =  s->players->first;
+    Player* p;
+
+    do{
+        p = (Player*) n->value;
+
+        if (p->energy > 0){
+            removeEnergy(p, 2);
+        }
+
+        if (p->energy > 0){
+            alive++;
+            p->action = 2;
+        }
+
+        n = n->next;
+    }while(n != s->players->first && n != NULL);
+
+    if (alive <= 0){
+        s->game_status++;
+    }
+}
+
+void* beforeTick(){
+    logger->dbg("beforeTick");
+    genEnergy();
+    playerTickCheck();
+}
+
 void *Tick(){
     logger->dbg("Tick Launched");
     int i = 0;
     GameInfo* s = getServer();
+    Node* n = NULL;
+    Player* p;
 
     char buffer[100];
     while(s->game_status == 1){
         system("clear");
         sprintf(buffer, "Cycle: %d", i);
-
         logger->dbg(buffer);
 
-        genEnergy();
+        beforeTick();
+
         printMap();
         
         Publish(buffer);
@@ -110,6 +146,7 @@ void *Tick(){
         i++;
     }
 
+    logger->inf("Game FINISHED");
     pthread_exit(NULL);
 }
 
@@ -237,7 +274,6 @@ int main (int argc, char* argv[]){
 
         return EXIT_FAILURE;
     }
-    logger->dbg("Tick launched");
 
     if (pthread_join(tick, NULL)) {
         logger->err("Fail to Wait For Tick");

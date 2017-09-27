@@ -1,9 +1,33 @@
 #include "server_player.h"
+short takeAction(Player* p ,int amt){
+    if (p->action < amt){
+        Respond("ko|Not enougth action.");
+        return 0;
+    }
 
+    p->action -= amt;
+    return 1;
+}
+
+Player* getCurPlayer(){
+    GameInfo* s = getServer();
+    Node* n = getNodeByName(s->players, s->curPlayer);
+
+    if (n == NULL){
+        return NULL;
+    }
+
+    return (Player*) n->value;
+}
 
 void* NewClent(char* name){
     GameInfo* s = getServer();
     logger->dbg("adding client: %s", name);
+    if (s->game_status > 0){
+        logger->inf("Game Started Refusing.");
+        Respond("ko|game started");
+        return;
+    }
 
     if (s->players->nodeCount >= 4){
     	logger->dbg("Max client Reached refusing.");
@@ -54,9 +78,12 @@ void* NewClent(char* name){
     p->looking = look;
     p->position = pos;
 
+    p->action = 2;
+    p->energy = 50;
+
     s->map[pos] = CELL_PLAYER;
 
-    logger->dbg("New client at pos: %d", p->position);
+    logger->dbg("New client '%s' at pos: %d", p->name, p->position);
     logger->dbg("look: %s", getLookName(look));
     logger->dbg("Coords: x:%d y:%d", p->x, p->y);
 
@@ -70,8 +97,8 @@ void* NewClent(char* name){
     }
 
     Respond("ok");
-    if (s->players->nodeCount == 4){
         s->game_status = 1;
+    if (s->players->nodeCount == 4){
     }
 }
 
@@ -89,7 +116,6 @@ Player* getClientAtPos(int pos){
         return NULL;
     }
 
-    int i=0;
     do{
         p = (Player*) n->value;
 
@@ -103,9 +129,87 @@ Player* getClientAtPos(int pos){
     return NULL;
 }
 
+void rotate(Player* p, int dir){
+    p->looking += dir; 
+    if (p->looking > 3){
+        p->looking = 0;
+    }
+    else if (p->looking < 0){
+        p->looking = 3;
+    }
+}
+
+void* right(){
+    Player* p = getCurPlayer();
+    if (!takeAction(p, 1)){
+        return;
+    }
+
+    rotate(p, TURN_RIGHT);
+    Respond("ok");
+}
+
+void* left(){
+    Player* p = getCurPlayer();
+    if (!takeAction(p, 1)){
+        return;
+    }
+
+    rotate(p, TURN_LEFT);
+    Respond("ok");
+}
+
+void* selfid(){
+    GameInfo* s = getServer();
+    Respond(s->curPlayer);
+}
+
+void* selfstats(){
+    Player* p = getCurPlayer();
+    char m[4];
+    sprintf(m, "%d", p->energy);
+    Respond(m);
+}
+
+void* removeEnergy(Player* p, int amt){
+    // logger->inf("Process: '%s' lost energy: %d", p->name, amt);
+    // return;
+    p->energy -= amt;
+    // logger->inf("Energy Left: %d", p->energy);
+
+    if (p->energy > 0){
+        return;
+    }
+    p->energy = 0;
+    
+    char m[25];
+    sprintf(m, "Process: '%s' is dead.", p->name);
+    logger->inf("Process: '%s' is dead.", p->name);
+    Publish(m);
+    assert(1);
+}
+
+
+void* gatherEnergy(){
+    Player* p = getCurPlayer();
+    if (!takeAction(p, 2)){
+        return;
+    }
+
+    EnergyCell* e = getEnergyAtPos(p->position);
+    if (e == NULL){
+        Respond("ok|No energy");
+    }
+    GameInfo* s = getServer();
+
+    p->energy += e->value;
+    del_Node(s->energy_cells, e->id);
+    s->map[p->position] = CELL_PLAYER;
+}
+
 void* HandlePrivate(){
     char buffer[100];
-    char* req[3];
+    char* req[4];
     GameInfo* s = getServer();
 
     while(1){
@@ -113,14 +217,19 @@ void* HandlePrivate(){
         zmq_recv(s->sockets->private, buffer, 100, 0);
         
         if (strlen(buffer) > 1){
-            logger->dbg("Private => %s", buffer);
+            logger->dbg("Private2 => %s", buffer);
+            // rc = zmq_getsockopt(s->sockets->private, ZMQ_IDENTITY, &test, &size);
+            
             memset(req, 0, sizeof(req));
+            logger->dbg("exlode");
+            explode('|', buffer, 0, 5, req);
 
-            explode('|', buffer, 0, 4, req);
-            logger->dbg("Action: %s", req[0]);
-            logger->dbg("data: %s", req[1]);
+            logger->dbg("Id: %s", req[0]);
+            logger->dbg("Action: %s", req[1]);
+            logger->dbg("data: %s", req[2]);
 
-            callArg(s->player_actions, req[0], req[1]);
+            strcpy(s->curPlayer, req[0]);
+            callArg(s->player_actions, req[1], req[2]);
 
             memset(buffer, 0, sizeof(buffer));
         }
@@ -142,8 +251,38 @@ void initPlayerArgs(){
         .type="any"
     };
 
+    static Arg arg2 = {
+        .name = "right", 
+        .function = right, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
+    static Arg arg3 = {
+        .name = "left", 
+        .function = right, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
+    static Arg arg4 = {
+        .name = "selfid", 
+        .function = selfid, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
     static  Arg* player_actions[] = {
         &arg1,
+        &arg2,
+        &arg3,
+        &arg4,
         NULL
     };
 

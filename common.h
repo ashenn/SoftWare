@@ -15,8 +15,8 @@
 #define DOWN 2
 #define LEFT 3
 
-#define MOVE_RIGHT 1
-#define MOVE_LEFT -1
+#define TURN_RIGHT 1
+#define TURN_LEFT -1
 
 #define PORT_PRIV 4242
 #define PORT_PUB 4343
@@ -55,6 +55,7 @@ typedef struct Player {
 	int y;
 	int position;
 	int energy;
+	int action;
 	int looking; // 0: up, 1: right, 2: down, 3: left;
 } Player;
 

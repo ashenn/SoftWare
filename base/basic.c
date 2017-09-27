@@ -159,11 +159,18 @@ void explode(char c, char* str, int offset, int limit, char* res[]){
 		return;
 	}
 
-	int i;
+	int i=0;
 	int pos0 = 0;
 	int pos1 = 0;
 
-	for (i = 0; i < cnt && (pos1 = strpos(c, str, pos0)) > -1; ++i){
+	if (str[0] == c){
+		i=1;
+		pos0=1;
+		res[0] = "";
+	}
+
+
+	for (i = i; i < cnt && (pos1 = strpos(c, str, pos0)) > -1; ++i){
 		res[i] = malloc(((pos1 - (pos0)) * sizeof(char)) +1);
 		substr(str, pos0, pos1 - pos0, &res[i]);
 		pos0 = pos1 +1;

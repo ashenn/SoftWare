@@ -6,9 +6,10 @@ void genEnergy(){
     short placed = 0;
 
     int limit = s->cells_cnt *2;
-    EnergyCell* cell;
-
+    EnergyCell* cell = malloc(sizeof(EnergyCell));
+    Node* n = NULL;
     int co[2];
+    int i = 0;
     do{
         pos = (rand() % (s->cells_cnt -2)) + 1;
 
@@ -34,7 +35,8 @@ void genEnergy(){
         cell->position = pos;
 
         cell->value = 5 + (rand() % 10);
-        add_NodeV(s->energy_cells, "energy", (void*) cell);
+        n = add_NodeV(s->energy_cells, "energy", (void*) cell);
+        cell->id = n->id;
 
         placed=1;
     }while(!placed && --limit > 0);
@@ -84,7 +86,6 @@ void* printMap(){
         }
     }
 }
-
 
 void* setMapSize(int size){
     logger->inf("    == Set Map Size (%d) ==", size);
@@ -147,6 +148,22 @@ void placeWalls(){
     logger->inf("    == Walls Done ==");
 }
 
+EnergyCell* getEnergyAtPos(int pos){
+    GameInfo* s = getServer();
+    Node* n =  s->energy_cells->first;
+    EnergyCell* e;
+
+    do{
+        e = (EnergyCell*) n->value;
+        if (e->position == pos){
+            return e;
+        }
+
+        n = n->next;
+    }while(n != s->energy_cells->first && n != NULL);
+
+    return NULL;
+}
 
 int initMap(){
     logger->inf("  == Init Map ==");
@@ -157,5 +174,73 @@ int initMap(){
     }
 
     placeWalls();
+    
     logger->inf("  == Map Done ==");
+}
+
+void getVerticalLine(int pos, int dir, int len, char res[], short stopOnWall){
+    GameInfo* s = getServer();
+    if (dir <= 1){
+        dir = -s->map_size;
+    }
+    else{
+        dir = s->map_size;
+    }
+
+    int i;
+    for (i = 0; i < len; ++i){
+        pos += dir;
+        logger->dbg("POS: %d", pos);
+        if (pos > s->cells_cnt-1 || pos < 0){
+            logger->dbg("DONE");
+            break;
+        }
+
+        res[i] = s->map[pos];
+        logger->dbg("CHAR: %c", res[i]);
+        if (stopOnWall && res[i] == CELL_WALL){
+            logger->dbg("DONE WALL");
+            break;
+        }
+    }
+}
+
+void getHorizontalLine(int pos, int dir, int len, char res[], short stopOnWall){
+    GameInfo* s = getServer();
+    if (dir <= 1){
+        dir = 1;
+    }
+    else{
+        dir = -1;
+    }
+
+    int i;
+    for (i = 0; i < len; ++i){
+        pos += dir;
+        if (pos < 0 || pos > s->cells_cnt){
+            break;
+        }
+
+        else if (dir > 0 && !(pos % s->map_size)){
+            break;
+        }
+        else if(dir < 0 && !((pos+1) % s->map_size)){
+            break;
+        }
+
+        res[i] = s->map[pos];
+        if (stopOnWall && res[i] == CELL_WALL){
+            break;
+        }
+    }
+}
+
+void getLine(int pos, int dir, int len, char res[], short stopOnWall){
+    if (dir == UP || dir == DOWN ){
+        getVerticalLine(pos, dir, len, res, stopOnWall);
+        return;
+    }
+
+    getHorizontalLine(pos, dir, len, res, stopOnWall);
+    return;
 }
