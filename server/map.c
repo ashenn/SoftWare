@@ -178,7 +178,7 @@ int initMap(){
     logger->inf("  == Map Done ==");
 }
 
-void getVerticalLine(int pos, int dir, int len, char res[], short stopOnWall){
+void getVerticalLine(int pos, int dir, int len, int skip, char res[], short stopOnWall){
     GameInfo* s = getServer();
     if (dir <= 1){
         dir = -s->map_size;
@@ -187,27 +187,50 @@ void getVerticalLine(int pos, int dir, int len, char res[], short stopOnWall){
         dir = s->map_size;
     }
 
-    int i;
-    for (i = 0; i < len; ++i){
+    int z;
+    int cur;
+    int i = 0;
+    Player* p;
+    for (cur = 0; cur < len; ++cur){
+        if (i){
+            res[i++] = ';';
+        }
+
         pos += dir;
-        logger->dbg("POS: %d", pos);
+        if (cur < skip){
+            continue;
+        }
+
         if (pos > s->cells_cnt-1 || pos < 0){
-            logger->dbg("DONE");
             break;
         }
 
-        res[i] = s->map[pos];
-        logger->dbg("CHAR: %c", res[i]);
+        
+        if (s->map[pos] == CELL_PLAYER){
+            p = getClientAtPos(pos);
+            if (p == NULL){
+                res[i] = '.';
+                continue;
+            }
+            
+            for (z = 0; z < 5; ++z){
+                res[i+z] = p->name[z];
+            }
+
+            i += z-1;
+            continue;
+        }
+        
+        res[i++] = s->map[pos];
         if (stopOnWall && res[i] == CELL_WALL){
-            logger->dbg("DONE WALL");
             break;
         }
     }
     
-    res[i+1] = '\0';
+    res[i++] = '\0';
 }
 
-void getHorizontalLine(int pos, int dir, int len, char res[], short stopOnWall){
+void getHorizontalLine(int pos, int dir, int len, int skip, char res[], short stopOnWall){
     GameInfo* s = getServer();
     if (dir <= 1){
         dir = 1;
@@ -216,9 +239,20 @@ void getHorizontalLine(int pos, int dir, int len, char res[], short stopOnWall){
         dir = -1;
     }
 
-    int i;
-    for (i = 0; i < len; ++i){
+    int z;
+    int cur;
+    int i = 0;
+    for (cur = 0; cur < len; ++cur){
+        if (i){
+            res[i++] = ';';
+        }
+
         pos += dir;
+        if (cur < skip){
+            continue;
+        }
+        i++;
+
         if (pos < 0 || pos > s->cells_cnt){
             break;
         }
@@ -230,26 +264,27 @@ void getHorizontalLine(int pos, int dir, int len, char res[], short stopOnWall){
             break;
         }
 
-        res[i] = s->map[pos];
+        res[i++] = s->map[pos];
         if (stopOnWall && res[i] == CELL_WALL){
             break;
         }
     }
     
-    res[i+1] = '\0';
+    res[i++] = '\0';
 }
 
-void getLine(int pos, int dir, int len, char res[], short stopOnWall){
+void getLine(int pos, int dir, int len, int skip, char res[], short stopOnWall){
     if (dir == UP || dir == DOWN ){
-        getVerticalLine(pos, dir, len, res, stopOnWall);
+        getVerticalLine(pos, dir, len, skip, res, stopOnWall);
         return;
     }
 
-    getHorizontalLine(pos, dir, len, res, stopOnWall);
+    getHorizontalLine(pos, dir, len, skip, res, stopOnWall);
     return;
 }
 
 void getVison(Player* p){
+    GameInfo* s = getServer();
     int pos = p->position;
     int look = p->looking;
 
@@ -257,7 +292,37 @@ void getVison(Player* p){
     logger->dbg("-pos: %d", pos);
     logger->dbg("-look: %d", look);
 
-    char line[5];
-    getLine(pos, look, 2, line, 1);
-    logger->inf("Line: %s", line);
+    switch(look){
+        case DOWN:
+            mult = 1;
+            base = s->map_size;
+            break;
+
+        case UP:
+            mult = -1;
+            base = -s->map_size;
+            break;
+
+        case LEFT:
+            mult = s->map_size;
+            base = 1;
+            break;
+
+        case RIGHT:
+            mult = -s->map_size;
+            base = -1;
+            break;
+    }
+    
+
+    char* resp[5];
+
+
+    int i;
+    char* c;
+    for (i = 0; i < 5; ++i){
+        pos = p->position + 1 + (1*i>0);
+
+        resp[i] = c;
+    }
 }

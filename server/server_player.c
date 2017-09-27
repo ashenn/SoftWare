@@ -63,7 +63,7 @@ void* NewClent(char* name){
 
     if (!vacant){
         logger->err("Faild To Add New Player: No vacant place left");
-        Respond("ko");
+        Respond("ko|No position available");
         return NULL;
     }
 
@@ -91,12 +91,12 @@ void* NewClent(char* name){
     Node* n = add_NodeV(s->players, name, p);
     if (n == NULL){
         logger->err("Faild To Add New Player Node");
-        Respond("ko");
+        Respond("ko|List manager Error");
         free(p);
         return NULL;
     }
 
-    Respond("ok|%d;%d", pos, s->cells_cnt);
+    Respond("ok|%d;%d", pos, s->map_size);
     if (s->players->nodeCount == 4){
         s->game_status = 1;
     }
@@ -161,7 +161,7 @@ void* left(){
 
 void* selfid(){
     GameInfo* s = getServer();
-    Respond(s->curPlayer);
+    Respond("ok|%s", s->curPlayer);
 }
 
 void* selfstats(){
@@ -248,6 +248,33 @@ void* vision(){
     Respond("ok");
 }
 
+void* look(){
+    Player* p = getCurPlayer();
+    if (p == NULL){
+        Respond("ko");
+    }
+
+    Respond("ok|%d", p->looking);
+}
+
+void* selfstats(){
+    Player* p = getCurPlayer();
+    if (p == NULL){
+        Respond("ko");
+    }
+
+    Respond("ok|%d", p->energy);
+}
+
+// void* selfstats(){
+//     Player* p = getCurPlayer();
+//     if (p == NULL){
+//         Respond("ko");
+//     }
+
+//     Respond("ok|%d", p->energy);
+// }
+
 void initPlayerArgs(){
     logger->dbg("- Init Player Args");
     GameInfo* srv = getServer();
@@ -297,15 +324,45 @@ void initPlayerArgs(){
         .type="any"
     };
 
+    static Arg arg6 = {
+        .name = "looking", 
+        .function = look, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
+    static Arg arg7 = {
+        .name = "selfstats", 
+        .function = selfstats, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
+    // static Arg arg6 = {
+    //     .name = "selfstats", 
+    //     .function = selfstats, 
+    //     .hasParam = 0, 
+    //     .defParam = NULL, 
+    //     .asInt = 0, 
+    //     .type="any"
+    // };
+
     static  Arg* player_actions[] = {
         &arg1,
         &arg2,
         &arg3,
         &arg4,
         &arg5,
+        &arg6,
+        &arg7,
         NULL
     };
 
     srv->player_actions = malloc(sizeof(ListManager));
     srv->player_actions = defineArgs(player_actions);
 }
+    
