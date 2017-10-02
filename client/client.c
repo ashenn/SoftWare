@@ -66,8 +66,8 @@ int sendMsg(char* action, char* data, void (*callback)(char*, void*), void* dest
     sprintf(msg, "%s|%s|%s", client->uid ,action, data);
     logger->inf("Sending: %s", msg);
 
-    if (zmq_send (client->sockets->private, msg, 100, 0) != 0)
-        logger->err("Error while sending : %s",  strerror(errno));
+    zmq_send (client->sockets->private, msg, 100, 0);
+    //    logger->err("Error while sending : %s",  strerror(errno));
 
     zmq_recv(client->sockets->private, buffer, 100, 0);
     handlePrivateResponse(buffer, callback, destination);
@@ -80,6 +80,8 @@ void* HandleNotif() {
     char buffer[100];
     char* req[4];
     Client* c = getClient();
+
+    logger->inf("Handle Notif");
 
     while(1){
         memset(buffer, 0, sizeof(buffer));
@@ -181,6 +183,7 @@ int main (int argc, char* argv[])
     }
 
     int test = sendRight();
+    int t = sendNext();
     if  (test == 0)
         logger->err("right foire");
 

@@ -19,5 +19,12 @@ int *sendIdentity ();
 char *sendSelfId ();
 int sendRight ();
 int sendLeft ();
-int sendUp ();
-int sendDown ();
+int sendForward ();
+int sendBackward ();
+
+
+void handleString (char *data, void *destination);
+void handleInt (char *data, void *destination);
+void handleNull (char *data, void *destination);
+
+int sendNext ();
