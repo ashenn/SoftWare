@@ -1,5 +1,6 @@
-jounal.log
 srv
 cli
 *.o
 compile.sh
+map.txt
+*.log

@@ -32302,3 +32302,112 @@ Cycle set to: %d
 [2017-09-27 21:53:24] WARNING: Cell %d Occupided: %c
 [2017-09-27 21:53:24] INFO: Respondig: %s
 [2017-09-27 21:53:24] INFO: Buffer: %s
+[2017-10-04 10:22:46] INFO: No Log lvl
+Lvl is set to WARNING
+[2017-10-04 10:22:46] INFO: == Init Server ==
+[2017-10-04 10:22:46] DEBUG: -Setting params
+[2017-10-04 10:22:46] DEBUG: - Init Server Args
+[2017-10-04 10:22:46] WARNING: Undefined Private port
+Port set to: %d
+[2017-10-04 10:22:46] WARNING: Undefined Publish port
+Port set to: %d
+[2017-10-04 10:22:46] WARNING: Undefined cylcle time
+Cycle set to: %d
+[2017-10-04 10:22:46] DEBUG: -Malloc Sockets
+[2017-10-04 10:22:46] INFO: setting priv port to: %s
+[2017-10-04 10:22:46] INFO: setting pub port to: %s
+[2017-10-04 10:22:46] DEBUG: -Malloc Players
+[2017-10-04 10:22:46] DEBUG: -Malloc Player Actions
+[2017-10-04 10:22:46] DEBUG: - Init Player Args
+[2017-10-04 10:22:46] DEBUG: -Malloc Energy
+[2017-10-04 10:22:46] INFO:   == Init Map ==
+[2017-10-04 10:22:46] DEBUG:     -Map size not Set Setting to default
+[2017-10-04 10:22:46] INFO:     == Set Map Size (%d) ==
+[2017-10-04 10:22:46] DEBUG:       mapsize: %d
+[2017-10-04 10:22:46] INFO:     == Place Walls ==
+[2017-10-04 10:22:46] DEBUG:       -Walls Ratio: %d
+[2017-10-04 10:22:46] DEBUG:       -Wall #%d: %d
+[2017-10-04 10:22:46] DEBUG:       -Wall #%d: %d
+[2017-10-04 10:22:46] DEBUG:       -Wall #%d: %d
+[2017-10-04 10:22:46] DEBUG:       -Wall #%d: %d
+[2017-10-04 10:22:46] DEBUG:       -Wall #%d: %d
+[2017-10-04 10:22:46] INFO:     == Walls Done ==
+[2017-10-04 10:22:46] INFO:   == Map Done ==
+[2017-10-04 10:22:46] INFO: == Server Done ==
+[2017-10-04 10:22:46] INFO: 
+== Private Thread Launched ==
+[2017-10-04 10:22:46] INFO: == Waiting for Connections ==
+[2017-10-04 10:23:03] INFO: Creating Context 1 Sockets
+[2017-10-04 10:23:03] INFO: Connecting to server…
+
+[2017-10-04 10:23:03] INFO: Setting identity
+
+[2017-10-04 10:23:03] INFO: UID: %s
+[2017-10-04 10:23:03] INFO: Login as ID: %s
+[2017-10-04 10:23:03] INFO: Sending: %s
+[2017-10-04 10:23:03] ERROR: Error while sending : %s
+[2017-10-04 10:23:03] DEBUG: Private2 => %s
+[2017-10-04 10:23:03] DEBUG: exlode
+[2017-10-04 10:23:03] DEBUG: Id: %s
+[2017-10-04 10:23:03] DEBUG: Action: %s
+[2017-10-04 10:23:03] DEBUG: data: %s
+[2017-10-04 10:23:03] DEBUG: adding client: %s
+[2017-10-04 10:23:03] DEBUG: New client '%s' at pos: %d
+[2017-10-04 10:23:03] DEBUG: look: %s
+[2017-10-04 10:23:03] DEBUG: Coords: x:%d y:%d
+[2017-10-04 10:23:03] INFO: Respondig: %s
+[2017-10-04 10:23:03] INFO: Login Success
+[2017-10-04 10:23:03] INFO: Sending: %s
+[2017-10-04 10:23:03] ERROR: Error while sending : %s
+[2017-10-04 10:23:04] DEBUG: Private2 => %s
+[2017-10-04 10:23:04] DEBUG: exlode
+[2017-10-04 10:23:04] DEBUG: Id: %s
+[2017-10-04 10:23:04] DEBUG: Action: %s
+[2017-10-04 10:23:04] DEBUG: data: %s
+[2017-10-04 10:23:04] WARNING: Empty Func Param: %d
+[2017-10-04 10:23:04] INFO: Forward: %d
+[2017-10-04 10:23:04] INFO: Respondig: %s
+[2017-10-04 10:23:04] INFO: Buffer: %s
+[2017-10-04 10:23:04] INFO: Sending: %s
+[2017-10-04 10:23:04] ERROR: Error while sending : %s
+[2017-10-04 10:23:05] DEBUG: Private2 => %s
+[2017-10-04 10:23:05] DEBUG: exlode
+[2017-10-04 10:23:05] DEBUG: Id: %s
+[2017-10-04 10:23:05] DEBUG: Action: %s
+[2017-10-04 10:23:05] DEBUG: data: %s
+[2017-10-04 10:23:05] WARNING: Empty Func Param: %d
+[2017-10-04 10:23:05] INFO: Forward: %d
+[2017-10-04 10:23:05] INFO: Respondig: %s
+[2017-10-04 10:23:05] INFO: Buffer: %s
+[2017-10-04 10:23:05] INFO: Sending: %s
+[2017-10-04 10:23:05] ERROR: Error while sending : %s
+[2017-10-04 10:23:06] DEBUG: Private2 => %s
+[2017-10-04 10:23:06] DEBUG: exlode
+[2017-10-04 10:23:06] DEBUG: Id: %s
+[2017-10-04 10:23:06] DEBUG: Action: %s
+[2017-10-04 10:23:06] DEBUG: data: %s
+[2017-10-04 10:23:06] WARNING: Empty Func Param: %d
+[2017-10-04 10:23:06] INFO: Forward: %d
+[2017-10-04 10:23:06] INFO: Respondig: %s
+[2017-10-04 10:23:06] INFO: Buffer: %s
+[2017-10-04 10:23:06] INFO: Sending: %s
+[2017-10-04 10:23:06] ERROR: Error while sending : %s
+[2017-10-04 10:23:07] DEBUG: Private2 => %s
+[2017-10-04 10:23:07] DEBUG: exlode
+[2017-10-04 10:23:07] DEBUG: Id: %s
+[2017-10-04 10:23:07] DEBUG: Action: %s
+[2017-10-04 10:23:07] DEBUG: data: %s
+[2017-10-04 10:23:07] WARNING: Empty Func Param: %d
+[2017-10-04 10:23:07] INFO: Forward: %d
+[2017-10-04 10:23:07] INFO: Respondig: %s
+[2017-10-04 10:23:07] INFO: Buffer: %s
+[2017-10-04 10:23:07] INFO: Sending: %s
+[2017-10-04 10:23:07] ERROR: Error while sending : %s
+[2017-10-04 10:23:08] DEBUG: Private2 => %s
+[2017-10-04 10:23:08] DEBUG: exlode
+[2017-10-04 10:23:08] DEBUG: Id: %s
+[2017-10-04 10:23:08] DEBUG: Action: %s
+[2017-10-04 10:23:08] DEBUG: data: %s
+[2017-10-04 10:23:08] WARNING: Empty Func Param: %d
+[2017-10-04 10:23:08] INFO: Forward: %d
+[2017-10-04 10:23:08] INFO: Respondig: %s
