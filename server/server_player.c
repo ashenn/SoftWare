@@ -1,7 +1,7 @@
 #include "server_player.h"
 short takeAction(Player* p ,int amt){
     if (p->action < amt){
-        Respond("ko|Not enougth action.");
+        Respond("ko|Not enougth action. (%d / %d)", p->action, amt);
         return 0;
     }
 
@@ -101,6 +101,7 @@ void* NewClent(char* name){
     p->position = pos;
 
     p->action = 2;
+    p->stuned = 0;
     p->energy = 50;
 
     s->map[pos] = CELL_PLAYER;
@@ -119,8 +120,8 @@ void* NewClent(char* name){
     }
 
     Respond("ok|%d;%d", pos, s->map_size);
+    s->game_status = 1;
     if (s->players->nodeCount == 4){
-        s->game_status = 1;
     }
 }
 
@@ -224,8 +225,10 @@ void* HandlePrivate(){
     char buffer[100];
     char* req[4];
     GameInfo* s = getServer();
+    Player* p;
 
     while(1){
+        p = NULL;
         memset(buffer, 0, sizeof(buffer));
         zmq_recv(s->sockets->private, buffer, 100, 0);
         
@@ -242,13 +245,16 @@ void* HandlePrivate(){
             logger->dbg("data: %s", req[2]);
 
             strcpy(s->curPlayer, req[0]);
+            p = getCurPlayer();
             
             if (!strlen(req[2])){
                 req[2] = NULL;
-                logger->war("Empty Func Param: %d", req[2] == NULL);
             }
 
-            if (!callArg(s->player_actions, req[1], req[2])){
+            if (p != NULL && p->stuned){
+                Respond("ko|Stuned");
+            }
+            else if (!callArg(s->player_actions, req[1], req[2])){
                 Respond("ko|Bad action");
             }
 
@@ -314,9 +320,12 @@ short move(Player* p, int pos, int cost){
     }
 
 
-    // if (!takeAction(p, cost)){
-    //     return 2;
-    // }
+    if (!takeAction(p, cost)){
+        return 2;
+    }
+
+    s->map[pos] = CELL_PLAYER;
+    s->map[p->position] = CELL_EMPTY;
 
     p->position = pos;
     return 1;
@@ -331,11 +340,11 @@ void* forward(int mult){
     int i;
     int pos = p->position;
 
-    if (p->looking == UP || p->looking == DOWN){
-        i = s->map_size * (1 - (2 * (p->looking == UP)));
+    if (p->looking % 2){
+        i = 1 * (-1 * (p->looking == RIGHT));
     }
     else{
-        i = 1 * (-1 * (p->looking == RIGHT));
+        i = s->map_size * (1 - (2 * (p->looking == UP)));
     }
 
     pos += i * mult;
@@ -361,6 +370,89 @@ void* forward(int mult){
 
 void* backward(){
     forward(-1);
+}
+
+void* jump(){
+    GameInfo* s = getServer();
+    Player* p = getCurPlayer();
+
+    int step;
+    if (p->looking % 2){
+        step = 2;
+    }
+    else{
+        step = s->map_size *2;
+    }
+
+    if (p->looking == UP || p->looking == LEFT){
+        step *= -1;
+    }
+
+    int pos = p->position + step;
+    logger->inf("Juping From: %d to %d", p->position, pos);
+    step = move(p, pos, 2);
+
+    if (!step){
+        Respond("ko|Out of bound");
+        return NULL;
+    }
+
+    if (step < 0){
+        Respond("ko|Cell Occupided");
+        return NULL;
+    }
+
+    if (step > 1){
+        return NULL;
+    }
+
+    Respond("ok");
+}
+
+void* attack(){
+    logger->inf("Attacking");
+
+    GameInfo* s = getServer();
+    Player* p = getCurPlayer();
+
+    if(!takeAction(p, 1)){
+        return NULL;
+    }
+
+    p->energy--;
+
+    char line[7];
+    getLine(p->position, p->looking, 4, 0, line, 1);
+    logger->inf("line: %d | %s", charCnt(';', line, 0), line);
+    if (!strlen(line)){
+        return NULL;
+    }
+
+    int step;
+    if (p->looking % 2){
+        step = 1;
+    }
+    else{
+        step = s->map_size;
+    }
+
+    if (p->looking == UP || p->looking == LEFT){
+        step *= -1;
+    }
+
+    int i;
+    Player* p2 = NULL;
+    for (i = 0; i <= charCnt(';', line, 0); ++i){
+        logger->inf("%d => pos: %d",i, p->position + step + (step *i));
+        
+        p2 = getClientAtPos(p->position + step + (step *i));
+        if (p2 == NULL){
+            continue;
+        }
+
+        p2->stuned=2;
+        Publish("Player: %s is stuned !", p->name);
+    }
 }
 
 void initPlayerArgs(){
@@ -449,8 +541,35 @@ void initPlayerArgs(){
     };
 
     static Arg arg10 = {
+        .name = "gather", 
+        .function = gatherEnergy, 
+        .hasParam = 1, 
+        .defParam = "1", 
+        .asInt = 1, 
+        .type="any"
+    };
+
+    static Arg arg11 = {
         .name = "backward", 
         .function = backward, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
+    static Arg arg12 = {
+        .name = "jump", 
+        .function = jump, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
+    static Arg arg13 = {
+        .name = "attack", 
+        .function = attack, 
         .hasParam = 0, 
         .defParam = NULL, 
         .asInt = 0, 
@@ -468,6 +587,9 @@ void initPlayerArgs(){
         &arg8,
         &arg9,
         &arg10,
+        &arg11,
+        &arg12,
+        &arg13,
         NULL
     };
 

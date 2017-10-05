@@ -192,10 +192,6 @@ void getVerticalLine(int pos, int dir, int len, int skip, char res[], short stop
     int i = 0;
     Player* p;
     for (cur = 0; cur < len; ++cur){
-        if (i){
-            res[i++] = ';';
-        }
-
         pos += dir;
         if (cur < skip){
             continue;
@@ -221,10 +217,15 @@ void getVerticalLine(int pos, int dir, int len, int skip, char res[], short stop
             continue;
         }
         
-        res[i++] = s->map[pos];
-        if (stopOnWall && res[i] == CELL_WALL){
+        logger->war("Cell: %c / %c", s->map[pos], CELL_WALL);
+        if (stopOnWall && s->map[pos] == CELL_WALL){
             break;
         }
+
+        if (i){
+            res[i++] = ';';
+        }
+        res[i++] = s->map[pos];
     }
     
     res[i++] = '\0';
@@ -243,10 +244,6 @@ void getHorizontalLine(int pos, int dir, int len, int skip, char res[], short st
     int cur;
     int i = 0;
     for (cur = 0; cur < len; ++cur){
-        if (i){
-            res[i++] = ';';
-        }
-
         pos += dir;
         if (cur < skip){
             continue;
@@ -264,10 +261,14 @@ void getHorizontalLine(int pos, int dir, int len, int skip, char res[], short st
             break;
         }
 
-        res[i++] = s->map[pos];
-        if (stopOnWall && res[i] == CELL_WALL){
+        if (stopOnWall && s->map[pos] == CELL_WALL){
             break;
         }
+
+        if (i){
+            res[i++] = ';';
+        }
+        res[i++] = s->map[pos];
     }
     
     res[i++] = '\0';

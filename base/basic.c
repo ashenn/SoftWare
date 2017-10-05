@@ -130,7 +130,7 @@ char* concat(char* str1, char* str2, char* res){
 int charCnt(char c, char* str, int limit){
 	int i;
 	int cnt;
-	for (i=cnt=0; str[i] != '\0' && cnt < limit; ++i) {
+	for (i=cnt=0; str[i] != '\0' && (cnt < limit || limit==0); ++i) {
 		if (str[i] == c)
 		{
 			cnt ++;

@@ -106,6 +106,10 @@ void* playerTickCheck(){
         if (p->energy > 0){
             alive++;
             p->action = 2;
+
+            if (p->stuned){
+                p->stuned--;
+            }
         }
 
         n = n->next;
@@ -116,10 +120,59 @@ void* playerTickCheck(){
     }
 }
 
+void reloadCells(){
+    logger->dbg("Reloading cells");
+    GameInfo* s = getServer();
+    if (!s->energy_cells->nodeCount){
+        logger->dbg("No Energy");
+        return;
+    }
+    
+    EnergyCell* e = NULL;
+    Node* n = s->energy_cells->first;
+    do{
+        e = (EnergyCell*) n->value;
+        
+        s->map[e->position] = CELL_ENRG;
+        n = n->next;
+    }while(n != NULL && n != s->energy_cells->first);
+}
+
+void reloadPlayers(){
+    logger->dbg("Reloading player");
+    GameInfo* s = getServer();
+
+    if (!s->players->nodeCount){
+        logger->dbg("No Player");
+        return;
+    }
+
+    Player* p = NULL;
+    Node* n = s->players->first;
+    do{
+        p = (Player*) n->value;
+        logger->dbg("Player: %s", p->name);
+
+        if (p->energy > 0){
+            logger->dbg("alive: %s | pos: %d", p->name, p->position);
+            s->map[p->position] = CELL_PLAYER;
+        }
+        logger->dbg("Dead: %s", p->name);
+
+        n = n->next;
+    }while(n != NULL && n != s->players->first);
+}
+
+void reloadMap(){
+    reloadCells();
+    reloadPlayers();
+}
+
 void* beforeTick(){
     logger->dbg("beforeTick");
     genEnergy();
     playerTickCheck();
+    reloadMap();
 }
 
 void *Tick(){

@@ -56,6 +56,7 @@ typedef struct Player {
 	int position;
 	int energy;
 	int action;
+	int stuned;
 	int looking; // 0: up, 1: right, 2: down, 3: left;
 } Player;
 
