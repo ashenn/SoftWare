@@ -21,16 +21,29 @@ char* getLookName(int look){
     return names[look];
 }
 
+int invertLook(int l){
+    static int looks[] ={
+        2,
+        3,
+        0,
+        1
+    };
+
+    return looks[l];
+}
+
 short posInBound(int pos, int map_size, int dir){
     if (pos >= map_size * map_size || pos < 0){
         return 0;
     }
 
-    if (dir == LEFT && !(pos % map_size)){
+    // logger->err("TEST: %d | %d | %s", pos, map_size, getLookName(dir));
+    // logger->err("TEST: %d", ((pos+1) % map_size));
+    if (dir == LEFT && !((pos+1) % map_size)){
         return 0;
     }
 
-    if (dir == RIGHT && !((pos+1) % map_size)){
+    if (dir == RIGHT && !((pos) % map_size)){
         return 0;
     }
 
