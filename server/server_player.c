@@ -267,9 +267,14 @@ void* HandlePrivate(){
 
 void* vision(){
     Player* p = getCurPlayer();
-    getVison(p);
+    
+    char* vision = malloc(25);
+    // memset(vision, 0, sizeof(vision));
+    getVison(p, vision);
+    logger->err("VISION: %s", vision);
 
-    Respond("ok");
+    Respond("ok|%s", vision);
+    free(vision);
 }
 
 void* look(){

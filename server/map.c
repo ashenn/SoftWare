@@ -284,6 +284,26 @@ void getLine(int pos, int dir, int len, int skip, char res[], short stopOnWall){
     return;
 }
 
+void concatVision(char* res, int pos, int look, int* i){
+    GameInfo* s = getServer();
+    Player* p;
+
+    int z;
+    if (!posInBound(pos, s->map_size, look)){
+        res[(*i)++] = '0';
+    }
+    else if(s->map[pos] != CELL_PLAYER){
+        res[(*i)++] = s->map[pos];
+    }
+    else{
+        p = getClientAtPos(pos);
+        for (z=0; z < strlen(p->name); ++z){
+            res[(*i)++] = p->name[z];
+        }
+    }
+    res[(*i)++] = ';';
+}
+
 void getVison(Player* p, char* res){
     GameInfo* s = getServer();
     int pos = p->position;
@@ -321,20 +341,19 @@ void getVison(Player* p, char* res){
     logger->inf("-- mult: %d", mult);
 
 
-    int i;
+    int i=0;
     int tmpPos;
-    char* c;
-    char* resp[5];
 
-    // pos2coord(pos, s->map_size, coord);
-
-
-    // logger->inf("### Enter Loop");
     logger->inf("### Cell Calculation");
 
     tmpPos = pos + base;
     logger->inf("-- Cell 1: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, p->looking), s->map[tmpPos]); // same
 
+    concatVision(res, tmpPos, p->looking, &i);
+
+
+
+    tmpPos = (pos + mult) + (base * 2);
     if (p->looking == UP){
         look = RIGHT;
     }
@@ -344,15 +363,18 @@ void getVison(Player* p, char* res){
     else{
         look = p->looking;
     }
-
-    tmpPos = (pos + mult) + (base * 2);
     logger->inf("-- Cell 2: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, look), s->map[tmpPos]); // down right | up left
+    
+    concatVision(res, tmpPos, look, &i);
 
 
     tmpPos = (pos) + (base * 2);
     logger->inf("-- Cell 3: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, p->looking), s->map[tmpPos]);
+    
+    concatVision(res, tmpPos, p->looking, &i);
 
 
+    tmpPos = (pos - mult) + (base * 2);
     if (p->looking == UP){
         look = LEFT;
     }
@@ -362,8 +384,8 @@ void getVison(Player* p, char* res){
     else{
         look = p->looking;
     }
-
-    tmpPos = (pos - mult) + (base * 2);
     logger->inf("-- Cell 4: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, look), s->map[tmpPos]); // down left | up right
-    
+
+    concatVision(res, tmpPos, look, &i);
+    res[i] = '\n';
 }
