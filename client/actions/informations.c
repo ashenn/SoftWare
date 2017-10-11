@@ -7,7 +7,7 @@ int sendSelfStats () {
     return result;
 }
 
-char* sendWatch () {
+char *sendWatch () {
     Client *client = getClient();
     char *result = malloc(25);
     sendMsg("watch", "", &handleString, &result);
@@ -21,9 +21,9 @@ char *sendSelfId () {
     return id;
 }
 
-char* sendOrientation () {
+int sendOrientation () {
     Client *client = getClient();
-    char* result = malloc(5);
-    sendMsg("looking", "", &handleString, &result);
+    int result = 0;
+    sendMsg("looking", "", &handleInt, &result);
     return result;
 }

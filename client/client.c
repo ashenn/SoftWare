@@ -1,5 +1,9 @@
 #include "client.h"
 
+pthread_cond_t condition = PTHREAD_COND_INITIALIZER;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+
 Client* getClient() {
     static Client *c = NULL;
 
@@ -14,6 +18,11 @@ Client* getClient() {
     c->sockets->context = zmq_ctx_new ();
     c->sockets->public = zmq_socket (c->sockets->context, ZMQ_SUB);
     c->sockets->private = zmq_socket (c->sockets->context, ZMQ_REQ);
+    c->mapSize = 0;
+
+    c->condition = condition; /* Création de la condition */
+    c->mutex = mutex; /* Création du mutex */
+
 
     logger->inf("Connecting to server…\n");  
 
@@ -80,15 +89,26 @@ void* HandleNotif() {
     char buffer[100];
     char* req[4];
     Client* c = getClient();
-
     logger->inf("Handle Notif");
+
+    logger->inf("Player initialisation");
+    c->player->energy = 50;
+
 
     while(1){
         memset(buffer, 0, sizeof(buffer));
+
+        zmq_recv (c->sockets->public, buffer, 100, 0);
         
         if (strlen(buffer) > 1){
             logger->dbg("Private2 => %s", buffer);
             // rc = zmq_getsockopt(s->sockets->private, ZMQ_IDENTITY, &test, &size);
+
+            pthread_mutex_lock (&mutex); /* On verrouille le mutex */
+            pthread_cond_signal (&condition); /* On délivre le signal : condition remplie */
+            pthread_mutex_unlock (&mutex); /* On déverrouille le mutex */
+
+
             
             memset(req, 0, sizeof(req));
             logger->dbg("exlode");
@@ -100,8 +120,6 @@ void* HandleNotif() {
 
             memset(buffer, 0, sizeof(buffer));
         }
-
-        sleep(1);
     }
 }
 
@@ -157,6 +175,29 @@ void initPlayerActions(){
     srv->player_actions = defineArgs(player_actions);*/
 }
 
+void *HandleIA() {
+    Client *client = getClient();
+    logger->inf("Handle IA thread");
+    while (1) { 
+
+        pthread_mutex_lock(&mutex); /* On verrouille le mutex */
+        pthread_cond_wait (&condition, &mutex); /* On attend que la condition soit remplie */
+        logger->inf("TICK RECU");
+        
+
+         aiMakeDecision();
+        //zmq_recv (client->sockets->private, buffer, 100, 0);
+        /*if (strcmp(buffer, "ok")){
+            logger->err("Login Fail: %s", buffer);
+            return 0;
+        }*/
+        //memset(buffer, 0, sizeof(buffer));    
+        pthread_mutex_unlock(&mutex);
+    }
+}
+
+
+
 int main (int argc, char* argv[])
 {
     logger = initLogger(argc, argv);
@@ -182,10 +223,14 @@ int main (int argc, char* argv[])
         logger->inf("selfid fail");
     }
 
-    int test = sendRight();
-    int t = sendNext();
-    if  (test == 0)
-        logger->err("right foire");
+    pthread_t ia;
+    if (pthread_create(&ia, NULL, HandleIA, coordinates)) {
+        logger->err("pthread_create IA");
+
+        return EXIT_FAILURE;
+    }
+
+    
 
     pthread_t sub;
     if (pthread_create(&sub, NULL, HandleNotif, NULL)) {
@@ -199,13 +244,14 @@ int main (int argc, char* argv[])
         return EXIT_FAILURE;
     }
 
-    
-    zmq_recv (client->sockets->private, buffer, 100, 0);
-    if (strcmp(buffer, "ok")){
-        logger->err("Login Fail: %s", buffer);
-        return 0;
+    if (pthread_join(ia, NULL)) {
+        logger->err("Fail to Wait For IA");
+        return EXIT_FAILURE;
     }
-    memset(buffer, 0, sizeof(buffer));
+
+    
+
+    
 
     logger->inf("Login Success");
 -

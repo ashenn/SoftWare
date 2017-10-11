@@ -34,6 +34,7 @@ gcc -c \
 	client/actions/informations.c \
 	client/actions/handlers.c \
 	client/actions/actions.c \
+	client/AI/ia.c \
 	client/client.c \
 	-llibzmq -lpthread
 
@@ -50,6 +51,7 @@ gcc -o\
 	handlers.o \
 	actions.o \
 	informations.o \
+	ia.o \
 	/usr/lib/x86_64-linux-gnu/libzmq.so -lpthread
 
 # gcc -c basic.c libParse.c logger.c libList.c client.c -llibzmq -lpthread

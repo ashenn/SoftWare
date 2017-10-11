@@ -14,7 +14,7 @@ int sendLeft () {
     return result;
 }
 
-int sendRighFwd () {
+int sendRightFwd () {
     Client *client = getClient();
     int result = 0;
     sendMsg("rightfwd", "", &handleNull, &result);
