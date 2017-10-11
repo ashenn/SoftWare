@@ -196,11 +196,8 @@ void* removeEnergy(Player* p, int amt){
     }
     p->energy = 0;
     
-    char m[25];
-    sprintf(m, "3|Process: '%s' is dead.", p->name);
-    logger->inf("3|Process: '%s' is dead.", p->name);
-    Publish(m);
-    assert(1);
+    logger->err("3|Process: '%s' is dead.", p->name);
+    Publish("3|Process: '%s' is dead.", p->name);
 }
 
 
@@ -424,7 +421,7 @@ void* attack(){
 
     p->energy--;
 
-    char line[7];
+    char line[10];
     getLine(p->position, p->looking, 4, 0, line, 1);
     logger->inf("line: %d | %s", charCnt(';', line, 0), line);
     if (!strlen(line)){

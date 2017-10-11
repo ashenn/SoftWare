@@ -1,4 +1,3 @@
-#include <json/json.h>
 #include "server.h"
 
 GameInfo* initServer(int argc, char *argv[]){
@@ -98,25 +97,6 @@ void publishTick(){
     Player* p;
     EnergyCell* e;
     GameInfo* s = getServer();
-
-    json_object* jobj = json_object_new_object();
-    json_object *jarray = json_object_new_array();
-
-    json_object *jint;
-    if (s->energy_cells->nodeCount){
-        n = s->energy_cells->first;
-
-        do{
-            e = (EnergyCell*) n->value;
-
-            jint = json_object_new_int(e->position);
-            json_object_array_add(jarray,jstring1);
-            n = n->next;
-        }while(n != s->energy_cells->first && n != NULL);
-
-        logger->err("TEST: %s", cells);
-    }
-
 
     // char cells[1+s->energy_cells->nodeCount*2];
     // memset(cells, 0, sizeof(cells));
