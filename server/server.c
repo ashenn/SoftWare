@@ -1,6 +1,5 @@
 #include "server.h"
 
-
 GameInfo* initServer(int argc, char *argv[]){
     static GameInfo* s = NULL;
 
@@ -88,6 +87,46 @@ GameInfo* initServer(int argc, char *argv[]){
 
 GameInfo* getServer(){
     return initServer(0, NULL);
+}
+
+void publishTick(){
+    int z=0;
+    int i=0;
+    
+    Node* n;
+    Player* p;
+    EnergyCell* e;
+    GameInfo* s = getServer();
+
+    char cells[1+s->energy_cells->nodeCount*2];
+    memset(cells, 0, sizeof(cells));
+
+    if (s->energy_cells->nodeCount){
+        n = s->energy_cells->first;
+
+        do{
+            e = (EnergyCell*) n->value;
+            char* pos = int2str(e->position);
+            for (z=0; z < strlen(pos); ++z){
+                cells[i++] = pos[z];
+            }
+
+            n = n->next;
+            if (n == s->energy_cells->first){
+                break;
+            }
+            
+            cells[i++] = ',';
+
+        }while(n != s->energy_cells->first && n != NULL);
+
+        logger->err("TEST: %s", cells);
+    }
+
+
+
+    // Publish("0|{map_size: %d, game_status:%d, players: [%s], energy_cells: [%s]}");
+    // Publish("0|%d|%d|%s|%s");
 }
 
 void* playerTickCheck(){
@@ -191,6 +230,7 @@ void *Tick(){
         beforeTick();
 
         printMap();
+        // publishTick();
         
         Publish(buffer);
 

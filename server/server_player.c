@@ -120,8 +120,8 @@ void* NewClent(char* name){
     }
 
     Respond("ok|%d;%d", pos, s->map_size);
+    s->game_status = 1;
     if (s->players->nodeCount == 4){
-        s->game_status = 1;
     }
 }
 
@@ -197,8 +197,8 @@ void* removeEnergy(Player* p, int amt){
     p->energy = 0;
     
     char m[25];
-    sprintf(m, "Process: '%s' is dead.", p->name);
-    logger->inf("Process: '%s' is dead.", p->name);
+    sprintf(m, "3|Process: '%s' is dead.", p->name);
+    logger->inf("3|Process: '%s' is dead.", p->name);
     Publish(m);
     assert(1);
 }
@@ -460,6 +460,90 @@ void* attack(){
     }
 }
 
+void* rightfwd(){
+    GameInfo* s = getServer();
+    Player* p = getCurPlayer();
+
+    int pos = p->position;
+    switch(p->looking){
+        case UP:
+            pos += 1;
+            break;
+
+        case DOWN:
+            pos -= 1;
+            break;
+
+        case RIGHT:
+            pos += s->map_size;
+            break;
+
+        case LEFT:
+            pos -= s->map_size;
+            break;
+    }
+
+    pos = move(p, pos, 2);
+
+    if (!pos){
+        Respond("ko|Out of bound");
+        return NULL;
+    }
+
+    if (pos < 0){
+        Respond("ko|Cell Occupided");
+        return NULL;
+    }
+
+    if (pos > 1){
+        return NULL;
+    }
+
+    Respond("ok");
+}
+
+void* leftfwd(){
+    GameInfo* s = getServer();
+    Player* p = getCurPlayer();
+
+    int pos = p->position;
+    switch(p->looking){
+        case UP:
+            pos -= 1;
+            break;
+
+        case DOWN:
+            pos += 1;
+            break;
+
+        case RIGHT:
+            pos -= s->map_size;
+            break;
+
+        case LEFT:
+            pos += s->map_size;
+            break;
+    }
+
+    pos = move(p, pos, 2);
+
+    if (!pos){
+        Respond("ko|Out of bound");
+        return NULL;
+    }
+
+    if (pos < 0){
+        Respond("ko|Cell Occupided");
+        return NULL;
+    }
+
+    if (pos > 1){
+        return NULL;
+    }
+
+    Respond("ok");
+}
+
 void initPlayerArgs(){
     logger->dbg("- Init Player Args");
     GameInfo* srv = getServer();
@@ -484,7 +568,7 @@ void initPlayerArgs(){
 
     static Arg arg3 = {
         .name = "left", 
-        .function = right, 
+        .function = left, 
         .hasParam = 0, 
         .defParam = NULL, 
         .asInt = 0, 
@@ -581,6 +665,24 @@ void initPlayerArgs(){
         .type="any"
     };
 
+    static Arg arg14 = {
+        .name = "rightfwd", 
+        .function = rightfwd, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
+    static Arg arg15 = {
+        .name = "leftfwd", 
+        .function = leftfwd, 
+        .hasParam = 0, 
+        .defParam = NULL, 
+        .asInt = 0, 
+        .type="any"
+    };
+
     static  Arg* player_actions[] = {
         &arg1,
         &arg2,
@@ -595,6 +697,8 @@ void initPlayerArgs(){
         &arg11,
         &arg12,
         &arg13,
+        &arg14,
+        &arg15,
         NULL
     };
 
