@@ -387,5 +387,5 @@ void getVison(Player* p, char* res){
     logger->inf("-- Cell 4: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, look), s->map[tmpPos]); // down left | up right
 
     concatVision(res, tmpPos, look, &i);
-    res[i] = '\n';
+    res[i] = '\0';
 }
