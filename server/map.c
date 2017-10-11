@@ -284,21 +284,22 @@ void getLine(int pos, int dir, int len, int skip, char res[], short stopOnWall){
     return;
 }
 
-void getVison(Player* p){
+void getVison(Player* p, char* res){
     GameInfo* s = getServer();
     int pos = p->position;
     int look = p->looking;
 
     int mult;
     int base;
+    // int coord[2];
     switch(look){
         case DOWN:
-            mult = 1;
+            mult = -1;
             base = s->map_size;
             break;
 
         case UP:
-            mult = -1;
+            mult = 1;
             base = -s->map_size;
             break;
 
@@ -324,18 +325,45 @@ void getVison(Player* p){
     int tmpPos;
     char* c;
     char* resp[5];
+
+    // pos2coord(pos, s->map_size, coord);
+
+
     // logger->inf("### Enter Loop");
     logger->inf("### Cell Calculation");
 
     tmpPos = pos + base;
-    logger->inf("-- Cell 1: %d | %d", tmpPos, posInBound(tmpPos, s->map_size, p->looking));
+    logger->inf("-- Cell 1: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, p->looking), s->map[tmpPos]); // same
+
+    if (p->looking == UP){
+        look = RIGHT;
+    }
+    else if(p->looking == DOWN){
+        look = LEFT;
+    }
+    else{
+        look = p->looking;
+    }
 
     tmpPos = (pos + mult) + (base * 2);
-    logger->inf("-- Cell 2: %d | %d", tmpPos, posInBound(tmpPos, s->map_size, p->looking));
+    logger->inf("-- Cell 2: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, look), s->map[tmpPos]); // down right | up left
+
+
+    tmpPos = (pos) + (base * 2);
+    logger->inf("-- Cell 3: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, p->looking), s->map[tmpPos]);
+
+
+    if (p->looking == UP){
+        look = LEFT;
+    }
+    else if(p->looking == DOWN){
+        look = RIGHT;
+    }
+    else{
+        look = p->looking;
+    }
 
     tmpPos = (pos - mult) + (base * 2);
-    logger->inf("-- Cell 3: %d | %d", tmpPos, posInBound(tmpPos, s->map_size, 0));
-    // for (i = 0; i < 5; ++i){
-        
-    // }
+    logger->inf("-- Cell 4: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, look), s->map[tmpPos]); // down left | up right
+    
 }
