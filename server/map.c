@@ -289,10 +289,6 @@ void getVison(Player* p){
     int pos = p->position;
     int look = p->looking;
 
-    logger->dbg("### Getting Vision for: %s", p->name);
-    logger->dbg("-pos: %d", pos);
-    logger->dbg("-look: %d", look);
-
     int mult;
     int base;
     switch(look){
@@ -317,16 +313,29 @@ void getVison(Player* p){
             break;
     }
     
-
-    char* resp[5];
+    logger->dbg("### Getting Vision for: %s", p->name);
+    logger->inf("-- Direction: %s", getLookName(look));
+    logger->inf("-- pos: %d", p->position);
+    logger->inf("-- base: %d", base);
+    logger->inf("-- mult: %d", mult);
 
 
     int i;
+    int tmpPos;
     char* c;
-    for (i = 0; i < 5; ++i){
-        pos = p->position + 1 + (1*i>0);
+    char* resp[5];
+    // logger->inf("### Enter Loop");
+    logger->inf("### Cell Calculation");
 
+    tmpPos = pos + base;
+    logger->inf("-- Cell 1: %d | %d", tmpPos, posInBound(tmpPos, s->map_size, p->looking));
+
+    tmpPos = (pos + mult) + (base * 2);
+    logger->inf("-- Cell 2: %d | %d", tmpPos, posInBound(tmpPos, s->map_size, p->looking));
+
+    tmpPos = (pos - mult) + (base * 2);
+    logger->inf("-- Cell 3: %d | %d", tmpPos, posInBound(tmpPos, s->map_size, 0));
+    // for (i = 0; i < 5; ++i){
         
-        resp[i] = c;
-    }
+    // }
 }

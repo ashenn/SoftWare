@@ -22,12 +22,12 @@ char* getLookName(int look){
 }
 
 short posInBound(int pos, int map_size, int dir){
-    if (pos > map_size * map_size || pos < 0){
+    if (pos >= map_size * map_size || pos < 0){
         return 0;
     }
 
     if (dir == LEFT && !(pos % map_size)){
-        return 1;
+        return 0;
     }
 
     if (dir == RIGHT && !((pos+1) % map_size)){
