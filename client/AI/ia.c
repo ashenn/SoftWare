@@ -96,7 +96,7 @@ void aiMakeDecision() {
 	int energy = sendSelfStats();
 
 	char *vision = sendWatch();
-	char *visionDatas[4];
+	char *visionDatas[10];
 	explode(';', vision, 0, 4, visionDatas);
 
 	int seeEnemy = 0;
@@ -125,23 +125,35 @@ void aiMakeDecision() {
 	}
 
 	if (seeEnemy == 1) {
+		logger->inf("IA: Ennemy detected !");
 		if (energy > 20) {
-			if (isInFront(memory->enemyIndex))
-				if (sendRightFwd() == 0)
-					sendLeftFwd();
+			logger->inf("IA: I have enough energy, attack strategy !");
+			if (isInFront(memory->enemyIndex)){
+				logger->inf("IA: Enemy in front, I attack him !");
+				sendAttack();
+			}
 			else  {
 		 		int side = isOnSide(memory->enemyIndex);
-				if (side == 1)
-			 		sendRightFwd();
-				if (side == 2)
+		 		if (side != 0)
+		 			logger->inf("IA: Enemy on side, moving to aim him");
+				if (side == 1) 
 			 		sendLeftFwd();
+				if (side == 2)
+			 		sendRightFwd();
+
 			}
 		}
 		else {
-			if (isInFront(memory->enemyIndex))
-				sendAttack();
+			logger->inf("IA: I have NOT enough energy, defense strategy !");
+			if (isInFront(memory->enemyIndex) == 1) {
+				logger->inf("IA: Enemy in front, moving on side !");
+				if (sendLeftFwd() == 0)
+					sendRightFwd();
+			}
 			else  {
 		 		int side = isOnSide(memory->enemyIndex);
+		 		if (side != 0)
+		 			logger->inf("IA: Enemy on side, moving on opposite way");
 				if (side == 1)
 			 		sendLeftFwd();
 				if (side == 2)
@@ -150,16 +162,26 @@ void aiMakeDecision() {
 		}
 		
 	} else {
+		logger->inf("IA: I see no ennemy !");
 		if (energy < 20) {
-			if (memory->enemyCoordinates == client->player->position)
+			logger->inf("IA: I sam hungry, can I eat !");
+			if (memory->enemyCoordinates == client->player->position) {
+				logger->inf("IA: Oh, I am on an energy cell, gathering it !");
 				sendGather();
-		} else if (sendForward() == 0)
+			}
+			else {
+				logger->inf("IA: No energy here, let's move !");
+				sendForward();
+			}
+		} else {
+			logger->inf("IA: I'm not really hungry, let's move !");
+			if (sendForward() == 0)
 				if (sendRightFwd() ==0)
 					if (sendLeftFwd() == 0)
 						return;
-		
 
+		} 		
 	}
 
-	client->player->looking = looking;
+	logger->inf("IA: Logic is done, see you in next tick ..");
 }

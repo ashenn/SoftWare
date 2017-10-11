@@ -60,8 +60,10 @@ void* handlePrivateResponse(char *packet, void (*callback)(char*, void*), void* 
         }
 
         callback(req[1], destination);
+        logger->inf("Handle PR done");
 
         memset(packet, 0, sizeof(packet));
+        logger->inf("Handle PR memset packet");
     }
 }
 
@@ -103,12 +105,13 @@ void* HandleNotif() {
         if (strlen(buffer) > 1){
             logger->dbg("Private2 => %s", buffer);
             // rc = zmq_getsockopt(s->sockets->private, ZMQ_IDENTITY, &test, &size);
+            logger->dbg("mutexxxxx");
 
             pthread_mutex_lock (&mutex); /* On verrouille le mutex */
             pthread_cond_signal (&condition); /* On délivre le signal : condition remplie */
             pthread_mutex_unlock (&mutex); /* On déverrouille le mutex */
 
-
+            logger->dbg("memstet req");
             
             memset(req, 0, sizeof(req));
             logger->dbg("exlode");
@@ -118,7 +121,9 @@ void* HandleNotif() {
             logger->dbg("Action: %s", req[1]);
             logger->dbg("data: %s", req[2]);
 
+            logger->dbg("memset buffer notif");
             memset(buffer, 0, sizeof(buffer));
+            logger->dbg("memset buffer notif done");
         }
     }
 }
@@ -186,6 +191,7 @@ void *HandleIA() {
         
 
          aiMakeDecision();
+         logger->inf("AI IS DONE");
         //zmq_recv (client->sockets->private, buffer, 100, 0);
         /*if (strcmp(buffer, "ok")){
             logger->err("Login Fail: %s", buffer);
@@ -193,6 +199,7 @@ void *HandleIA() {
         }*/
         //memset(buffer, 0, sizeof(buffer));    
         pthread_mutex_unlock(&mutex);
+        logger->inf("MUTEX UNLOCKED");
     }
 }
 
