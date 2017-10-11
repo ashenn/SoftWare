@@ -1,3 +1,4 @@
+#include <json/json.h>
 #include "server.h"
 
 GameInfo* initServer(int argc, char *argv[]){
@@ -98,30 +99,46 @@ void publishTick(){
     EnergyCell* e;
     GameInfo* s = getServer();
 
-    char cells[1+s->energy_cells->nodeCount*2];
-    memset(cells, 0, sizeof(cells));
+    json_object* jobj = json_object_new_object();
+    json_object *jarray = json_object_new_array();
 
     if (s->energy_cells->nodeCount){
         n = s->energy_cells->first;
 
         do{
             e = (EnergyCell*) n->value;
-            char* pos = int2str(e->position);
-            for (z=0; z < strlen(pos); ++z){
-                cells[i++] = pos[z];
-            }
-
+            json_object *jint = json_object_new_int(e->position);
             n = n->next;
-            if (n == s->energy_cells->first){
-                break;
-            }
-            
-            cells[i++] = ',';
-
         }while(n != s->energy_cells->first && n != NULL);
 
         logger->err("TEST: %s", cells);
     }
+
+
+    // char cells[1+s->energy_cells->nodeCount*2];
+    // memset(cells, 0, sizeof(cells));
+
+    // if (s->energy_cells->nodeCount){
+    //     n = s->energy_cells->first;
+
+    //     do{
+    //         e = (EnergyCell*) n->value;
+    //         char* pos = int2str(e->position);
+    //         for (z=0; z < strlen(pos); ++z){
+    //             cells[i++] = pos[z];
+    //         }
+
+    //         n = n->next;
+    //         if (n == s->energy_cells->first){
+    //             break;
+    //         }
+            
+    //         cells[i++] = ',';
+
+    //     }while(n != s->energy_cells->first && n != NULL);
+
+    //     logger->err("TEST: %s", cells);
+    // }
 
 
 
@@ -230,7 +247,7 @@ void *Tick(){
         beforeTick();
 
         printMap();
-        // publishTick();
+        publishTick();
         
         Publish(buffer);
 
@@ -356,9 +373,7 @@ int main (int argc, char* argv[]){
             count++;
         }
 
-        // printMap();
         sleep(1);
-        // system("clear");
     }
 
     pthread_t tick;
