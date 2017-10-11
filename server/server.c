@@ -1,4 +1,4 @@
-#include <json/json.h>
+// #include <json/json.h>
 #include "server.h"
 
 GameInfo* initServer(int argc, char *argv[]){
@@ -90,61 +90,61 @@ GameInfo* getServer(){
     return initServer(0, NULL);
 }
 
-void publishTick(){
-    int z=0;
-    int i=0;
+// void publishTick(){
+//     int z=0;
+//     int i=0;
     
-    Node* n;
-    Player* p;
-    EnergyCell* e;
-    GameInfo* s = getServer();
+//     Node* n;
+//     Player* p;
+//     EnergyCell* e;
+//     GameInfo* s = getServer();
 
-    json_object* jobj = json_object_new_object();
-    json_object *jarray = json_object_new_array();
+//     json_object* jobj = json_object_new_object();
+//     json_object *jarray = json_object_new_array();
 
-    if (s->energy_cells->nodeCount){
-        n = s->energy_cells->first;
+//     if (s->energy_cells->nodeCount){
+//         n = s->energy_cells->first;
 
-        do{
-            e = (EnergyCell*) n->value;
-            json_object *jint = json_object_new_int(e->position);
-            n = n->next;
-        }while(n != s->energy_cells->first && n != NULL);
+//         do{
+//             e = (EnergyCell*) n->value;
+//             json_object *jint = json_object_new_int(e->position);
+//             n = n->next;
+//         }while(n != s->energy_cells->first && n != NULL);
 
-        logger->err("TEST: %s", cells);
-    }
+//         logger->err("TEST: %s", cells);
+//     }
 
 
-    // char cells[1+s->energy_cells->nodeCount*2];
-    // memset(cells, 0, sizeof(cells));
+//     // char cells[1+s->energy_cells->nodeCount*2];
+//     // memset(cells, 0, sizeof(cells));
 
-    // if (s->energy_cells->nodeCount){
-    //     n = s->energy_cells->first;
+//     // if (s->energy_cells->nodeCount){
+//     //     n = s->energy_cells->first;
 
-    //     do{
-    //         e = (EnergyCell*) n->value;
-    //         char* pos = int2str(e->position);
-    //         for (z=0; z < strlen(pos); ++z){
-    //             cells[i++] = pos[z];
-    //         }
+//     //     do{
+//     //         e = (EnergyCell*) n->value;
+//     //         char* pos = int2str(e->position);
+//     //         for (z=0; z < strlen(pos); ++z){
+//     //             cells[i++] = pos[z];
+//     //         }
 
-    //         n = n->next;
-    //         if (n == s->energy_cells->first){
-    //             break;
-    //         }
+//     //         n = n->next;
+//     //         if (n == s->energy_cells->first){
+//     //             break;
+//     //         }
             
-    //         cells[i++] = ',';
+//     //         cells[i++] = ',';
 
-    //     }while(n != s->energy_cells->first && n != NULL);
+//     //     }while(n != s->energy_cells->first && n != NULL);
 
-    //     logger->err("TEST: %s", cells);
-    // }
+//     //     logger->err("TEST: %s", cells);
+//     // }
 
 
 
-    // Publish("0|{map_size: %d, game_status:%d, players: [%s], energy_cells: [%s]}");
-    // Publish("0|%d|%d|%s|%s");
-}
+//     // Publish("0|{map_size: %d, game_status:%d, players: [%s], energy_cells: [%s]}");
+//     // Publish("0|%d|%d|%s|%s");
+// }
 
 void* playerTickCheck(){
     int alive = 0;
@@ -247,7 +247,7 @@ void *Tick(){
         beforeTick();
 
         printMap();
-        publishTick();
+        // publishTick();
         
         Publish(buffer);
 
