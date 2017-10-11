@@ -26,6 +26,22 @@ int strIsNum(char* str){
 	return 1;
 }
 
+
+int numBase(int num){
+	int i;
+	if (num < 0){
+		num = num * -1;
+	}
+
+	for (i = 0; num >= 10; ++i)
+	{
+		num /= 10;
+	}
+
+	return i+1;
+}
+
+
 int char2int(char ch){
 	int c = (int) ch;
 
@@ -61,6 +77,94 @@ int str2int(char* str){
 	}
 
 	return result * multiplier;
+}
+
+int myPow(int a, int b){
+	if (b == 1)
+	{
+		return a;
+	}
+	else if(b == 0){
+		return 1;
+	}
+
+	int i;
+	for (i = 0; i < b; ++i)
+	{
+		b--;
+		return a * myPow(a, b);
+	}
+
+	return a;
+}
+
+int numAtIndex(int num, int index){
+	int base;
+	int result;
+
+	if (num < 0)
+	{
+		num = num * -1;
+	}
+
+	if (index > 0)
+	{
+		base = (num / myPow(10, index + 1));
+		base = base * 10;
+
+		result = (num / myPow(10, index)); 
+
+		return result - base;
+	}
+	else{
+		base = (num / 10);
+		base = base * 10;
+
+		return num - base;
+	}
+}
+
+char int2char(int a){
+	return a + 48;
+}
+
+char* int2str(int num){
+	int i;
+	int n;
+	char c;
+	int index = 0;
+	int count = numBase(num);
+	short t = 1 + (num < 0);
+
+	char* str = malloc((sizeof(char) * count) + t);
+	if (num < 0){
+		str[0] = '-';
+	}
+
+	for (i = 0; i < count; ++i)
+	{
+		n = numAtIndex(num, i);
+		c = int2char(n);
+
+		index = (count - i)-1;
+
+		if (num >= 0){
+			str[index] = c;
+		}
+		else{
+			str[index+1] = c;
+		}
+	}
+
+
+	if (num >= 0){
+		str[count] = '\0';
+	}
+	else{
+		str[count+1] = '\0';
+	}
+
+	return str;
 }
 
 int strIsAlpha(char* str){

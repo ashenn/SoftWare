@@ -14,4 +14,8 @@ int charCnt(char c, char* str, int limit);
 int strpos(char c, char* str, int offset);
 void explode(char c, char* str, int offset, int limit, char* res[]);
 
+int numBase(int num);
+char int2char(int a);
+char* int2str(int num);
+
 #endif
