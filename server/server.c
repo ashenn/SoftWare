@@ -405,7 +405,7 @@ void initServArgs(){
         NULL
     };
 
-    srv->params = initListMgr(ListManager);
+    srv->params = initListMgr();
     srv->params = defineArgs(params);
 }
 

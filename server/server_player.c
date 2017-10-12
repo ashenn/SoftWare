@@ -120,8 +120,8 @@ void* NewClent(char* name){
     }
 
     Respond("ok|%d;%d", pos, s->map_size);
-    s->game_status = 1;
     if (s->players->nodeCount == 4){
+        s->game_status = 1;
     }
 }
 
@@ -702,6 +702,6 @@ void initPlayerArgs(){
         NULL
     };
 
-    srv->player_actions = initListMgr(ListManager);
+    srv->player_actions = initListMgr();
     srv->player_actions = defineArgs(player_actions);
 }
