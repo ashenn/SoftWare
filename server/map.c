@@ -35,7 +35,7 @@ void genEnergy(){
         cell->position = pos;
 
         cell->value = 5 + (rand() % 10);
-        n = add_NodeV(s->energy_cells, "energy", (void*) cell);
+        n = add_NodeV(s->energy_cells, "energy", (void*) cell, 1);
         cell->id = n->id;
 
         placed=1;
@@ -101,7 +101,7 @@ void* setMapSize(int size){
     s->cells_cnt = size * size;
     logger->dbg("      mapsize: %d", s->cells_cnt);
 
-    s->map = malloc(s->cells_cnt);
+    s->map = malloc(s->cells_cnt +1);
 
     if (s->map == NULL)
     {
@@ -217,7 +217,6 @@ void getVerticalLine(int pos, int dir, int len, int skip, char res[], short stop
             continue;
         }
         
-        logger->war("Cell: %c / %c", s->map[pos], CELL_WALL);
         if (stopOnWall && s->map[pos] == CELL_WALL){
             break;
         }
@@ -334,20 +333,20 @@ void getVison(Player* p, char* res){
             break;
     }
     
-    logger->dbg("### Getting Vision for: %s", p->name);
-    logger->inf("-- Direction: %s", getLookName(look));
-    logger->inf("-- pos: %d", p->position);
-    logger->inf("-- base: %d", base);
-    logger->inf("-- mult: %d", mult);
+    // logger->dbg("### Getting Vision for: %s", p->name);
+    // logger->inf("-- Direction: %s", getLookName(look));
+    // logger->inf("-- pos: %d", p->position);
+    // logger->inf("-- base: %d", base);
+    // logger->inf("-- mult: %d", mult);
 
 
     int i=0;
     int tmpPos;
 
-    logger->inf("### Cell Calculation");
+    // logger->inf("### Cell Calculation");
 
     tmpPos = pos + base;
-    logger->inf("-- Cell 1: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, p->looking), s->map[tmpPos]); // same
+    // logger->inf("-- Cell 1: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, p->looking), s->map[tmpPos]); // same
 
     concatVision(res, tmpPos, p->looking, &i);
 
@@ -363,12 +362,12 @@ void getVison(Player* p, char* res){
     else{
         look = p->looking;
     }
-    logger->inf("-- Cell 2: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, look), s->map[tmpPos]); // down left | up right
+    // logger->inf("-- Cell 2: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, look), s->map[tmpPos]); // down left | up right
     concatVision(res, tmpPos, look, &i);
 
 
     tmpPos = (pos) + (base * 2);
-    logger->inf("-- Cell 3: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, p->looking), s->map[tmpPos]);
+    // logger->inf("-- Cell 3: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, p->looking), s->map[tmpPos]);
     
     concatVision(res, tmpPos, p->looking, &i);
 
@@ -383,7 +382,7 @@ void getVison(Player* p, char* res){
     else{
         look = p->looking;
     }
-    logger->inf("-- Cell 4: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, look), s->map[tmpPos]); // down right | up left
+    // logger->inf("-- Cell 4: %d | %d => %c", tmpPos, posInBound(tmpPos, s->map_size, look), s->map[tmpPos]); // down right | up left
     concatVision(res, tmpPos, look, &i);
     
 

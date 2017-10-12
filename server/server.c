@@ -24,7 +24,7 @@ GameInfo* initServer(int argc, char *argv[]){
     s->cycle = 0;
     s->pubPort = 0;
     s->privPort = 0;
-    s->curPlayer = malloc(5);
+    s->curPlayer = malloc(8);
     memset(s->curPlayer, 0, sizeof(s->curPlayer));
     
     initServArgs();
@@ -50,7 +50,7 @@ GameInfo* initServer(int argc, char *argv[]){
     createSockets();
     if (s->sockets == NULL){
         logger->err("Error: Faild to malloc Sockets");
-        free(s);
+        closeServer();
         return NULL;
     }
 
@@ -58,7 +58,7 @@ GameInfo* initServer(int argc, char *argv[]){
     s->players = initListMgr();
     if (s->players == NULL){
         logger->err("Error: Faild to malloc Players");
-        free(s);
+        closeServer();
         return NULL;
     }
 
@@ -67,7 +67,7 @@ GameInfo* initServer(int argc, char *argv[]){
     initPlayerArgs();
     if (s->player_actions == NULL){
         logger->err("Error: Faild to malloc Player Actions");
-        free(s);
+        closeServer();
         return NULL;
     }
 
@@ -75,7 +75,7 @@ GameInfo* initServer(int argc, char *argv[]){
     s->energy_cells = initListMgr();
     if (s->energy_cells == NULL){
         logger->err("Error: Faild to malloc Energy");
-        free(s);
+        closeServer();
         return NULL;
     }
 
@@ -90,63 +90,119 @@ GameInfo* getServer(){
     return initServer(0, NULL);
 }
 
-void publishTick(){
-    int z=0;
-    int i=0;
-    
+void closeServer(){
+    GameInfo* s = getServer();
+    deleteList(s->players);
+    deleteList(s->params);
+    deleteList(s->energy_cells);
+    deleteList(s->player_actions);
+
+    free(s->map);
+    free(s->sockets);
+}
+
+void cell2json(json_object* array, EnergyCell* e){
+    int coord[2];
+    GameInfo* s = getServer();
+
+    pos2coord(e->position, s->map_size, coord);
+    json_object* cell = json_object_new_object();
+
+    json_object_object_add(cell,"x", json_object_new_int(coord[0]));
+    json_object_object_add(cell,"y", json_object_new_int(coord[1]));
+    json_object_object_add(cell,"position", json_object_new_int(e->position));
+    json_object_object_add(cell,"value", json_object_new_int(e->value));
+
+    json_object_array_add(array, cell);
+}
+
+void cells2json(json_object* obj){
     Node* n;
-    Player* p;
     EnergyCell* e;
     GameInfo* s = getServer();
 
-    json_object* jobj = json_object_new_object();
-    json_object *jarray = json_object_new_array();
-
-    json_object *jint;
+    json_object* cells = json_object_new_array();
     if (s->energy_cells->nodeCount){
         n = s->energy_cells->first;
 
         do{
             e = (EnergyCell*) n->value;
-
-            jint = json_object_new_int(e->position);
-            json_object_array_add(jarray,jstring1);
+            cell2json(cells, e);
             n = n->next;
-        }while(n != s->energy_cells->first && n != NULL);
 
-        logger->err("TEST: %s", cells);
+        }while(n != s->energy_cells->first && n != NULL);
     }
 
-
-    // char cells[1+s->energy_cells->nodeCount*2];
-    // memset(cells, 0, sizeof(cells));
-
-    // if (s->energy_cells->nodeCount){
-    //     n = s->energy_cells->first;
-
-    //     do{
-    //         e = (EnergyCell*) n->value;
-    //         char* pos = int2str(e->position);
-    //         for (z=0; z < strlen(pos); ++z){
-    //             cells[i++] = pos[z];
-    //         }
-
-    //         n = n->next;
-    //         if (n == s->energy_cells->first){
-    //             break;
-    //         }
-            
-    //         cells[i++] = ',';
-
-    //     }while(n != s->energy_cells->first && n != NULL);
-
-    //     logger->err("TEST: %s", cells);
-    // }
+    json_object_object_add(obj, "energy_cells", cells);
+}
 
 
+void player2json(json_object* array, Player* p){
+    int coord[2];
+    GameInfo* s = getServer();
 
-    // Publish("0|{map_size: %d, game_status:%d, players: [%s], energy_cells: [%s]}");
-    // Publish("0|%d|%d|%s|%s");
+    pos2coord(p->position, s->map_size, coord);
+    json_object* player = json_object_new_object();
+
+    json_object_object_add(player,"x", json_object_new_int(coord[0]));
+    json_object_object_add(player,"y", json_object_new_int(coord[1]));
+    json_object_object_add(player,"position", json_object_new_int(p->position));
+    json_object_object_add(player,"id", json_object_new_int(p->id));
+    json_object_object_add(player,"name", json_object_new_string (p->name));
+    json_object_object_add(player,"energy", json_object_new_int(p->energy));
+    json_object_object_add(player,"action", json_object_new_int(p->action));
+    json_object_object_add(player,"stuned", json_object_new_int(p->stuned));
+    json_object_object_add(player,"looking", json_object_new_int(p->looking));
+
+
+    json_object_array_add(array, player);
+}
+
+void players2json(json_object* obj){
+    Node* n;
+    Player* p;
+    GameInfo* s = getServer();
+
+    json_object* players = json_object_new_array();
+    if (s->players->nodeCount){
+        n = s->players->first;
+        int i = 0;
+        do{
+            p = (Player*) n->value;
+            player2json(players, p);
+            n = n->next;
+
+        }while(n != s->players->first && n != NULL);
+    }
+
+    json_object_object_add(obj, "players", players);
+}
+
+void notify(int type, json_object* data){
+    json_object* cont = json_object_new_object();
+    json_object_object_add(cont, "notification_type", json_object_new_int(type));    
+    json_object_object_add(cont, "data", data);
+
+    Publish("%s", json_object_to_json_string(cont));
+}
+
+void publishTick(){
+    int z=0;
+    int i=0;
+    
+    Player* p;
+    GameInfo* s = getServer();
+
+
+    json_object* obj = json_object_new_object();
+
+    json_object_object_add(obj,"map_size", json_object_new_int(s->map_size));
+    json_object_object_add(obj,"game_status", json_object_new_int(s->game_status));
+
+    cells2json(obj);
+    players2json(obj);
+    
+    notify(0, obj);
 }
 
 void* playerTickCheck(){
@@ -227,7 +283,7 @@ void reloadMap(){
     reloadPlayers();
 }
 
-void* beforeTick(){
+void beforeTick(){
     logger->dbg("beforeTick");
     genEnergy();
     playerTickCheck();
@@ -275,6 +331,10 @@ void* setCycle(int c){
 
 void* verbose(){
     setLogLvl(0);
+}
+
+void* logFile(char* file){
+    setLogFile(logger, file);
 }
 
 void initServArgs(){
@@ -326,16 +386,26 @@ void initServArgs(){
         .type="num"
     };
 
+    static Arg arg6 = {
+        .name = "-log",
+        .function = logFile,
+        .hasParam = 1,
+        .defParam = NULL, 
+        .asInt = 0,
+        .type="any"
+    };
+
     static  Arg* params[] = {
         &arg1,
         &arg2,
         &arg3,
         &arg4,
         &arg5,
+        &arg6,
         NULL
     };
 
-    srv->params = malloc(sizeof(ListManager));
+    srv->params = initListMgr(ListManager);
     srv->params = defineArgs(params);
 }
 
@@ -379,6 +449,8 @@ int main (int argc, char* argv[]){
         sleep(1);
     }
 
+    notify(1, NULL);
+
     pthread_t tick;
     if (pthread_create(&tick, NULL, Tick, NULL)) {
         logger->err("pthread_create Tick");
@@ -390,6 +462,8 @@ int main (int argc, char* argv[]){
         logger->err("Fail to Wait For Tick");
         return EXIT_FAILURE;
     }
+
+    closeServer();
     
     return 0;
 }

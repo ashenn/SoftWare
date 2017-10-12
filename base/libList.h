@@ -27,7 +27,7 @@ struct ListManager
 
 ListManager* initListMgr();
 void* add_Node(ListManager* lstMgr, void* params);
-void* add_NodeV(ListManager* lstMgr, void* params, void* value);
+void* add_NodeV(ListManager* lstMgr, void* params, void* value, short valueAlloc);
 void printNode(Node* node);
 void printNodes(ListManager* lstMgr);
 Node* getNode(ListManager* lstMgr, int id);
@@ -37,5 +37,6 @@ char** getFunctionNames();
 int setValue(Node* node, void* value, short asAlloc);
 int* getIds(ListManager* lstMgr, int* ids);
 void* clearList(ListManager* lstMgr);
+void deleteList(ListManager* lstMgr);
 
 #endif

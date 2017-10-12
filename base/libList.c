@@ -51,13 +51,14 @@ void* add_Node(ListManager* lstMgr, void* params){
 	lstMgr->nodeCount++;
 	return newNode;
 }
-void* add_NodeV(ListManager* lstMgr, void* params, void* value){
+void* add_NodeV(ListManager* lstMgr, void* params, void* value, short valueAlloc){
 	Node* n = add_Node(lstMgr, params);
 	if (n == NULL) {
 		return NULL;
 	}
 
 	n->value = value;
+	v->valIsAlloc = valueAlloc;
 	return n;
 }
 
@@ -263,4 +264,9 @@ void* clearList(ListManager* lstMgr){
 	for (i = 0; lstMgr->nodeCount > 0; ++i){
 		del_Node(lstMgr, ids[i]);
 	}
+}
+
+void deleteList(ListManager* lstMgr){
+	clearList(lstMgr);
+	free(lstMgr);
 }

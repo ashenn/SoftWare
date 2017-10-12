@@ -38,8 +38,8 @@ void* Respond(char* txt, ...){
 }
 
 void* Publish(char* txt, ...){
-    char msg[1000];
     GameInfo* s = getServer();
+    char msg[1000*s->map_size];
     
     va_list args;
     va_start(args, txt);

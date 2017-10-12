@@ -39,6 +39,7 @@ typedef struct GameInfo {
 void initServArgs();
 GameInfo* getServer();
 GameInfo* initServer( int argc, char *argv[]);
+void closeServer();
 
 // Threads
 void *Tick();

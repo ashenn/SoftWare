@@ -46,5 +46,6 @@ Log* getLogger();
 Log* initLogger();
 void* closeLogger();
 void* setLogLvl(int lvl);
+short setLogFile(Log* logger, char* file);
 void logg(short lvl, char* msg, va_list* args);
 #endif

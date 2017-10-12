@@ -111,7 +111,7 @@ void* NewClent(char* name){
     logger->dbg("Coords: x:%d y:%d", p->x, p->y);
 
 
-    Node* n = add_NodeV(s->players, name, p);
+    Node* n = add_NodeV(s->players, name, p, 1);
     if (n == NULL){
         logger->err("Faild To Add New Player Node");
         Respond("ko|List manager Error");
@@ -196,11 +196,8 @@ void* removeEnergy(Player* p, int amt){
     }
     p->energy = 0;
     
-    char m[25];
-    sprintf(m, "3|Process: '%s' is dead.", p->name);
-    logger->inf("3|Process: '%s' is dead.", p->name);
-    Publish(m);
-    assert(1);
+    logger->err("3|Process: '%s' is dead.", p->name);
+    Publish("3|Process: '%s' is dead.", p->name);
 }
 
 
@@ -227,7 +224,7 @@ void* HandlePrivate(){
     GameInfo* s = getServer();
     Player* p;
 
-    while(1){
+    while(s->game_status < 2){
         p = NULL;
         memset(buffer, 0, sizeof(buffer));
         zmq_recv(s->sockets->private, buffer, 100, 0);
@@ -261,6 +258,11 @@ void* HandlePrivate(){
             memset(buffer, 0, sizeof(buffer));
         }
     }
+
+    int i;
+    for (i = 0; i < 3; ++i){
+        free(req[i]);
+    }
 }
 
 void* vision(){
@@ -269,7 +271,7 @@ void* vision(){
     char* vision = malloc(25);
     // memset(vision, 0, sizeof(vision));
     getVison(p, vision);
-    logger->err("VISION: %s", vision);
+    // logger->err("VISION: %s", vision);
 
     Respond("ok|%s", vision);
     free(vision);
@@ -309,10 +311,10 @@ void* inspect(char* name){
     Respond("ok|%d", p->energy);
 }
 
-short move(Player* p, int pos, int cost){
+short move(Player* p, int pos, int dir, int cost){
     GameInfo* s = getServer();
-
-    if (!posInBound(pos, s->map_size, p->looking)){
+    logger->inf("Moving to: %d", pos);
+    if (!posInBound(pos, s->map_size, dir)){
         logger->war("Cell %d out of bound", pos);
         return 0;
     }
@@ -352,7 +354,7 @@ void* forward(int mult){
 
     pos += i * mult;
 
-    i = move(p, pos, 1 + (mult < 0));
+    i = move(p, pos, p->looking, 1 + (mult < 0));
     
     if (!i){
         Respond("ko|Out of bound");
@@ -393,7 +395,7 @@ void* jump(){
 
     int pos = p->position + step;
     logger->inf("Juping From: %d to %d", p->position, pos);
-    step = move(p, pos, 2);
+    step = move(p, pos, p->looking, 2);
 
     if (!step){
         Respond("ko|Out of bound");
@@ -424,7 +426,7 @@ void* attack(){
 
     p->energy--;
 
-    char line[7];
+    char line[10];
     getLine(p->position, p->looking, 4, 0, line, 1);
     logger->inf("line: %d | %s", charCnt(';', line, 0), line);
     if (!strlen(line)){
@@ -481,7 +483,7 @@ void* rightfwd(){
             break;
     }
 
-    pos = move(p, pos, 2);
+    pos = move(p, pos, RIGHT, 2);
 
     if (!pos){
         Respond("ko|Out of bound");
@@ -523,7 +525,7 @@ void* leftfwd(){
             break;
     }
 
-    pos = move(p, pos, 2);
+    pos = move(p, pos, LEFT, 2);
 
     if (!pos){
         Respond("ko|Out of bound");
@@ -700,7 +702,6 @@ void initPlayerArgs(){
         NULL
     };
 
-    srv->player_actions = malloc(sizeof(ListManager));
+    srv->player_actions = initListMgr(ListManager);
     srv->player_actions = defineArgs(player_actions);
 }
-    
