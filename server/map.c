@@ -50,7 +50,6 @@ void genEnergy(){
 }
 
 void* printMap(){
-    logger->dbg("printig");
     int a;
     int i;
     int j;
@@ -122,7 +121,7 @@ void placeWalls(){
     GameInfo* s = getServer();
 
     size = s->map_size;
-    ratio = (size * 100) / 99;
+    ratio = (size * 100) / (100 - s->map_size * 3);
     logger->dbg("      -Walls Ratio: %d", ratio);
 
     // obs = rand() % (ratio) -1;

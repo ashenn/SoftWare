@@ -154,7 +154,6 @@ void player2json(json_object* array, Player* p){
     json_object_object_add(player,"stuned", json_object_new_int(p->stuned));
     json_object_object_add(player,"looking", json_object_new_int(p->looking));
 
-
     json_object_array_add(array, player);
 }
 
@@ -176,6 +175,20 @@ void players2json(json_object* obj){
     }
 
     json_object_object_add(obj, "players", players);
+}
+
+void walls2json(json_object* obj){
+    GameInfo* s = getServer();
+    json_object* walls = json_object_new_array();
+
+    int i;
+    for (i = 0; i < s->cells_cnt-1; ++i){
+        if (s->map[i] == CELL_WALL){
+            json_object_array_add(walls, json_object_new_int(i));
+        }
+    }
+
+    json_object_object_add(obj, "walls", walls);
 }
 
 void notify(int type, json_object* data){
@@ -201,6 +214,7 @@ void publishTick(){
 
     cells2json(obj);
     players2json(obj);
+    walls2json(obj);
     
     notify(0, obj);
 }
@@ -308,9 +322,9 @@ void *Tick(){
         printMap();
         publishTick();
         
-        Publish(buffer);
+        // Publish(buffer);
 
-        logger->dbg("Cycle time: %d", s->cycle);
+        // logger->dbg("Cycle time: %d", s->cycle);
         usleep(s->cycle);
         i++;
     }

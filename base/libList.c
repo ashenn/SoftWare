@@ -33,10 +33,12 @@ void* add_Node(ListManager* lstMgr, void* params){
 	newNode->name = name;
 	newNode->value = NULL;
 
-	if (lstMgr->nodeCount == 0) // Is the first node
+	if (!lstMgr->nodeCount) // Is the first node
 	{
 		lstMgr->first = newNode;
 		lstMgr->last = newNode;
+		newNode->prev = NULL;
+		newNode->next = NULL;
 	}
 	else{
 		newNode->prev = lstMgr->last;

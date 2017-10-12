@@ -67,6 +67,8 @@ void* NewClent(char* name){
     int pos;
     int look;
     int vacant = 0;
+
+
     for (i = 0; i < 4; ++i){
         if (i > 1){
             look = UP;
@@ -120,8 +122,8 @@ void* NewClent(char* name){
     }
 
     Respond("ok|%d;%d", pos, s->map_size);
-    if (s->players->nodeCount == 4){
         s->game_status = 1;
+    if (s->players->nodeCount == 4){
     }
 }
 
@@ -197,7 +199,7 @@ void* removeEnergy(Player* p, int amt){
     p->energy = 0;
     
     logger->err("3|Process: '%s' is dead.", p->name);
-    Publish("3|Process: '%s' is dead.", p->name);
+    // Publish("3|Process: '%s' is dead.", p->name);
 }
 
 
@@ -345,12 +347,18 @@ void* forward(int mult){
     int i;
     int pos = p->position;
 
-    if (p->looking % 2){
-        i = 1 * (-1 * (p->looking == RIGHT));
+    if (!(p->looking % 2)){
+        i = s->map_size;
     }
     else{
-        i = s->map_size * (1 - (2 * (p->looking == UP)));
+        i = 1;
     }
+
+    if (p->looking == UP || p->looking == LEFT){
+        i *= -1;
+    }
+
+    logger->war("Play Look: %s | %d", getLookName(p->looking), i);
 
     pos += i * mult;
 
@@ -465,25 +473,30 @@ void* rightfwd(){
     Player* p = getCurPlayer();
 
     int pos = p->position;
+    int dir;
     switch(p->looking){
         case UP:
             pos += 1;
+            dir = RIGHT;
             break;
 
         case DOWN:
             pos -= 1;
+            dir = LEFT;
             break;
 
         case RIGHT:
+            dir = DOWN;
             pos += s->map_size;
             break;
 
         case LEFT:
+            dir = UP;
             pos -= s->map_size;
             break;
     }
 
-    pos = move(p, pos, RIGHT, 2);
+    pos = move(p, pos, dir, 2);
 
     if (!pos){
         Respond("ko|Out of bound");
@@ -506,26 +519,31 @@ void* leftfwd(){
     GameInfo* s = getServer();
     Player* p = getCurPlayer();
 
+    int dir;
     int pos = p->position;
     switch(p->looking){
         case UP:
+            dir = LEFT;
             pos -= 1;
             break;
 
         case DOWN:
+            dir = RIGHT;
             pos += 1;
             break;
 
         case RIGHT:
+            dir = UP;
             pos -= s->map_size;
             break;
 
         case LEFT:
+            dir = DOWN;
             pos += s->map_size;
             break;
     }
 
-    pos = move(p, pos, LEFT, 2);
+    pos = move(p, pos, dir, 2);
 
     if (!pos){
         Respond("ko|Out of bound");
