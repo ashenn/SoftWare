@@ -58,7 +58,7 @@ void* add_NodeV(ListManager* lstMgr, void* params, void* value, short valueAlloc
 	}
 
 	n->value = value;
-	v->valIsAlloc = valueAlloc;
+	n->valIsAlloc = valueAlloc;
 	return n;
 }
 
@@ -171,8 +171,6 @@ void* del_Node(ListManager* lstMgr, int id){
 		printf("\n## Error: Cant delete Node with id: *");
 		return NULL;
 	}
-
-	printf("DELETING NODE: %s\n", node->name);
 
 	Node* prev = node->prev;
 	Node* next = node->next;
