@@ -9,7 +9,7 @@ gcc -c \
 	server/map.c \
 	server/server_player.c \
 	server/server_socket.c \
-	-llibzmq -lpthread -ljson 
+	-llibzmq -lpthread -ljson-c
 
 gcc -o\
 	srv\
@@ -22,7 +22,8 @@ gcc -o\
 	map.o\
 	server_player.o\
 	server_socket.o\
-	/usr/local/lib/libzmq.so -lpthread -ljson
+	/usr/lib/x86_64-linux-gnu/libzmq.so -lpthread \
+	/usr/local/lib/libjson-c.so -ljson-c
 
 # VISU
 gcc -c \
@@ -32,7 +33,7 @@ gcc -c \
 	base/libList.c \
 	common.c \
 	visualization/visu.c \
-	-llibzmq -lpthread -ljson 
+	-llibzmq -lpthread -ljson-c
 
 gcc -o\
 	visu\
@@ -42,7 +43,8 @@ gcc -o\
 	libList.o\
 	common.o\
 	visu.o\
-	/usr/local/lib/libzmq.so -lpthread -ljson
+	/usr/lib/x86_64-linux-gnu/libzmq.so -lpthread \
+	/usr/local/lib/libjson-c.so -ljson-c
 
 # CLIENT
 gcc -c \
@@ -58,7 +60,7 @@ gcc -c \
 	client/actions/actions.c \
 	client/AI/ia.c \
 	client/client.c \
-	-llibzmq -lpthread
+	-llibzmq -lpthread -ljson-c
 
 gcc -o\
 	cli\
@@ -74,7 +76,8 @@ gcc -o\
 	actions.o \
 	informations.o \
 	ia.o \
-	/usr/local/lib/libzmq.so -lpthread
+	/usr/lib/x86_64-linux-gnu/libzmq.so -lpthread \
+	/usr/local/lib/libjson-c.so -ljson-c
 
 # gcc -c basic.c libParse.c logger.c libList.c client.c -llibzmq -lpthread
 # gcc -o cli basic.o libParse.o logger.o libList.o client.o /usr/local/lib/libzmq.so -lpthread

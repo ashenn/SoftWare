@@ -1,19 +1,40 @@
 #include "client.h"
+#include <json-c/json.h>
 
 pthread_cond_t condition = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 
-Client* getClient() {
+Client* initClient(int argc, char* argv[]){
     static Client *c = NULL;
 
     if (c != NULL)
         return c;
 
+
+
     c = malloc (sizeof(Client));
     c->player = malloc(sizeof(Player));
     c->sockets = malloc(sizeof(Sockets));
         logger->inf("Creating Context 1 Sockets");
+
+    c->ip = NULL;
+    c->pubPort = 0;
+    c->priPort = 0;
+
+    initClientArgs();
+    parseArgs(c->params, argc, argv);
+
+    if (!c->pubPort) {
+        c->pubPort = 4343;
+    }   
+    if (!c->priPort) {
+        c->priPort = 4242;
+    } 
+    if (c->ip == NULL) {
+        c->ip = malloc(16);
+        strcpy(c->ip, "127.0.0.1");
+    } 
 
     c->sockets->context = zmq_ctx_new ();
     c->sockets->public = zmq_socket (c->sockets->context, ZMQ_SUB);
@@ -24,11 +45,18 @@ Client* getClient() {
     c->mutex = mutex; /* Création du mutex */
 
 
-    logger->inf("Connecting to server…\n");  
+     
+      char* pub_url = malloc(sizeof(char) * 30);
+      char* pri_url = malloc(sizeof(char) * 30);
 
-    zmq_connect (c->sockets->public, "tcp://localhost:4343");
+    sprintf(pub_url, "tcp://%s:%d", c->ip, c->pubPort);    
+    
+    sprintf(pri_url, "tcp://%s:%d", c->ip, c->priPort);   
+    logger->inf("Connecting to server…\npri: %s\npub:%s", pri_url, pub_url); 
+
+    zmq_connect (c->sockets->public, pub_url);
     zmq_setsockopt(c->sockets->public, ZMQ_SUBSCRIBE, "B", 1);
-    zmq_connect (c->sockets->private, "tcp://localhost:4242");
+    zmq_connect (c->sockets->private, pri_url);
 
     logger->inf("Setting identity\n");
     int id = rand() % 99;
@@ -36,6 +64,10 @@ Client* getClient() {
     logger->inf("UID: %s", c->uid);
 
     return c;
+}
+
+Client* getClient() {
+    return initClient(0, NULL);
 }
 
 
@@ -84,14 +116,73 @@ int sendMsg(char* action, char* data, void (*callback)(char*, void*), void* dest
     handlePrivateResponse(buffer, callback, destination);
 
 }
- 
 
+void handle(int notif, json_object* data){
+    static int i = 0;
+    logger->dbg("====== Handeling notif [%d] ======", i++);
+
+    switch (notif){
+        case 0:
+            logger->inf("#### New Cycle ####");
+            logger->dbg("mutexxxxx");
+
+            pthread_mutex_lock (&mutex); /* On verrouille le mutex */
+            pthread_cond_signal (&condition); /* On délivre le signal : condition remplie */
+            pthread_mutex_unlock (&mutex); /* On déverrouille le mutex */
+            
+            break;
+        case 1:
+            logger->inf("#### Game Started ####");
+            break;
+
+        case 2:
+            logger->inf("#### Game Ended ####");
+            break;
+
+        case 3:
+            logger->inf("#### A player is dead ####");
+            break;
+
+        case 4:
+            logger->inf("#### A player haw WON ####");
+            break;
+    }
+    logger->dbg("====== Notif Done [%d] ======", i);
+}
+ 
+/*Parsing the json object*/
+void json_parse(json_object * jobj) {
+    logger->dbg("## Parsing Request##");
+    enum json_type type;
+    int notifType;
+    json_object* data = NULL;
+
+logger->dbg("## lets foreach #");
+    json_object_object_foreach(jobj, key, val) { /*Passing through every array element*/
+        logger->dbg("-- key: %s", key);
+        type = json_object_get_type(val);
+
+        switch (type) {
+            case json_type_int: 
+                notifType = json_object_get_int(val);
+               break; 
+
+            case json_type_object: 
+                data = val;
+               break; 
+        }
+
+    }
+
+    handle(notifType, data);
+} 
 
 void* HandleNotif() {
-    char buffer[100];
+    char buffer[5000];
     char* req[4];
     Client* c = getClient();
     logger->inf("Handle Notif");
+    json_object* jobj = NULL;
 
     logger->inf("Player initialisation");
     c->player->energy = 50;
@@ -100,84 +191,79 @@ void* HandleNotif() {
     while(1){
         memset(buffer, 0, sizeof(buffer));
 
-        zmq_recv (c->sockets->public, buffer, 100, 0);
+
+        zmq_recv (c->sockets->public, buffer, sizeof(buffer), 0);
         
         if (strlen(buffer) > 1){
-            logger->dbg("Private2 => %s", buffer);
-            // rc = zmq_getsockopt(s->sockets->private, ZMQ_IDENTITY, &test, &size);
-            logger->dbg("mutexxxxx");
 
-            pthread_mutex_lock (&mutex); /* On verrouille le mutex */
-            pthread_cond_signal (&condition); /* On délivre le signal : condition remplie */
-            pthread_mutex_unlock (&mutex); /* On déverrouille le mutex */
-
-            logger->dbg("memstet req");
+            jobj = json_tokener_parse(buffer);
+            logger->dbg("--parse : %s", buffer);
+        
+            logger->dbg("--parse");
+            json_parse(jobj);
             
-            memset(req, 0, sizeof(req));
-            logger->dbg("exlode");
-            explode('|', buffer, 0, 5, req);
-
-            logger->dbg("Id: %s", req[0]);
-            logger->dbg("Action: %s", req[1]);
-            logger->dbg("data: %s", req[2]);
-
-            logger->dbg("memset buffer notif");
-            memset(buffer, 0, sizeof(buffer));
-            logger->dbg("memset buffer notif done");
+            logger->dbg("--free");
+            free(jobj);
         }
     }
 }
 
-void initPlayerActions(){
-    logger->dbg("- Init Player Args");
+void *setPrivatePort(int val) {
+    Client *client = getClient();
+    client->pubPort = val;
+
+}
+void *setPublicPort(int val) {
+    Client *client = getClient();
+    client->pubPort = val;
+}
+void *setIP(char *val) {
+    Client *client = getClient();
+    client->ip = val;
+}
+
+
+
+void initClientArgs(){
+
     Client *client = getClient();
 
-    /*static Arg arg1 = {
-        .name = "identify", 
-        .function = NewClent, 
-        .hasParam = 1, 
+        static Arg arg = {
+        .name = "-rep-port", 
+        .function = setPrivatePort,
+        .hasParam = 1,
         .defParam = NULL, 
-        .asInt = 0, 
-        .type="any"
+        .asInt = 1, 
+        .type="num"
     };
 
     static Arg arg2 = {
-        .name = "right", 
-        .function = right, 
-        .hasParam = 0, 
+        .name = "-pub-port", 
+        .function = setPublicPort,
+        .hasParam = 1,
         .defParam = NULL, 
-        .asInt = 0, 
-        .type="any"
+        .asInt = 1, 
+        .type="num"
     };
 
     static Arg arg3 = {
-        .name = "left", 
-        .function = right, 
-        .hasParam = 0, 
+        .name = "-ip", 
+        .function = setIP,
+        .hasParam = 1,
         .defParam = NULL, 
         .asInt = 0, 
         .type="any"
     };
 
-    static Arg arg4 = {
-        .name = "selfid", 
-        .function = selfid, 
-        .hasParam = 0, 
-        .defParam = NULL, 
-        .asInt = 0, 
-        .type="any"
-    };
-
-    static  Arg* player_actions[] = {
-        &arg1,
+  static  Arg* params[] = {
+        &arg,
         &arg2,
         &arg3,
-        &arg4,
         NULL
     };
 
-    srv->player_actions = malloc(sizeof(ListManager));
-    srv->player_actions = defineArgs(player_actions);*/
+    client->params = initListMgr();
+    client->params = defineArgs(params);
 }
 
 void *HandleIA() {
@@ -192,12 +278,6 @@ void *HandleIA() {
 
          aiMakeDecision();
          logger->inf("AI IS DONE");
-        //zmq_recv (client->sockets->private, buffer, 100, 0);
-        /*if (strcmp(buffer, "ok")){
-            logger->err("Login Fail: %s", buffer);
-            return 0;
-        }*/
-        //memset(buffer, 0, sizeof(buffer));    
         pthread_mutex_unlock(&mutex);
         logger->inf("MUTEX UNLOCKED");
     }
@@ -213,7 +293,7 @@ int main (int argc, char* argv[])
    
     ListManager *commands;
     
-    Client *client = getClient();
+    Client *client = initClient(argc, argv);
 
     char buffer[100];
     logger->inf("Login as ID: %s", client->uid);

@@ -9,7 +9,11 @@ typedef struct Client {
 	char uid[5];
 	Player *player;
 	Sockets *sockets;
+	int pubPort;
+	int priPort;
+	char* ip;
 	int mapSize;
+	ListManager* params;
 	pthread_cond_t condition;; /* Création de la condition */
 	pthread_mutex_t mutex;; /* Création du mutex */
 
@@ -52,4 +56,5 @@ char *sendSelfId ();
 int sendOrientation ();
 
 
+void initClientArgs();
 void aiMakeDecision();

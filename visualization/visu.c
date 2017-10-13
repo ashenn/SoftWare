@@ -1,4 +1,4 @@
-#include <json/json.h>
+#include <json-c/json.h>
 #include "visu.h"
 
 Visu* initVisu(){
