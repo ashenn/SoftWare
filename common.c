@@ -37,8 +37,8 @@ short posInBound(int pos, int map_size, int dir){
         return 0;
     }
 
-    logger->err("TEST: %d | %d | %s", pos, map_size, getLookName(dir));
-    logger->err("TEST: %d", ((pos) % map_size));
+    // logger->err("TEST: %d | %d | %s", pos, map_size, getLookName(dir));
+    // logger->err("TEST: %d", ((pos) % map_size));
     if (dir == LEFT && !((pos+1) % map_size)){
         return 0;
     }

@@ -33,7 +33,6 @@ void printNodes(ListManager* lstMgr);
 Node* getNode(ListManager* lstMgr, int id);
 Node* getNodeByName(ListManager* lstMgr, char* name);
 void* del_Node(ListManager* lstMgr, int id);
-char** getFunctionNames();
 int setValue(Node* node, void* value, short asAlloc);
 int* getIds(ListManager* lstMgr, int* ids);
 void* clearList(ListManager* lstMgr);

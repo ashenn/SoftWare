@@ -3,6 +3,10 @@
 #include <string.h>
 #include "libList.h"
 
+/**
+ * Initialize A list
+ * @return ListManager
+ */
 ListManager* initListMgr(){	
 	ListManager* lstMgr = malloc(sizeof(ListManager));
 	if (lstMgr == NULL){
@@ -17,6 +21,12 @@ ListManager* initListMgr(){
 	return lstMgr;
 }
 
+/**
+ * Add a Node
+ * @param lstMgr List Targer
+ * @param params Node Key
+ * @return Node*
+ */
 void* add_Node(ListManager* lstMgr, void* params){
 	int id;
 	char* name = (char*) params;
@@ -53,6 +63,15 @@ void* add_Node(ListManager* lstMgr, void* params){
 	lstMgr->nodeCount++;
 	return newNode;
 }
+
+/**
+ * Add a Node whith value
+ * @param lstMgr List Targer
+ * @param params Node Key
+ * @param value      Node Value
+ * @param valueAlloc Value is malloc 
+ * @return	Node*
+ */
 void* add_NodeV(ListManager* lstMgr, void* params, void* value, short valueAlloc){
 	Node* n = add_Node(lstMgr, params);
 	if (n == NULL) {
@@ -64,6 +83,10 @@ void* add_NodeV(ListManager* lstMgr, void* params, void* value, short valueAlloc
 	return n;
 }
 
+/**
+ * Print Node details
+ * @param node [description]
+ */
 void printNode(Node* node){
 	if (node == NULL)
 	{
@@ -71,6 +94,7 @@ void printNode(Node* node){
 		return;
 	}
 
+	printf("id: %d \n", node->id);
 	printf("name: %s \n", node->name);
 	
 
@@ -80,10 +104,21 @@ void printNode(Node* node){
 	}
 	else{
 		printf("Value is Set\n");
+
+		if (node->valIsAlloc){
+			printf("Value is Alloc\n");
+		}
+		else {
+			printf("Value is NOT Alloc\n");
+		}
 	}
 
 }
 
+/**
+ * Print List Content
+ * @param lstMgr [description]
+ */
 void printNodes(ListManager* lstMgr){
 	Node* currentNode;
 	currentNode = NULL;
@@ -100,9 +135,16 @@ void printNodes(ListManager* lstMgr){
 		}
 
 		printNode(currentNode);
+		printf("\n");
 	}
 }
 
+/**
+ * Get Node By Id
+ * @param  lstMgr List
+ * @param  id     Id
+ * @return        Node*
+ */
 Node* getNode(ListManager* lstMgr, int id){
 	Node* currentNode = NULL;
 
@@ -127,6 +169,12 @@ Node* getNode(ListManager* lstMgr, int id){
 	return NULL;
 }
 
+/**
+ * Get Node By Key
+ * @param  lstMgr List
+ * @param  name   Key
+ * @return        Node*
+ */
 Node* getNodeByName(ListManager* lstMgr, char* name){
 	Node* currentNode = NULL;
 
@@ -158,15 +206,11 @@ Node* getNodeByName(ListManager* lstMgr, char* name){
 	return NULL;
 }
 
-
-
-typedef struct del_node_param del_node_param;
-struct del_node_param
-{
-	int id;
-	char* name;
-};
-
+/**
+ * Delete Node By Id
+ * @param lstMgr List
+ * @param id     Id
+ */
 void* del_Node(ListManager* lstMgr, int id){
 	Node* node = getNode(lstMgr, id);
 	if (node == NULL){
@@ -208,19 +252,13 @@ void* del_Node(ListManager* lstMgr, int id){
 	return NULL;
 }
 
-char** getFunctionNames(){
-	char** ptr_func = NULL;
-
-	char* functions[] = {
-		"addNode",
-		"delNode"
-	};
-	
-	ptr_func = functions;
-
-	return ptr_func;
-}
-
+/**
+ * Set Node Value
+ * @param  node    Node
+ * @param  value   Value
+ * @param  asAlloc Value Is Alloc
+ * @return         1
+ */
 int setValue(Node* node, void* value, short asAlloc){
 	if (node->value != NULL){
 		free(node->value);
@@ -231,6 +269,12 @@ int setValue(Node* node, void* value, short asAlloc){
 	return 1;
 }
 
+/**
+ * Get Array Of Node Ids
+ * @param  lstMgr List
+ * @param  ids    int[]
+ * @return        int*
+ */
 int* getIds(ListManager* lstMgr, int* ids){
 	if (lstMgr->nodeCount <= 0){
 		return NULL;
@@ -255,6 +299,11 @@ int* getIds(ListManager* lstMgr, int* ids){
 	return ids;
 }
 
+
+/**
+ * Clear List
+ * @param lstMgr List
+ */
 void* clearList(ListManager* lstMgr){
 	int i;
 	int ids[lstMgr->nodeCount];
@@ -266,6 +315,11 @@ void* clearList(ListManager* lstMgr){
 	}
 }
 
+
+/**
+ * Delete List
+ * @param lstMgr List
+ */
 void deleteList(ListManager* lstMgr){
 	clearList(lstMgr);
 	free(lstMgr);
